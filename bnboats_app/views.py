@@ -17,7 +17,7 @@ from totalvoice.cliente import Cliente
 from django.core.mail import send_mail
 import requests, json
 from decouple import config
-from bnboats_webproject.settings import BNBOATS_TAX, FISHING_STORES_DISCOUNT
+from bnboats_webproject.settings import BNBOATS_TAX, FISHING_STORES_DISCOUNT, STATIC_MEDIA_URL
 from django.core import serializers
 from django.forms.models import model_to_dict
 from bnboats_webproject.settings import STATIC_URL
@@ -106,6 +106,7 @@ def home(request):
             return redirect(request.GET['next'])
 
     # data['testing'] = randomDigits(6)
+    data['static_media_url'] = STATIC_MEDIA_URL
 
     return render(request, "home.html", data)
 

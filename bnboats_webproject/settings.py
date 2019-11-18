@@ -46,7 +46,7 @@ DEFAULT_LOGGING = {
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = '123qwe!@#QWE' #config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True #config('DEBUG', default=False, cast=bool)
@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'ckeditor',
     'ckeditor_uploader',
+    'django_extensions',
 
     #Apps
     'bnboats_app',
@@ -153,45 +154,45 @@ LOGIN_URL = '/?signin'
 
 default_dburl = 'postgres:///' + os.path.join(BASE_DIR, 'django.db.backends.postgresql_psycopg2')
 
-if config("ENVIRONMENT") == "PROD":
-    SECURE_SSL_REDIRECT = True
-    ENFORCE_HOST = config('ENFORCE_HOST') #'www.bnboats.com'
-    DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
-else:
-    if config("ENVIRONMENT") == "QA":
-        SECURE_SSL_REDIRECT = False
-        DATABASES = {'default': config('DATABASE_URL_QA', default=default_dburl, cast=dburl), }
-    else:
-        SECURE_SSL_REDIRECT = False
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': 'bnboats',
-                'USER': 'postgres',
-                'PASSWORD': 'gaspar1',
-                'HOST': '127.0.0.1',
-                'PORT': '5432',
-            }
-        }
+# if config("ENVIRONMENT") == "PROD":
+#     SECURE_SSL_REDIRECT = True
+#     ENFORCE_HOST = config('ENFORCE_HOST') #'www.bnboats.com'
+#     DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
+# else:
+#     if config("ENVIRONMENT") == "QA":
+#         SECURE_SSL_REDIRECT = False
+#         DATABASES = {'default': config('DATABASE_URL_QA', default=default_dburl, cast=dburl), }
+#     else:
+#         SECURE_SSL_REDIRECT = False
+#         DATABASES = {
+#             'default': {
+#                 'ENGINE': 'django.db.backends.postgresql',
+#                 'NAME': 'bnboats',
+#                 'USER': 'postgres',
+#                 'PASSWORD': 'gaspar1',
+#                 'HOST': '127.0.0.1',
+#                 'PORT': '5432',
+#             }
+#         }
 
-# SECURE_SSL_REDIRECT = False
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'bnboats',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5433',
-#     }
-# }
+SECURE_SSL_REDIRECT = False
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bnboats',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5433',
+    }
+}
 
 
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = 'smtp.gmail.com' #config('EMAIL_HOST')
+EMAIL_PORT = 465 #config('EMAIL_PORT')
+EMAIL_HOST_USER = 'ninjadev999@gmail.com' #config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = 'ninjadev123qwe!@#QWE' #config('EMAIL_HOST_PASSWORD')
 # EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
 
@@ -247,9 +248,9 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_S3_BUCKET_NAME') #"bucket-principal"
+AWS_ACCESS_KEY_ID = 'AKIA6NUYHAJJGEUD23GI' #config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = '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' # config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = "bucket-principal" #"bucket-boats-improve" #config('AWS_S3_BUCKET_NAME') #"bucket-principal"
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
@@ -257,11 +258,15 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_LOCATION = 'static'
 AWS_DEFAULT_ACL = None
 
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'bnboats_webproject.storage_backends.MediaStorage'
+STATIC_URL = '/static/'
+MEDIA_URL = 'https://%s/' % (AWS_S3_CUSTOM_DOMAIN)
+MEDIA_ROOT = MEDIA_URL
 DEFAULT_PAGE = "Home"
+
+STATIC_MEDIA_URL = 'https://%s/static/' % (AWS_S3_CUSTOM_DOMAIN)
 
 BNBOATS_TAX = 1.185 # %
 FISHING_STORES_DISCOUNT = 50 # BRL
