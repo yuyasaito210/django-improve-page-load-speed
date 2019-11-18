@@ -46,7 +46,7 @@ DEFAULT_LOGGING = {
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '123qweQWE' #config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True #config('DEBUG', default=False, cast=bool)
@@ -155,7 +155,7 @@ default_dburl = 'postgres:///' + os.path.join(BASE_DIR, 'django.db.backends.post
 
 if config("ENVIRONMENT") == "PROD":
     SECURE_SSL_REDIRECT = True
-    ENFORCE_HOST = 'www.bnboats.com'
+    ENFORCE_HOST = config('ENFORCE_HOST') #'www.bnboats.com'
     DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
 else:
     if config("ENVIRONMENT") == "QA":
@@ -188,10 +188,10 @@ else:
 
 
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 465 # 587
-EMAIL_HOST_USER = 'ninjadev999@gmail.com' #'contato@bnboats.com'
-EMAIL_HOST_PASSWORD = 'ninjadev123qwe!@#QWE' #config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
 
@@ -247,9 +247,9 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-AWS_ACCESS_KEY_ID = "AKIA6NUYHAJJGEUD23GI" #config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = "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" #config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = "bucket-principal"
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_S3_BUCKET_NAME') #"bucket-principal"
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
