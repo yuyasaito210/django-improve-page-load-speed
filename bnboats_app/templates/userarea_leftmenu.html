@@ -1,0 +1,28 @@
+{% load static from staticfiles %}
+
+<div class="w-100 ua_picture" style="display: contents;">
+    <img src="{% static '' %}{{ user.userprofile.image }}" onerror="this.src='{% static 'media/admin/default_profile.png' %}'" alt="profile">
+    <p class="fontSizeZeroEight standHover"><a href="#" onclick="OpenUploadDialog('id_image')">{{ UploadPhotoLink }}</a></p>
+    <form enctype="multipart/form-data" method="post" id="UploadPhotoForm" class="hideOnly">
+        {% csrf_token %}
+        {{ upload_photo }}
+        <button type="submit" id="submit_newPhoto">Enviar</button>
+    </form>
+</div>
+
+<div class="w-100" id="ua_menu">
+    <div class="ua_menu_item standHover"><div><i class="fa fa-user" style=""></i><a href="{% url 'user_profile' %}">{{ Profile_full.lower.title }}</a></div></div>
+    <div class="ua_menu_item standHover"><div><i class="fa fa-inbox" style=""></i><a href="{% url 'user_messages' %}">{{ Messages.lower.title }}</a></div></div>
+
+    <div class="ua_menu_item standHover"><div><i class="fa fa-ship" style=""></i><a href="{% url 'user_bookings' %}">{{ MyBookings_full.lower.title }}</a></div></div>
+    <div class="ua_menu_item standHover"><div><i class="fa fa-heart" style=""></i><a href="{% url 'user_favorites' %}">{{ Favorites.lower.title }}</a></div></div>
+
+    <div class="ua_menu_item standHover"><div><i class="fa fa-plus" style=""></i><a href="{% url 'user_boats' 'add' %}">{{ RegisterBoat }}</a></div></div>
+    <div class="ua_menu_item standHover {{ hideToClients }}"><div><i class="fa fa-anchor" style="margin-left: 0;"></i><a href="{% url 'user_boats' %}">{{ MyBoats.lower.title }}</a></div></div>
+    <div class="ua_menu_item standHover {{ hideToClients }}"><div><i class="fas fa-clipboard-check" style=""></i><a href="{% url 'user_book_requests' %}">{{ MyBookingRequests.lower.title }}</a></div></div>
+
+    <div class="ua_menu_item standHover"><div><i class="far fa-question-circle" style=""></i><a href="{% url 'how_it_works' %}">{{ Help_LeftMenu.lower.title }}</a></div></div>
+    <div class="ua_menu_item standHover"><div><i class="fa fa-power-off" style=""></i><a href="{% url 'logout' %}">{{ Exit.lower.title }}</a></div></div>
+</div>
+
+<input type="hidden" id="is_owner" value="{{ IsOwner }}">

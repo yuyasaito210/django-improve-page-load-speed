@@ -1,0 +1,331 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+{% load utils %}
+
+{% block head %}
+
+    <meta name="description" content="aluguel de barcos {{ city_only }}">
+    <meta name="keywords" content="aluguel de barco, aluguel de lancha, aluguel de barco em {{ city_only }}">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+    <link rel="stylesheet" href="{% static 'css/css_results.css' %}">
+
+{% endblock %}
+
+{% block title %} aluguel de barcos {{ city_only }} {% endblock %}
+
+{% block body %}
+
+    <div class="container results_container">
+
+        <div class="row" style="border: 1px solid dimgray">
+
+            <!-- FILTER BUTTONS -->
+            <div class="col-md-4" id="results_top_btns">
+                <button class="results_top_btns {{ f_date_class }}" id="results_btn_date" onclick="OpenFilterModal('Date')">{{ Date }}</button>
+                <button class="results_top_btns {{ f_capacity_class }}" id="results_btn_capacity" onclick="OpenFilterModal('Capacity')">{{ Capacity }}</button>
+                <button class="results_top_btns {{ f_category_class }}" id="results_btn_price" onclick="OpenFilterModal('Category')">{{ Category }}</button>
+                <!--<button class="results_top_btns" id="results_btn_more" onclick="OpenFilterModal('MoreFilters')">{{ More_Filter }}</button>-->
+            </div>
+
+            <!-- FILTER PRICE -->
+            <div class="col-md-5 filter-price">
+                <div>
+                    <label class="slider_label" for="price_day">{{ Filter_Price_Day }}: </label>
+                    <input type="text" id="price_day" name="price_day" class="price_slider" readonly>
+                    <div class="slider-range" price-min="{{ boat_day_price_min.price_day_min }}"
+                             price-max="{{ boat_day_price_max.price_day_max }}"
+                         curr-price-min="{{ price_day_min }}" curr-price-max="{{ price_day_max }}"></div>
+                </div>
+            </div>
+
+            <!-- CITY SEARCH FIELD -->
+            <div class="col-md-3">
+                <div class="d-flex flex-grow-1 justify-content-center" id="results_top_search">
+                    <!-- list of cities to load iFilter_Price_Singlen the search input -->
+                    <input type="hidden" id="all_cities" value="{{ cityList }}">
+                    <form method="post" style="width: 600px">
+                        {% csrf_token %}
+                        <div class="" style="position: relative;height: 40px;">
+                            <i class='fas fa-map-marker-alt city_search_icon'></i>
+                            <input type="text" class="form-control autocomplete home_filter_city"
+                                   id="results_top_filter_city" value="{{ city_name }}" placeholder="Cidade"
+                                   onchange="UpdateSearchField(this.id)">
+                            <input type="submit" id="results_filter_submit" value="" onclick="SearchPageValidateCity(this.id)">
+                            <input type="hidden" class="search_city_name" name="search_city_name" id="search_city_name"
+                                   value="">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEARCH RESULTS -->
+        <div class="row" style="padding: 50px;">
+            <!-- BOATS FOUND -->
+            {% for boat in boats %}
+                <form method="GET" id="boat_view_{{ boat.pk }}" action="../../barco/{{ boat.city.city }}/{{ boat.title|replace_space }}">
+                    <input type="hidden" name="id" value="{{ boat.pk }}">
+                    <input type="submit" class="hideOnly">
+                </form>
+                <div class="col-md-4 boat_single_div" onclick="$('#boat_view_{{ boat.pk }}').submit()">
+                    <div class="results_div_item">
+                        <img class="results_div_img img-fluid" src="{% static '' %}{{ boat.images.all.0 }}" alt="boat"
+                             onerror="this.src='{% static 'media/admin/semimagem.jpg' %}'">
+                        <i class="far fa-heart heart" id="heart_{{ boat.pk }}"
+                           onmouseenter="$('#'+this.id).removeClass('far').addClass('fas');"
+                           onmouseleave="if (!($('#'+this.id).hasClass('added'))){$('#'+this.id).removeClass('fas').addClass('far');}"
+                            onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();AddToFavorite(this.id, '{{ user.is_authenticated }}');"></i>
+                        {% if boat.price_single %}
+                            <span><strong>R$ {{ boat.price_single }}</strong>/2h</span>
+                        {% elif boat.price_half_day %}
+                            <span><strong>R$ {{ boat.price_half_day }}</strong>/4h</span>
+                        {% elif boat.price_day %}
+                            <span><strong>R$ {{ boat.price_day }}</strong>/8h</span>
+                        {% elif boat.price_overnight %}
+                            <span><strong>R$ {{ boat.price_overnight }}</strong>/24h</span>
+                        {% endif %}
+                    </div>
+                    <p class="fontSizeOneive w-100" style="margin-top: 20px;">{{ boat.title }}</p>
+                    <div class="results_div_owner_pic">
+                        <img src="{% static '' %}{{ boat.user.userprofile.image }}" alt="owner"
+                             onerror="this.src='{% static 'media/admin/default_profile.png' %}'">
+                    </div>
+                    <div class="container"> <!-- results_div_owner_data -->
+                        <div class="row">
+                            <!-- OWNER NAME -->
+                            <div class="col-xl-6" style="padding-left: 0;"> <!--results_div_owner_name -->
+                                <p class="fontSizeOneTwo owner_name_p">{{ boat.user.first_name }}</p>
+                            </div>
+                            <!-- BOAT CAPACITY -->
+                            <div class="col-xl-6" style="padding-left: 0;"> <!-- results_div_capacity -->
+                                <p class="fontSizeOneTwo"><i class="fas fa-users"></i> até {{ boat.capacity }} pessoas</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- OWNER REVIEW SCORE -->
+                            <div class="col-xl-6" style="display: flex;padding-left: 0;"> <!-- results_div_owner_review -->
+                                <div class="results_div_owner_review" score="{{ boat.review_score }}"
+                                 score-count="{{ boat.reviews_count }}">
+                                    <img src="{% static 'media/admin/shat.png' %}" alt="captain" style="width: 30px;">
+                                </div>
+                            </div>
+                            <!-- BOAT PRICE PER PERSON -->
+                            <div class="col-xl-6" style="padding-left: 0;"> <!-- results_div_price_pperson -->
+                                <div class="results_subdiv_price_pperson">
+                                    {% if boat.price_single %}
+                                        <p><strong>R$ {{ boat.price_pperson_single }},00</strong> /pessoa</p>
+                                    {% elif boat.price_half_day %}
+                                        <p><strong>R$ {{ boat.price_pperson_hday }},00</strong> /pessoa</p>
+                                    {% elif boat.price_day %}
+                                        <p><strong>R$ {{ boat.price_pperson_day }},00</strong> /pessoa</p>
+                                    {% elif boat.price_overnight %}
+                                        <p><strong>R$ {{ boat.price_pperson_overnight }},00</strong> /pessoa</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- DIVISION FOR NEARBY BOATS -->
+            {% if nearby_boats %}
+                <div class="col-md-10" style="border-top: 1px solid dimgray;margin: 100px 5%; text-align: center">
+                    <p class="fontSizeTwoFive" style="font-family: Segoe-Ul-Bold;padding-top: 50px;">{{ Nearby_Boats_Call }}{{ city_name }}</p>
+                </div>
+            {% endif %}
+            <!-- NEARBY BOATS -->
+            {% for nearby_boat in nearby_boats %}
+                <form method="GET" id="boat_view_{{ nearby_boat.pk }}" action="../../barco/{{ nearby_boat.city.city }}/{{ nearby_boat.title|replace_space }}">
+                    <input type="hidden" name="id" value="{{ nearby_boat.pk }}">
+                    <input type="submit" class="hideOnly">
+                </form>
+                <div class="col-md-4 boat_single_div" onclick="$('#boat_view_{{ nearby_boat.pk }}').submit();">
+                    <div class="results_div_item">
+                        <img class="results_div_img img-fluid" src="{% static '' %}{{ nearby_boat.images.all.0 }}" alt="boat"
+                             onerror="this.src='{% static 'media/admin/semimagem.jpg' %}'">
+                        <i class="far fa-heart heart" id="heart_{{ nearby_boat.pk }}"
+                           onmouseenter="$('#'+this.id).removeClass('far').addClass('fas');"
+                           onmouseleave="if (!($('#'+this.id).hasClass('added'))){$('#'+this.id).removeClass('fas').addClass('far');}"
+                            onclick="event.preventDefault();event.stopPropagation();event.stopImmediatePropagation();AddToFavorite(this.id, '{{ user.is_authenticated }}');"></i>
+                        {% if nearby_boat.price_single %}
+                            <span><strong>R$ {{ nearby_boat.price_single }}</strong>/2h</span>
+                        {% elif nearby_boat.price_half_day %}
+                            <span><strong>R$ {{ nearby_boat.price_half_day }}</strong>/4h</span>
+                        {% elif nearby_boat.price_day %}
+                            <span><strong>R$ {{ nearby_boat.price_day }}</strong>/8h</span>
+                        {% elif nearby_boat.price_overnight %}
+                            <span><strong>R$ {{ nearby_boat.price_overnight }}</strong>/24h</span>
+                        {% endif %}
+                    </div>
+                    <p class="fontSizeOneive w-100" style="margin-top: 20px;">{{ nearby_boat.title }}</p>
+                    <div class="results_div_owner_pic">
+                        <img src="{% static '' %}{{ nearby_boat.user.userprofile.image }}" alt="owner"
+                             onerror="this.src='{% static 'media/admin/default_profile.png' %}'">
+                    </div>
+                    <div class="results_div_owner_data container">
+                        <div class="row">
+                            <div class="results_div_owner_name col-lg-6">
+                                <p class="fontSizeOneTwo">{{ nearby_boat.user.first_name }}</p>
+                            </div>
+                            <div class="results_div_capacity col-lg-6">
+                                <p class="fontSizeOneTwo"><i class="fas fa-users"></i> até {{ nearby_boat.capacity }} pessoas</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="results_div_owner_review col-lg-6" score="{{ nearby_boat.review_score }}"
+                                 score-count="{{ nearby_boat.reviews_count }}">
+                                <img src="{% static 'media/admin/shat.png' %}" alt="captain" style="width: 30px;">
+                            </div>
+                            <div class="results_div_price_pperson col-lg-6">
+                                <div class="results_subdiv_price_pperson">
+                                    {% if nearby_boat.price_single %}
+                                        <p><strong>R$ {{ nearby_boat.price_pperson_single }},00</strong> /pessoa</p>
+                                    {% elif nearby_boat.price_half_day %}
+                                        <p><strong>R$ {{ nearby_boat.price_pperson_hday }},00</strong> /pessoa</p>
+                                    {% elif nearby_boat.price_day %}
+                                        <p><strong>R$ {{ nearby_boat.price_pperson_day }},00</strong> /pessoa</p>
+                                    {% elif nearby_boat.price_overnight %}
+                                        <p><strong>R$ {{ nearby_boat.price_pperson_overnight }},00</strong> /pessoa</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+        </div>
+
+        <!-- FILTERS MODAL -->
+        <div class="modal fade" id="modal_filter" tabindex="-1" role="dialog" aria-labelledby="modal_filter" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px;">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" id="search_form">
+                            {% csrf_token %}
+                            <!-- DATES FILTER -->
+                            <div class="rsmodal_filter_div hideOnly" id="rsmodal_filter_date">
+                                <p class="fontSizeOneive price_title_p">{{ Filter_Dates }}</p>
+                                    <input type="text" class="form-control fontSizeOne inp_date" id="filter_date_from" name="filter_date_from"
+                                           value="{{ filter_date_from }}" placeholder="De" style="float: left;" autocomplete="off">
+                                    <input type="text" class="form-control fontSizeOne inp_date" id="filter_date_to" name="filter_date_to"
+                                           value="{{ filter_date_to }}" placeholder="Até (opcional)" style="float: right;" autocomplete="off">
+                                    <button type="submit" class="modal_btn results_btn" onclick="">{{ Filter }}</button>
+                            </div>
+                            <!-- CAPACITY FILTER -->
+                            <div class="rsmodal_filter_div hideOnly" id="rsmodal_filter_capacity">
+                                <p class="fontSizeOneive price_title_p">{{ Filter_Capacity }}</p>
+                                <input type="text" class="form-control fontSizeOneTwo" id="filter_capacity" name="filter_capacity"
+                                       value="{{ filter_capacity }}" style="margin: 0 auto;text-align: center;width: 70%;">
+                                <button type="submit" class="modal_btn results_btn" onclick="">{{ Filter }}</button>
+                            </div>
+                            <!-- CATEGORY FILTER -->
+                            <div class="rsmodal_filter_div" id="rsmodal_filter_category">
+                                <p class="fontSizeOneive price_title_p">{{ Filter_Category }}</p>
+                                <div class="row" style="position:relative;">
+                                    <div class="photo_edit_div">
+                                        <div class="boat_reg_btn_square valid_opt" onclick="BoatsRes_Option_Click(this.id, 'boat_type_inp', 'VEL')"
+                                             style="color: dimgray;float: left;" id="boat_type_opt_VEL">
+                                            <img src="{% static 'media/admin/veleiro.jpg' %}">
+                                            <p class="boat_reg_custom_p">{{ BoatType_1 }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="photo_edit_div">
+                                        <div class="boat_reg_btn_square valid_opt" onclick="BoatsRes_Option_Click(this.id, 'boat_type_inp', 'LAN')"
+                                             style="color: dimgray;float: left;" id="boat_type_opt_LAN">
+                                            <img src="{% static 'media/admin/lancha.jpg' %}" style="width: 60px">
+                                            <p class="boat_reg_custom_p">{{ BoatType_2 }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="photo_edit_div">
+                                        <div class="boat_reg_btn_square valid_opt" onclick="BoatsRes_Option_Click(this.id, 'boat_type_inp', 'PES')"
+                                             style="color: dimgray;float: left;" id="boat_type_opt_PES">
+                                            <img src="{% static 'media/admin/pesca.jpg' %}" style="width: 60px">
+                                            <p class="boat_reg_custom_p">{{ BoatType_3 }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="photo_edit_div">
+                                        <div class="boat_reg_btn_square valid_opt" onclick="BoatsRes_Option_Click(this.id, 'boat_type_inp', 'ESC')"
+                                             style="color: dimgray;float: left;" id="boat_type_opt_ESC">
+                                            <img src="{% static 'media/admin/escuna2.png' %}">
+                                            <p class="boat_reg_custom_p">{{ BoatType_4 }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="photo_edit_div">
+                                        <div class="boat_reg_btn_square valid_opt" onclick="BoatsRes_Option_Click(this.id, 'boat_type_inp', 'BOT')"
+                                             style="color: dimgray;float: left;" id="boat_type_opt_BOT">
+                                            <img src="{% static 'media/admin/bote.png' %}">
+                                            <p class="boat_reg_custom_p">{{ BoatType_5 }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="photo_edit_div">
+                                        <div class="boat_reg_btn_square" onclick="BoatsRes_Option_Click(this.id, 'boat_type_inp', 'all')"
+                                             style="color: dimgray;float: left;" id="boat_type_opt_6">
+                                            <i class="fas fa-align-justify" style="font-size: 2rem;margin-top: 10px;"></i>
+                                            <p class="boat_reg_custom_p">{{ BoatType_all }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="boat_type_inp" name="boat_type_inp" value="{{ boat_type_inp }}">
+                                <button type="submit" class="modal_btn results_btn" onclick=""
+                                        style="display: inline-block;">{{ Filter }}</button>
+                            </div>
+                            <!-- MORE FILTERS
+                            <div class="rsmodal_filter_div hideOnly" id="rsmodal_filter_morefilter">
+                            </div> -->
+                            <input type="hidden" id="filter_city" name="filter_city" val="">
+                            <input type="hidden" id="filter_price" name="filter_price">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block body-after-js %}
+    <!--script src="//code.jquery.com/jquery-1.11.1.min.js"></script>-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'js/js_results.js' %}"></script>
+    <script>
+        $( function() {
+            $( ".slider-range" ).each(function () {
+                let input_field = $(this).parent().find('.price_slider');
+                let form_field = $('#filter_price');
+                let min_val = parseInt($(this).attr("price-min"));
+                let max_val = parseInt($(this).attr("price-max"));
+                let curr_min_val = parseInt($(this).attr("curr-price-min"));
+                let curr_max_val = parseInt($(this).attr("curr-price-max"));
+                if (isNaN(curr_min_val)) {curr_min_val = min_val;}
+                if (isNaN(curr_max_val)) {curr_max_val = max_val;}
+                //if ((min_val != curr_min_val) || (max_val != curr_max_val)) {
+                //    $('#results_btn_price').addClass('filter_inuse');
+                //}
+                $(this).slider({
+                    range: true,
+                    min: min_val,
+                    max: max_val,
+                    step: 50,
+                    values: [curr_min_val, curr_max_val],
+                    slide: function (event, ui) {
+                        input_field.val("R$" + ui.values[0] + " - R$" + ui.values[1]);
+                        form_field.val(input_field.val());
+                        $('#search_form').submit();
+                    }
+                });
+                input_field.val("R$" + $(this).slider("values", 0) + " - R$" + $(this).slider("values", 1));
+            });
+        });
+    </script>
+{% endblock %}

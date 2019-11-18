@@ -1,0 +1,263 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'css/css_userarea.css' %}">
+
+{% endblock %}
+
+{% block title %} {{ Title }} {% endblock %}
+
+{% block body %}
+
+    <div class="row w-100" style="margin:0;">
+
+        <div class="col-md-3" id="ua_leftmenu">
+            {% include 'userarea_leftmenu.html' %}
+        </div>
+
+        <div class="col-md ua_div" id="ua_profile">
+
+            <div class="w-100"><h1 class="fontSizeThree ua_profile_title">{{ Hello }} {{ first_name }}</h1></div>
+
+            <div class="alert {{ alert_classes }}" role="alert" id="ua_msg">{{ alert_message }}</div>
+
+            <form method="post" style="font-size: 1.1rem" id="ua_profile_form">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="id_first_name" class="col-md-3 col-form-label">{{ user_form.first_name.label }}</label>
+                    <div class="col-md-9">
+                        {{ user_form.first_name }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_gender" class="col-md-3 col-form-label">{{ profile_form.gender.label }}</label>
+                    <div class="col-md-9 flex">
+                        {{ profile_form.gender }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_dob_day" class="col-md-3 col-form-label">{{ profile_form.dob_day.label }}</label>
+                    <div class="ua_form_tag dob_tag flex">
+                        {{ profile_form.dob_day }}
+                    </div>
+                    <div class="ua_form_tag dob_tag flex">
+                        {{ profile_form.dob_month }}
+                    </div>
+                    <div class="ua_form_tag flex">
+                        {{ profile_form.dob_year }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_doc_type" class="col-md-3 col-form-label">{{ profile_form.doc_type.label }}</label>
+                    <div class="ua_form_tag flex">
+                        {{ profile_form.doc_type }}
+                    </div>
+                    <div class="doc_type_tag flex">
+                        {{ profile_form.doc_number }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_username" class="col-md-3 col-form-label">{{ user_form.username.label }}</label>
+                    <div class="col-md-9">
+                        {{ user_form.username }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3" style="padding-left: 0 !important;">
+                        <label for="id_mobile_country" class=" col-form-label" style="float: left;" id="ua_mobileno_div">{{ profile_form.mobile_country.label }}</label>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="ua_form_tag mobile_c col-md-1" style="min-width: 80px;float: left;">
+                            {{ profile_form.mobile_country }}
+                        </div>
+                        <div class="ua_form_tag mobile_a col-md-1" style="min-width: 95px;float: left;">
+                            {{ profile_form.mobile_area }}
+                        </div>
+                        <div class="ua_form_tag mobile_n col-md-3" style="min-width: 200px;float: left;">
+                            {{ profile_form.mobile_number }}
+                        </div>
+                        <div class="ua_form_tag mobile_n col-md-5" style="float: left;font-size: 0.8rem;">
+                            {% if mobile_confirmed == "True" %}
+                                <div style="float: left;height: 40px;width: 10%;" class=" d-flex align-content-center flex-wrap"><i class="fas fa-check-circle fontSizeOneTwo" style="color: green;"></i></div><div style="float: left;height: 40px;width: 90%;" class=" d-flex align-content-center flex-wrap">Celular validado com sucesso</div>
+                            {% else %}
+                                <div style="float: left;height: 40px;width: 10%;" class=" d-flex align-content-center flex-wrap"><i class="fas fa-times-circle fontSizeOneTwo" style="color: red;"></i></div><div style="float: left;height: 40px;width: 90%;"><p class=" d-flex align-content-center flex-wrap">Celular não validado.&nbsp;<strong><u><a href="#" onclick="ResendSmsCode()">Clique aqui</a></u></strong> para reenviar o código</p></div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row ua_address_div">
+                    <label for="id_address_postcode" class="col-md-3 col-form-label">{{ profile_form.address_postcode.label }}</label>
+                    <div class="col-md-2 ua_address flex">
+                        {{ profile_form.address_postcode }}
+                    </div>
+                    <div class="col-md-4 ua_address flex">
+                        {{ profile_form.address_street }}
+                    </div>
+                    <div class="col-md-1 ua_address flex">
+                        {{ profile_form.address_number }}
+                    </div>
+                    <div class="col-md-2 ua_address flex">
+                        {{ profile_form.address_additional }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2 ua_address flex">
+                        {{ profile_form.address_area }}
+                    </div>
+                    <div class="col-md-3 ua_address flex">
+                        {{ profile_form.address_city }}
+                    </div>
+                    <div class="col-md-2 ua_address flex">
+                        {{ profile_form.address_state }}
+                    </div>
+                    <div class="col-md-2 ua_address flex">
+                        {{ profile_form.address_country }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_address_postcode" class="col-md-3 col-form-label" style="margin-top: 0;">
+                        {{ profile_form.profile_desc.label }}
+                    </label>
+                    <div class="col-md-9 flex">
+                        {{ profile_form.profile_desc }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="id_password1" class="col-md-3 col-form-label" style="margin-top: 0;">
+                        {{ UpdatePassword }}
+                    </label>
+                    <div class="col-md-3 flex">
+                        {{ password_form.old_password }}
+                    </div>
+                    <div class="col-md-3 flex">
+                        {{ password_form.new_password1 }}
+                    </div>
+                    <div class="col-md-3 flex">
+                        {{ password_form.new_password2 }}
+                    </div>
+                </div>
+
+                {% if IsOwner == True %}
+
+                    <div class="fontSizeOneive w-100 ua_favorites_title d-flex" style="margin-top: 40px;">
+                          <div class="p-2 bd-highlight strike flex-grow-1"></div>
+                          <div class="p-2 bd-highlight">{{ OwnerInfo }}</div>
+                          <div class="p-2 bd-highlight strike flex-grow-1"></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="id_bank_name" class="col-md-3 col-form-label">{{ profile_form.bank_name.label }}</label>
+                        <div class="col-md-3 ua_form_bank flex">
+                            {{ profile_form.bank_name }}
+                        </div>
+                        <div class="col-md-1 ua_form_bank flex">
+                            {{ profile_form.bank_branch }}
+                        </div>
+                        <div class="col-md-2 ua_form_bank flex">
+                            {{ profile_form.bank_account }}
+                        </div>
+                        <div class="col-md-3 ua_form_bank flex">
+                            {{ profile_form.bank_owner }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-md-3 col-form-label" style="margin-top: 0;">
+                            {{ Gender }}
+                        </label>
+                        <div class="col-md-9 flex">
+                            {{ CaptainForm.is_captaion }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-md-3 col-form-label" style="margin-top: 0;">
+                            {{ SkipperLicense }}
+                        </label>
+                        <div class="col-md-9 flex">
+                            {{ CaptainForm.license_type }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row hideOnly" id="professional_skipper">
+                        <label for="" class="col-md-3 col-form-label" style="margin-top: 0;">
+                            {{ ProfessionalSkipperLicense }}
+                        </label>
+                        <div class="col-md-9 flex">
+                            {{ CaptainForm.lt_professional }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-md-3 col-form-label" style="margin-top: 0;">
+                            {{ Experience }}
+                        </label>
+                        <div class="col-md-9 flex">
+                            {{ CaptainForm.experience }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-md-3 col-form-label" style="margin-top: 0;">
+                            {{ ExtraActivities }}
+                        </label>
+                        <div class="col-md-9 flex">
+                            {{ CaptainForm.extra_activities }}
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="" class="col-md-3 col-form-label" style="margin-top: 0;">
+                            {{ Languages }}
+                        </label>
+                        <div class="col-md-9 flex">
+                            {{ CaptainForm.languages }}
+                        </div>
+                    </div>
+
+                {% endif %}
+
+                <div class="row" style="display: block;overflow: hidden;">
+                    <button type="submit" class="hideOnly inp_sub"></button>
+                    <div style="width: 200px;position: relative;float: right;" id="ua_save_btn_div">
+                        <button type="submit" class="modal_btn form_btns" id="ua_submit"
+                                onclick="create_extra_activity('ua_profile_form')" style="margin: 0;">{{ Save }}</button>
+                        <div class="loader hideOnly" id="loaderIcon" style="position: absolute;left: 80px;top: 3px;"></div>
+                    </div>
+                </div>
+            </form>
+
+            <form method="POST" id="resend_sms_code_form" class="hideOnly">
+                {% csrf_token %}
+                <input type="hidden" name="resend_sms_code" value="{{ user_created }}">
+                <input type="hidden" id="resend_sms_mcountry" name="resend_sms_mcountry" value="">
+                <input type="hidden" id="resend_sms_marea" name="resend_sms_marea" value="">
+                <input type="hidden" id="resend_sms_mnumber" name="resend_sms_mnumber" value="">
+                <button type="submit" class="hideOnly"></button>
+            </form>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block body-after-js %}
+    <script src="{% static 'js/js_userarea.js' %}"></script>
+    <script type="application/javascript">
+        $('#id_old_password').attr("placeholder", "Senha atual");
+        $('#id_new_password1').attr("placeholder", "Nova senha");
+        $('#id_new_password2').prop("placeholder", "Confirma sua senha");
+
+        function ResendSmsCode() {
+            event.preventDefault();
+            $('#resend_sms_mcountry').val($('#id_mobile_country').val());
+            $('#resend_sms_marea').val($('#id_mobile_area').val());
+            $('#resend_sms_mnumber').val($('#id_mobile_number').val());
+            $('#resend_sms_code_form').submit();
+        }
+    </script>
+{% endblock %}

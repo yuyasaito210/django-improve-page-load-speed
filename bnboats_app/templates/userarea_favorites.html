@@ -1,0 +1,163 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'css/css_userarea.css' %}">
+
+{% endblock %}
+
+{% block title %} {{ Title }} {% endblock %}
+
+{% block body %}
+
+    <div class="row w-100" style="margin:0;">
+
+        <div class="col-md-3" id="ua_leftmenu" style="float:left;">
+            {% include 'userarea_leftmenu.html' %}
+        </div>
+
+        <div class="col-md ua_div" id="ua_favorites" style="float:left;">
+
+            <div class="fontSizeTwoFive w-100 ua_favorites_title d-flex">
+                <div class="p-2 bd-highlight strike flex-grow-1"></div>
+                <div class="p-2 bd-highlight"><h1 class="fontSizeThree ua_profile_title" style="margin-bottom: 0;">{{ CompareFavorites }}</h1></div>
+                <div class="p-2 bd-highlight strike flex-grow-1"></div>
+            </div>
+
+            <div class="fav_arrow" onclick="FavNextOrPrev('prev')" style="float: left">
+                <i class="fas fa-angle-left"></i>
+            </div>
+            <div class="fav_arrow" onclick="FavNextOrPrev('next')" style="float: right">
+                <i class="fas fa-angle-right"></i>
+            </div>
+            {% for fav in boat_favorities %}
+                <div class="boat_favorities_div hideOnly" id="boat_favorities_div_{{ forloop.counter }}" data-id="{{ forloop.counter }}">
+                    <div class="boat_favorities_div_item" style="margin-bottom: 0;">
+                        <div style="float: left;color: #1376ef !important;font-size: 1.4rem;">{{ fav.boat.boat_type.name }}</div>
+                        <div style="float: right;line-height: 2rem;">{{ fav.boat.city.city }}, {{ fav.boat.city.state.name }}</div>
+                    </div>
+                    <div class="boat_favorities_div_item" style="margin: 0 5%;">
+                        <img class="boat_favorities_img img-fluid" src="{% static '' %}{{ fav.boat.images.all.0 }}" alt="boat">
+                        <i class="fas fa-heart" id="heart_{{ forloop.counter }}" onclick="RemoveFavorite({{ fav.id }})"
+                           onmouseenter="ChangeToHeartBroken(this.id)" onmouseleave="ChangeBackToHeart(this.id)"></i>
+                    </div>
+                    <div class="boat_favorities_div_item" style="margin-top: 0;" id="boat_div_{{ fav.id }}">
+                        <div class="w-50 boat_price hideOnly" id="boat_{{ fav.id }}_single_price">R$ {{ fav.boat.price_single }}</div>
+                        <div class="w-50 boat_price hideOnly" id="boat_{{ fav.id }}_hday_price">R$ {{ fav.boat.price_half_day }}</div>
+                        <div class="w-50 boat_price" id="boat_{{ fav.id }}_day_price">R$ {{ fav.boat.price_day }}</div>
+                        <div class="w-50 boat_price hideOnly" id="boat_{{ fav.id }}_overnight_price">R$ {{ fav.boat.price_overnight }}</div>
+                        <div class="w-50 boat_price_sel ">
+                            <select class="form-control fc-select" id="{{ fav.id }}" onchange="FavChangePriceSel(this.id)">
+                                {% if fav.boat.price_single != 0 %}
+                                    <option value="single_price">{{ BookingPrice_Single }}</option>
+                                {% endif %}
+                                {% if fav.boat.price_half_day != 0 %}
+                                    <option value="hday_price">{{ BookingPrice_HDay }}</option>
+                                {% endif %}
+                                    <option value="day_price" selected>{{ BookingPrice_Day }}</option>
+                                {% if fav.boat.price_overnight != 0 %}
+                                    <option value="overnight_price">{{ BookingPrice_Overnight }}</option>
+                                {% endif %}
+                            </select>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <button type="submit" class="modal_btn form_btns fav_book w-50 fontSizeOne"
+                                    id="ua_book_{{ fav.id }}" onclick="location.href ='/boat/{{ fav.boat.pk }}'">{{ BookNow }}</button>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p style="color: #1376ef !important;"><strong>{{ Details }}</strong></p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p class="w-75 fav_item_left">{{ BoatSize }}: </p>
+                            <p class="w-25 fav_item_left">{{ fav.boat.size }}</p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p class="w-75 fav_item_left">{{ BoatCapacity }}: </p>
+                            <p class="w-25 fav_item_left">{{ fav.boat.capacity }}</p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p class="w-75 fav_item_left">{{ BoatNoOfRooms }}: </p>
+                            <p class="w-25 fav_item_left">{{ fav.boat.rooms }}</p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p class="w-75 fav_item_left">{{ BoatNoOfToilets }}: </p>
+                            <p class="w-25 fav_item_left">{{ fav.boat.bathrooms }}</p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p class="w-75 fav_item_left">{{ BoatPetAllowed }}: </p>
+                            <p class="w-25 fav_item_left">
+                                {% if fav.boat.animals == True %}
+                                    {{ Yes }}
+                                {% else %}
+                                    {{ No }}
+                                {% endif %}
+                            </p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p class="w-75 fav_item_left">{{ BoatSmokeAllowed }}: </p>
+                            <p class="w-25 fav_item_left">
+                                {% if fav.boat.smoke == True %}
+                                    {{ Yes }}
+                                {% else %}
+                                    {{ No }}
+                                {% endif %}
+                            </p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p class="w-75 fav_item_left">{{ BoatAcessability }}: </p>
+                            <p class="w-25 fav_item_left">
+                                {% if fav.boat.wheelchair == True %}
+                                    {{ Yes }}
+                                {% else %}
+                                    {{ No }}
+                                {% endif %}
+                            </p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p class="w-75 fav_item_left">{{ BoatPetrol }}: </p>
+                            <p class="w-25 fav_item_left">Sim</p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p class="w-75 fav_item_left">{{ BoatSkipper }}: </p>
+                            <p class="w-25 fav_item_left">Sim</p>
+                        </div>
+
+                        <div class="w-100 fav_item_txt_div">
+                            <p style="color: #1376ef !important;"><strong>{{ Amenities }}</strong></p>
+                        </div>
+
+                        {% for boat_am in fav.boat.boat_amenities.all %}
+                            <div class="w-100 fav_item_txt_div">
+                                <p class="w-100 fav_item_left">{{ boat_am.name }}</p>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <form method="post" style="display: none" id="ua_favorites_form">
+        {% csrf_token %}
+        <input type="hidden" id="ua_fav_to_remove" name="ua_fav_to_remove">
+    </form>
+
+{% endblock %}
+
+{% block body-after-js %}
+    <script src="{% static 'js/js_userarea.js' %}"></script>
+{% endblock %}

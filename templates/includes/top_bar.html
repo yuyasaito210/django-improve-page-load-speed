@@ -1,0 +1,67 @@
+{% load static from staticfiles %}
+
+<div class="top_header_menu" style="z-index:1000;">
+    <nav class="navbar navbar-expand-lg navbar-light w-100 h-100" id="menu_nav">
+        <div class="d-flex flex-grow-1">
+            <span class="w-100 d-lg-none d-block"><!-- hidden spacer to center brand on mobile --></span>
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'media/admin/logo_black.png' %} " width="200"
+                     class="d-inline-block align-top align-left" alt="" id="top_bar_logo">
+            </a>
+            <div class="w-100 text-right">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#top_navBar" onclick="OpenMobileMenu('{{ user.is_authenticated }}')">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+        <div class="d-flex flex-grow-1 justify-content-center hideOnly" id="top_bar_search">
+            <!-- list of cities to load in the search input -->
+            <input type="hidden" id="all_cities" value="{{ cityList }}">
+            <form method="post" style="width: 600px">
+                {% csrf_token %}
+                <div class="" style="position: relative;height: 50px;">
+                    <i class='fas fa-map-marker-alt city_search_icon'></i>
+                    <input type="text" class="form-control autocomplete home_filter_city" id="top_filter_city" value=""
+                           placeholder="Buscar cidade de embarque"  onchange="UpdateSearchField(this.id)">
+                    <input type="submit" class="home_filter_submit" id="topbar_filter_submit" value=""
+                           onclick="ValidateCity(this.id)">
+                    <input type="hidden" class="search_city_name" name="search_city_name" id="top_search_city_name" value="">
+                </div>
+            </form>
+        </div>
+        <div class="collapse navbar-collapse flex-grow-1 text-right" id="top_navBar">
+            {% if user.is_authenticated %}
+                <div class="top_user_menu navbar-nav ml-auto flex-nowrap" id="top_user_menu" onclick="openUserMenu()">
+                <div class="lang_sel hideOnly">
+                    PT
+                </div>
+                <div class="top_menu_user_picture"><img src="{% static '' %}{{ user.userprofile.image }}" alt="profile"
+                    onerror="this.src='{% static 'media/admin/default_profile.png' %}'" id="own_img"></div>
+                    <a class="top_menu_user_tools dropdown" id="top_user_menu_trigger" data-toggle="dropdown">
+                        <span class="menu_username top_navBar_username">{{ first_name }}</span>
+                    </a>
+                    <i class="fas fa-caret-down top_navBar_username" style="float: left;margin-left:5px;"></i>
+                </div>
+            {% else %}
+                <ul class="navbar-nav ml-auto flex-nowrap">
+                    <li class="nav-item">
+                        <a href="#" class="top_menu_nav-link" onclick="modalSignUp('owner')" data-toggle="modal" data-target="#modal_login">Anuncie seu barco</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'how_it_works' %}" class="top_menu_nav-link">Como funciona</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'blog:posts' %}" class="top_menu_nav-link">Blog</a>
+                        <a href="{% url 'how_it_works' %}" class="top_menu_nav-link hideOnly">{{ Help }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="top_menu_nav-link" onclick="modalSignUp('user')" data-toggle="modal" data-target="#modal_login" id="modal_login_btn">Cadastre-se</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="top_menu_nav-link" onclick="modalSignIn()" data-toggle="modal" data-target="#modal_login">Entrar</a>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+</div>

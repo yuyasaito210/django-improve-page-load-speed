@@ -1,0 +1,1815 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'css/css_userarea.css' %}">
+
+    <style type="text/css">
+
+    </style>
+
+{% endblock %}
+
+{% block title %} {{ Title }} {% endblock %}
+
+{% block body %}
+
+    <div class="row w-100" style="margin:0;">
+        <div id="overlay"></div>
+        <div class="col-md-3" id="ua_leftmenu">
+            {% include 'userarea_leftmenu.html' %}
+        </div>
+
+        <div class="col-md ua_div" id="ua_boat_reg">
+
+            <div class="fontSizeTwoFive w-100 ua_favorites_title row" style="text-align: center;">
+                <h1 class="fontSizeThree ua_profile_title">{{ MyBoats }}</h1>
+            </div>
+
+            <input type="hidden" id="add_boat" value="{{ add_boat }}">
+
+            <div class="alert {{ boat_message_class }}" role="alert">{{ boat_message }}</div>
+
+            <!-- BOATS -->
+            <div class="row">
+                <!-- BOATS FOUND -->
+                {% for boat in boats %}
+                    <div class="col-xl boat_call_div" onclick="" style="padding: 10px;">
+                        <div class="myboat_single_div">
+                            <div class="results_div_item">
+                                <div class="div_status_color status_id_{{ boat.status_id }} float-right"></div>
+                                <div class="div_status_desc float-right">{{ boat.status }}</div>
+                                <img class="results_div_img img-fluid" src="{% static '' %}{{ boat.images.all.0 }}" alt="boat">
+                            </div>
+                            <p class="fontSizeOneive w-100 mb_zero" style="margin-top: 10px;">{{ boat.title }}</p>
+                            <p class="mb_zero">{{ boat.boat_type.name }}</p>
+                            <p class="mb_zero">{{ BookingDay }}: R$ {{ boat.price_day }}/8h</p>
+                            <p class="mb_zero">{{ BoatCapacity }}: {{ boat.capacity }} {{ People }}</p>
+                            <div class="boat_actions d-flex bd-highlight">
+                                <div class="actions_btn p-2 flex-fill bd-highlight" onclick="document.getElementById('display_boat_{{ boat.pk }}').click()">
+                                    <i class="fas fa-search"></i> Ver</div>
+                                <div class="actions_btn p-2 flex-fill bd-highlight" onclick="GetBoatDetails('{{ boat.pk }}','{{ debugy }}')">
+                                    <i class="fas fa-edit"></i> {{ Edit }}</div>
+                                <div class="actions_btn p-2 flex-fill bd-highlight" onclick="UpdateBoatStatus('{{ boat.pk }}','Paused')">
+                                    <i class="fas fa-pause"></i> {{ Pause }}</div>
+                                <div class="actions_btn p-2 flex-fill bd-highlight" onclick="UpdateBoatStatus('{{ boat.pk }}','Deleted')">
+                                    <i class="fas fa-trash-alt">
+                                </i> {{ Delete }}</div>
+                                <a target="_blank" href="{% url 'barco' boat.pk %}" id="display_boat_{{ boat.pk }}" style="display: none;"></a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <form method="POST" class="hideOnly" id="update_status_form">
+                {% csrf_token %}
+                <input type="hidden" id="boat_id" name="boat_id">
+                <input type="hidden" id="boat_status" name="boat_status">
+                <button type="submit"></button>
+            </form>
+
+            <!-- BOAT REGISTRATION modal -->
+            <div class="modal fade" id="modal_boat_reg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px 10px;">
+                                <span aria-hidden="true" style="color: black;"><i class="fas fa-times"></i></span>
+                                </button>
+                            </div>
+                            <form method="POST" id="boat_reg_form">
+                                {% csrf_token %}
+                                <input type="hidden" id="updated_boat" name="updated_boat" value="{{ update_boat.pk }}">
+
+                                <!-- Q1: Boat Type -->
+                                <div class="boat_reg_div" id="boat_reg_div_1" data-err="{{ BoatReg_BoatType_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2 boat_reg_btn_disabled" pag-id="1" onclick="return false;">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>1/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="1" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q1 }}</p>
+                                        <div class="row">
+                                            {% for btype in boat_types %}
+                                                <div class="col-sm-4">
+                                                    <div class="boat_reg_btn_square {% if update_boat.boat_type.sid_bt == btype.sid_bt %}
+                                                        {{ 'boat_reg_btn_cliked' }}
+                                                    {% endif %}" onclick="BoatReg_Option_Click(this.id, 'boat_type_inp', '{{ btype.sid_bt }}')"
+                                                         style="color: dimgray;float: left;" id="boat_type_opt_{{ forloop.counter }}">
+                                                        <img src="{% static '' %}{{ btype.image }}">
+                                                        <p class="boat_reg_custom_p">{{ btype.name }}</p>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            <input class="mandatory" type="hidden" id="boat_type_inp" name="boat_type_inp" value="{{ update_boat.boat_type.sid_bt }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q2: MANUFACTOR YEAR -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_2">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="2" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>2/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="2" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q2 }}</p>
+                                        <div>
+                                            <select class="form-control fcontrol-sel" style="width: 100px;" name="boat_fab_year">
+                                                {% for year in years %}
+                                                    <option {% if update_boat.fab_year == year %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="{{ year }}">{{ year }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q3: MANUFACTOR -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_3">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="3" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>3/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="3" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q3 }}</p>
+                                        <div>
+                                            <select class="form-control fcontrol-sel" style="width: 310px;max-width: 100%;" name="boat_manufactor">
+                                                {% for manuf in boat_manufectors %}
+                                                    <option {% if update_boat.manufacturer == manuf %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="{{ manuf }}">{{ manuf }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q4: BOAT SIZE -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_4">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="4" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>4/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="4" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q4 }}</p>
+                                        <p class="fontSizeOne">{{ BoatReg_Q4a }}</p>
+                                        <div>
+                                            <select class="form-control fcontrol-sel" style="width: 95px;" name="boat_size">
+                                                {% for boat_size in boat_sizes %}
+                                                    <option {% if update_boat.size == boat_size %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="{{ boat_size }}">{{ boat_size }}</option>
+                                                {% endfor %}
+                                                <option {% if update_boat.size == 200 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="200">200+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q5: CAPACITY -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_5">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="5" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>5/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="5" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q5 }}</p>
+                                        <p class="fontSizeOne">{{ BoatReg_Q5a }}</p>
+                                        <div>
+                                            <select class="form-control fcontrol-sel" style="width: 90px;" name="boat_capacity">
+                                                {% for boat_cap in boat_capacity %}
+                                                    <option {% if update_boat.capacity == boat_cap %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="{{ boat_cap }}">{{ boat_cap }}</option>
+                                                {% endfor %}
+                                                <option {% if update_boat.capacity == 40 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="40">300+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q6: OVERNIGHT CAPACITY -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_6">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="6" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>6/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="6" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q6 }}</p>
+                                        <p class="fontSizeOne">{{ BoatReg_Q5a }}</p>
+                                        <div>
+                                            <select class="form-control fcontrol-sel" style="width: 85px;" name="boat_overnight_capacity">
+                                                <option value="0">0</option>
+                                                {% for boat_cap in boat_capacity %}
+                                                    <option {% if update_boat.overnight_capacity == boat_cap %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="{{ boat_cap }}">{{ boat_cap }}</option>
+                                                {% endfor %}
+                                                <option {% if update_boat.overnight_capacity == 40 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="40">40+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q7: ROOMS -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_7">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="7" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>7/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="7" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q7 }}</p>
+                                        <div>
+                                            <select class="form-control fcontrol-sel" style="width: 70px;" name="boat_rooms">
+                                                <option {% if update_boat.rooms == 0 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="0">0</option>
+                                                <option {% if update_boat.rooms == 1 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="1">1</option>
+                                                <option {% if update_boat.rooms == 2 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="2">2</option>
+                                                <option {% if update_boat.rooms == 3 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="3">3</option>
+                                                <option {% if update_boat.rooms == 4 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="4">4</option>
+                                                <option {% if update_boat.rooms == 5 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="5">5+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q8: PET ALLOWED -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_8" data-err="{{ BoatReg_Pet_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="8" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>9/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="8" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q8 }}</p>
+                                        <div class="row">
+                                            <div class="col-6 d-flex justify-content-center">
+                                                <div class="boat_reg_btn_square_yes_no {% if update_boat.animals == "Yes" %}
+                                                        {{ 'boat_reg_btn_cliked' }}
+                                                    {% endif %}" onclick="BoatReg_Option_Click(this.id, 'pet_inp', 'Yes')"
+                                                     style="color: limegreen;float: left;" id="pet_opt_1">
+                                                    <i class="fas fa-check"></i>
+                                                    <p>{{ Yes }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 d-flex justify-content-center">
+                                                <div class="boat_reg_btn_square_yes_no {% if update_boat.animals == "No" %}
+                                                        {{ 'boat_reg_btn_cliked' }}
+                                                    {% endif %}" onclick="BoatReg_Option_Click(this.id, 'pet_inp', 'No')"
+                                                     style="color: orangered;float: right;" id="pet_opt_2">
+                                                    <i class="fas fa-times"></i>
+                                                    <p>{{ No }}</p>
+                                                </div>
+                                            </div>
+                                            <input class="mandatory" type="hidden" id="pet_inp" name="pet_inp" value="{{ update_boat.animals }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q9: SMOKING ALLOWED -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_9" data-err="{{ BoatReg_Smoke_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="9" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>10/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="9" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q9 }}</p>
+                                        <div class="row">
+                                            <div class="col-6 d-flex justify-content-center">
+                                                <div class="boat_reg_btn_square_yes_no {% if update_boat.smoke == "Yes" %}
+                                                        {{ 'boat_reg_btn_cliked' }}
+                                                    {% endif %}" onclick="BoatReg_Option_Click(this.id, 'smoking_inp', 'Yes')"
+                                                     style="color: limegreen;float: left;" id="smoking_opt_1">
+                                                    <i class="fas fa-check"></i>
+                                                    <p>{{ Yes }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 d-flex justify-content-center">
+                                                <div class="boat_reg_btn_square_yes_no {% if update_boat.smoke == "No" %}
+                                                        {{ 'boat_reg_btn_cliked' }}
+                                                    {% endif %}" onclick="BoatReg_Option_Click(this.id, 'smoking_inp', 'No')"
+                                                     style="color: orangered;float: right;" id="smoking_opt_2">
+                                                    <i class="fas fa-times"></i>
+                                                    <p>{{ No }}</p>
+                                                </div>
+                                            </div>
+                                            <input class="mandatory" type="hidden" id="smoking_inp" name="smoking_inp" value="{{ update_boat.smoke }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q10: HAS ACESSABILITY -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_10" data-err="{{ BoatReg_Acessability_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="10" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>11/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="10" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q10 }}</p>
+                                        <div class="row">
+                                            <div class="col-6 d-flex justify-content-center">
+                                                <div class="boat_reg_btn_square_yes_no {% if update_boat.wheelchair == "Yes" %}
+                                                        {{ 'boat_reg_btn_cliked' }}
+                                                    {% endif %}" onclick="BoatReg_Option_Click(this.id, 'accessibility_inp', 'Yes')"
+                                                     style="color: limegreen;float: left;" id="accessibility_opt_1">
+                                                    <i class="fas fa-check"></i>
+                                                    <p>{{ Yes }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 d-flex justify-content-center">
+                                                <div class="boat_reg_btn_square_yes_no {% if update_boat.wheelchair == "No" %}
+                                                        {{ 'boat_reg_btn_cliked' }}
+                                                    {% endif %}" onclick="BoatReg_Option_Click(this.id, 'accessibility_inp', 'No')"
+                                                     style="color: orangered;float: right;" id="accessibility_opt_2">
+                                                    <i class="fas fa-times"></i>
+                                                    <p>{{ No }}</p>
+                                                </div>
+                                            </div>
+                                            <input class="mandatory" type="hidden" id="accessibility_inp" name="accessibility_inp" value="{{ update_boat.wheelchair }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q11: AMENITIES -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_11">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="11" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>12/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="11" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q11 }}</p>
+                                        <div>
+                                            <div style="overflow: hidden;" class="boat_amenities_sel7" id="boat_amenities_1_div">
+                                                <div id="boat_amenities_div_1" class="select7_container">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BoatReg_Amenities_T1 }}</div>
+                                                    <select id="boat_amenities_1" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                        {% for amenity_t1 in boat_amenities_t1 %}
+                                                            <option {% for am in update_boat.boat_amenities.all %}
+                                                                    {% if am == amenity_t1 %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ amenity_t1.sid_ba }}">{{ amenity_t1.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div id="boat_amenities_selected_1" class="select7_items"></div>
+                                                </div>
+                                                <div id="boat_amenities_div_2" class="select7_container">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BoatReg_Amenities_T2 }}</div>
+                                                    <select id="boat_amenities_2" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                            {% for amenity_t2 in boat_amenities_t2 %}
+                                                                <option {% for am in update_boat.boat_amenities.all %}
+                                                                    {% if am == amenity_t2 %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ amenity_t2.sid_ba }}"value="{{ amenity_t2.sid_ba }}">{{ amenity_t2.name }}</option>
+                                                            {% endfor %}
+                                                    </select>
+                                                    <div class="select7_items"></div>
+                                                </div>
+                                            </div>
+                                            <div style="overflow: hidden;" class="boat_amenities_sel7" id="boat_amenities_2_div">
+                                                <div id="boat_amenities_div_3" class="select7_container">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BoatReg_Amenities_T3 }}</div>
+                                                    <select id="boat_amenities_3" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                        {% for amenity_t3 in boat_amenities_t3 %}
+                                                            <option {% for am in update_boat.boat_amenities.all %}
+                                                                    {% if am == amenity_t3 %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ amenity_t3.sid_ba }}"value="{{ amenity_t3.sid_ba }}">{{ amenity_t3.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="select7_items"></div>
+                                                </div>
+                                                <div id="boat_amenities_div_4" class="select7_container">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BoatReg_Amenities_T4 }}</div>
+                                                    <select id="boat_amenities_4" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                            {% for amenity_t4 in boat_amenities_t4 %}
+                                                                <option {% for am in update_boat.boat_amenities.all %}
+                                                                    {% if am == amenity_t4 %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ amenity_t4.sid_ba }}" value="{{ amenity_t4.sid_ba }}">{{ amenity_t4.name }}</option>
+                                                            {% endfor %}
+                                                    </select>
+                                                    <div class="select7_items"></div>
+                                                </div>
+                                            </div>
+                                            <div style="overflow: hidden;width: 100%;" class="boat_amenities_sel7" id="boat_amenities_5_div">
+                                                <div id="boat_amenities_div_5" class="select7_container" style="width: 100%;">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BoatReg_Amenities_T5 }}</div>
+                                                    <select id="boat_amenities_5" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                        {% for amenity_t5 in boat_amenities_t5 %}
+                                                            <option {% for am in update_boat.boat_amenities.all %}
+                                                                    {% if am == amenity_t5 %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ amenity_t5.sid_ba }}" value="{{ amenity_t5.sid_ba }}">{{ amenity_t5.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="select7_items"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="boat_amenities" id="boat_amenities" value="">
+                                </div>
+
+                                <!-- Q12: BOAT ADDRESS -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_12" data-err="{{ BoatReg_Address_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="12" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>13/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="12" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q12 }}</p>
+                                        <div id="boat_reg_address">
+                                            <input type="text" name="address_street" placeholder="Rua, avenida, píer, praia..." class="form-control"
+                                                   id="id_address_street" value="{{ update_boat.address }}">
+                                            <input type="text" name="address_city" placeholder="Cidade" class="form-control mandatory"
+                                                   id="id_address_city" value="{{ update_boat.city.city }}">
+                                            <!--<input type="text" name="address_state" placeholder="Estado" class="mandatory form-control"
+                                                   id="id_address_state" value="{{ update_boat.city.state.name }}">-->
+
+                                            <select class="form-control fcontrol-sel" name="address_state" id="id_address_state">
+                                                {% for state in all_states %}
+                                                    <option {% if state.name == update_boat.city.state.name %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="{{ state.name }}">{{ state.name }}</option>
+                                                {% endfor %}
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q13: PHOTOS -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_13" data-err="{{ BoatReg_Image_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="13" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>14/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="13" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q13 }}</p>
+                                        <p class="fontSizeZeroEight" style="margin: 0;">{{ BoatReg_Q13a }}</p>
+                                        <p class="fontSizeZeroEight" style="margin: 0;">{{ BoatReg_Q13b }}</p>
+                                        <p class="fontSizeZeroEight" style="margin: 0;">{{ BoatReg_Q13c }}</p>
+                                        <p class="fontSizeZeroEight" style="margin: 0;">{{ BoatReg_Q13d }}</p>
+                                        <p class="fontSizeZeroEight">{{ BoatReg_Q13e }}</p>
+                                        <div style="position:relative;overflow: hidden;">
+                                            <div class="boat_reg_pic" id="div_pic_1" onclick="TriggerFileInput('inp_pic_1')">
+                                                <img src="{% static '' %}{% if update_boat.images.all.0 %}{{ update_boat.images.all.0 }}{% else %}{{ 'media/admin/picture.PNG' }}{% endif %}" id="pic_1">
+                                            </div>
+                                            <input class="" type="file" id="inp_pic_1" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="{% static '' %}{{ update_boat.images.all.0 }}" files="{{STATIC_URL}}/media/{{ update_boat.images.all.0 }}">
+                                            <input type="hidden" class="inp_pic_id" id="inp_pic_id_1" name="inp_pic_id" value="">
+
+                                            <div class="boat_reg_pic" id="div_pic_2" onclick="TriggerFileInput('inp_pic_2')">
+                                                <img src="{% static '' %}{% if update_boat.images.all.1 %}{{ update_boat.images.all.1 }}{% else %}{{ 'media/admin/picture.PNG' }}{% endif %}" id="pic_2">
+                                            </div>
+                                            <input class="" type="file" id="inp_pic_2" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="{% static '' %}{{ update_boat.images.all.1 }}" files="{{STATIC_URL}}/media/{{ update_boat.images.all.1 }}">
+                                            <input type="hidden" class="inp_pic_id" id="inp_pic_id_2" name="inp_pic_id" value="">
+
+                                            <div class="boat_reg_pic" id="div_pic_3" onclick="TriggerFileInput('inp_pic_3')">
+                                                <img src="{% static '' %}{% if update_boat.images.all.2 %}{{ update_boat.images.all.2 }}{% else %}{{ 'media/admin/picture.PNG' }}{% endif %}" id="pic_3">
+                                            </div>
+                                            <input class="" type="file" id="inp_pic_3" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="{% static '' %}{{ update_boat.images.all.2 }}" files="{{STATIC_URL}}/media/{{ update_boat.images.all.2 }}">
+                                            <input type="hidden" class="inp_pic_id" id="inp_pic_id_3" name="inp_pic_id" value="">
+
+                                            <div class="boat_reg_pic" id="div_pic_4" onclick="TriggerFileInput('inp_pic_4')">
+                                                <img src="{% static '' %}{% if update_boat.images.all.3 %}{{ update_boat.images.all.3 }}{% else %}{{ 'media/admin/picture.PNG' }}{% endif %}" id="pic_4">
+                                            </div>
+                                            <input class="" type="file" id="inp_pic_4" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="{% static '' %}{{ update_boat.images.all.3 }}">
+                                            <input type="hidden" class="inp_pic_id" id="inp_pic_id_4" name="inp_pic_id" value="">
+
+                                            <div class="boat_reg_pic" id="div_pic_5" onclick="TriggerFileInput('inp_pic_5')">
+                                                <img src="{% static '' %}{% if update_boat.images.all.4 %}{{ update_boat.images.all.4 }}{% else %}{{ 'media/admin/picture.PNG' }}{% endif %}" id="pic_5">
+                                            </div>
+                                            <input class="" type="file" id="inp_pic_5" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="{% static '' %}{{ update_boat.images.all.4 }}">
+                                            <input type="hidden" class="inp_pic_id" id="inp_pic_id_5" name="inp_pic_id" value="">
+
+                                            <div class="boat_reg_pic" id="div_pic_6" onclick="TriggerFileInput('inp_pic_6')">
+                                                <img src="{% static '' %}{% if update_boat.images.all.5 %}{{ update_boat.images.all.5 }}{% else %}{{ 'media/admin/picture.PNG' }}{% endif %}" id="pic_6">
+                                            </div>
+                                            <input type="file" id="inp_pic_6" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="{% static '' %}{{ update_boat.images.all.5 }}">
+                                            <input type="hidden" class="inp_pic_id" id="inp_pic_id_6" name="inp_pic_id" value="">
+
+                                            <div class="hideOnly loaderIconBoatImage" style="position: absolute;height: 96%;width:98%;background-color: gray;opacity: 0.7;border-radius: 10px;" id="loaderIconBoatImage">
+                                                <div class="loader" id="loaderIconBoatReg" style="top: 50%;left: 50%;margin: -25px 0 0 -20px;position: absolute;"></div>
+                                                <p style="color: white;margin: 10px 0 0 20px;font-weight: 900;">Aguarde, estamos salvando sua foto ...</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q14: TITLE -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_14" data-err="{{ BoatReg_Title_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="14" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>15/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="14" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q14 }}</p>
+                                        <div>
+                                            <input class="mandatory form-control" id="boat_reg_title" name="boat_reg_title"
+                                                placeholder="{{ BoatReg_Q14b }}" value="{{ update_boat.title }}" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q15: DESCRIPTION -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_15" data-err="{{ BoatReg_Description_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="15" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>16/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="15" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q15 }}</p>
+                                        <div>
+                                            <label style="font-size: 1rem !important;" for="boat_reg_description">{{ BoatReg_Q15a }}&#10;{{ BoatReg_Q15b }}</label>
+                                            <textarea maxlength="3000" class="form-control" id="boat_reg_description"
+                                                      name="boat_reg_description" placeholder="Escreva aqui"
+                                                      style="height: 160px;">{{ update_boat.description }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q16: PRICE -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_16" data-err="{{ BoatReg_DayPrice_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="16" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>17/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="16" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q16 }}</p>
+                                        <p class="boat_reg_q16_p">{{ BoatReg_Q16a }}</p>
+                                        <p class="boat_reg_q16_p">{{ BoatReg_Q16b }}</p>
+                                        <div style="overflow: hidden;">
+                                            <div class="boat_reg_price_div_item">
+                                                <div class="period_box">
+                                                    <p>{{ BoatReg_2hours }}</p>
+                                                </div>
+                                                <div class="w-100"><div class="w-50" style="border-right: 1px solid dimgray;height: 70px;">
+                                                </div><div class="w-50"></div></div>
+                                                <div class="form-group">
+                                                    <label class="price_lbl" for="price_item_single">R$ </label>
+                                                    <input class="price_inp onlyNumbers" id="price_item_single" name="price_item_single"
+                                                           onchange="PriceChange(this.id)" value="{{ update_boat.owner_price_single }}">
+                                                </div>
+                                            </div>
+                                            <div class="boat_reg_price_div_item">
+                                                <div class="period_box">
+                                                    <p>{{ BoatReg_4hours }}</p>
+                                                </div>
+                                                <div class="w-100"><div class="w-50" style="border-right: 1px solid dimgray;height: 70px;">
+                                                </div><div class="w-50"></div></div>
+                                                <div class="form-group">
+                                                    <label class="price_lbl" for="price_item_hday">R$ </label>
+                                                    <input class="price_inp onlyNumbers" id="price_item_hday" name="price_item_hday"
+                                                           onchange="PriceChange(this.id)" value="{{ update_boat.owner_price_half_day }}">
+                                                </div>
+                                            </div>
+                                            <div class="boat_reg_price_div_item">
+                                                <div class="period_box">
+                                                    <p>{{ BoatReg_8hours }}</p>
+                                                </div>
+                                                <div class="w-100"><div class="w-50" style="border-right: 1px solid dimgray;height: 70px;">
+                                                </div><div class="w-50"></div></div>
+                                                <div class="form-group">
+                                                    <label class="price_lbl" for="price_item_day">R$ </label>
+                                                    <input class="price_inp onlyNumbers mandatory" id="price_item_day" name="price_item_day"
+                                                           onchange="PriceChange(this.id)" value="{{ update_boat.owner_price_day }}">
+                                                </div>
+                                            </div>
+                                            <div class="boat_reg_price_div_item">
+                                                <div class="period_box">
+                                                    <p>{{ BoatReg_24hours }}</p>
+                                                </div>
+                                                <div class="w-100"><div class="w-50" style="border-right: 1px solid dimgray;height: 70px;">
+                                                </div><div class="w-50"></div></div>
+                                                <div class="form-group">
+                                                    <label class="price_lbl" for="price_item_overnight">R$ </label>
+                                                    <input class="price_inp onlyNumbers" id="price_item_overnight" name="price_item_overnight"
+                                                           onchange="PriceChange(this.id)" value="{{ update_boat.owner_price_overnight }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="boat_reg_q16_p" style="margin-top: 10px;">{{ BoatReg_Q16c }}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Q17: PRICE INCLUDES -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_17" data-err="{{ BoatReg_DayPrice_Error }}">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="17" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>18/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="17" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q17 }}</p>
+                                        <div>
+                                            <div style="overflow: hidden;" class="boat_pincludes_sel7" id="boat_pincludes_1_div">
+                                                <div id="boat_pincludes_1" class="select7_container hideOnly">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BookingPrice_Single }}</div>
+                                                    <select id="boat_pincludes_1" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                        {% for pinclude in boat_price_includes %}
+                                                            <option {% for psi in update_boat.p_single_includes.all %}
+                                                                    {% if psi.sid_bpi == pinclude.sid_bpi %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ pinclude.sid_bpi }}">{{ pinclude.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="select7_items"></div>
+                                                    <input type="hidden" name="boat_pincludes_inp_1" id="boat_pincludes_inp_1">
+                                                </div>
+                                                <div id="boat_pincludes_2" class="select7_container hideOnly">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BookingPrice_HDay }}</div>
+                                                    <select id="boat_pincludes_2" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                        {% for pinclude in boat_price_includes %}
+                                                            <option {% for psi in update_boat.p_hday_includes.all %}
+                                                                    {% if psi.sid_bpi == pinclude.sid_bpi %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ pinclude.sid_bpi }}">{{ pinclude.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="select7_items"></div>
+                                                    <input type="hidden" name="boat_pincludes_inp_2" id="boat_pincludes_inp_2">
+                                                </div>
+                                            <!--</div>
+                                            <div style="overflow: hidden;" class="boat_pincludes_sel7" id="boat_pincludes_2_div">-->
+                                                <div id="boat_pincludes_3" class="select7_container hideOnly">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BookingPrice_Day }}</div>
+                                                    <select id="boat_pincludes_3" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                        {% for pinclude in boat_price_includes %}
+                                                            <option {% for psi in update_boat.p_day_includes.all %}
+                                                                    {% if psi.sid_bpi == pinclude.sid_bpi %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ pinclude.sid_bpi }}">{{ pinclude.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="select7_items"></div>
+                                                    <input type="hidden" name="boat_pincludes_inp_3" id="boat_pincludes_inp_3">
+                                                </div>
+                                                <div id="boat_pincludes_4" class="select7_container hideOnly">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BookingPrice_Overnight }}</div>
+                                                    <select id="boat_pincludes_4" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                        {% for pinclude in boat_price_includes %}
+                                                            <option {% for psi in update_boat.p_overnight_includes.all %}
+                                                                    {% if psi.sid_bpi == pinclude.sid_bpi %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ pinclude.sid_bpi }}">{{ pinclude.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="select7_items"></div>
+                                                    <input type="hidden" name="boat_pincludes_inp_4" id="boat_pincludes_inp_4">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q18: HAS DISCOUNT -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_18">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="18" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>19/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="18" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q18 }}</p>
+                                        <p class="fontSizeOne">{{ BoatReg_Q18a }}<strong>{{ BoatReg_Q18b }}</strong>{{ BoatReg_Q18c }}<strong>{{ BoatReg_Q18d }}</strong>{{ BoatReg_Q18e }}</p>
+                                        <div class="row">
+                                            <div class="col-6 d-flex justify-content-center">
+                                                <div class="boat_reg_btn_square_yes_no {% if update_boat.has_discount == "Yes" %}
+                                                        {{ 'boat_reg_btn_cliked' }}
+                                                    {% endif %}" onclick="BoatReg_Option_Click(this.id, 'disc_inp', 'Yes')"
+                                                     style="color: limegreen;float: left;" id="disc_opt_1">
+                                                    <i class="fas fa-check"></i>
+                                                    <p>{{ Yes }}</p>
+                                                </div>
+                                            </div>
+                                            <div class=" col-6 d-flex justify-content-center">
+                                                <div class="boat_reg_btn_square_yes_no {% if update_boat.has_discount == "No" %}
+                                                        {{ 'boat_reg_btn_cliked' }}
+                                                    {% endif %}" onclick="BoatReg_Option_Click(this.id, 'disc_inp', 'No')"
+                                                     style="color: orangered;float: right;" id="disc_opt_2">
+                                                    <i class="fas fa-times"></i>
+                                                    <p>{{ No }}</p>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="disc_inp" name="disc_inp" value="{{ update_boat.has_discount }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q19: THANK YOU PAGE -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_19">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="19" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span></span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2 boat_reg_btn_disabled" pag-id="19" onclick="return false;">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Q19 }}</p>
+                                        <div style="position: relative;">
+                                            <p>{{ BoatReg_final }}</p>
+                                            <input type="submit" class="modal_btn w-50" value="{{ BoatReg_finish }}"
+                                                   onclick="$(this).attr('disabled','disabled').css('opacity','0.6');$('#loaderIconBoatRegDiv').removeClass('hideOnly');$('#boat_reg_form').submit();">
+                                            <div class="w-100 hideOnly" style="position: absolute;bottom: -4px;" id="loaderIconBoatRegDiv">
+                                                <div class="loader" id="loaderIconBoatReg" ></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q20: FISHING FORM BEGIN -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_20">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="20" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>1/5</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="20" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Fishing_Q1 }}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Q21: FISHING RULES -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_21">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="21" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>2/5</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="21" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Fishing_Q2 }}</p>
+                                        <div>
+                                            <div class="form-group">
+                                                <div class="CapitainSignUpForm-ul">
+                                                    <ul class="radio_inp">
+                                                        <li>
+                                                            <label class="form-check-label" for="fish_type_1">
+                                                                <input class="radio_inp" type="radio" name="fish_type" id="fish_type_1"
+                                                                       value="1" {% if update_boat.fish_rules == "1" %} {{ 'checked' }}{% endif %}>
+                                                                {{ BoatReg_Fishing_Q2_opt1 }}
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <label class="form-check-label" for="fish_type_2">
+                                                                <input class="radio_inp" type="radio" name="fish_type" id="fish_type_2"
+                                                                       value="2" {% if update_boat.fish_rules == "2" %} {{ 'checked' }}{% endif %}>
+                                                                {{ BoatReg_Fishing_Q2_opt2 }}
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <label class="form-check-label" for="fish_type_3">
+                                                                <input class="radio_inp" type="radio" name="fish_type" id="fish_type_3"
+                                                                       value="3" {% if update_boat.fish_rules == "3" %} {{ 'checked' }}{% endif %}>
+                                                                {{ BoatReg_Fishing_Q2_opt3 }}
+                                                            </label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q22: FISH SPECIES -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_22">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="22" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>3/5</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="22" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Fishing_Q3 }}</p>
+                                        <div>
+                                            <div style="overflow: hidden;" class="boat_fspecies_sel7" id="boat_fspecies_1_div">
+                                                <div id="boat_fspecies_3" class="select7_container" style="width: 100%;">
+                                                    <div class="select7_arrow">&#9662;</div>
+                                                    <div class="select7_placeholder">{{ BoatReg_Fishing_Q3_opts }}</div>
+                                                    <select id="boat_fspecies_1" class="select7_select" onchange="add_selected_item(this, event);">
+                                                        <option class="select7_hide" value="filler"></option>
+                                                        {% for fish in fish_species %}
+                                                            <option {% for fs in update_boat.fish_species.all %}
+                                                                    {% if fs.sid_bfs == fish.sid_bfs %}
+                                                                        {{ 'selected' }}
+                                                                    {% endif %}
+                                                                {% endfor %} value="{{ fish.sid_bfs }}">{{ fish.name }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <div class="select7_items"></div>
+                                                    <input type="hidden" name="boat_fspecies_inp" id="boat_fspecies_inp" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q23: FISHING TECHNIQUIES -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_23">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="23" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>4/5</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="23" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Fishing_Q4 }}</p>
+                                        <div id="fishing_tech_div">
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "1" in update_boat.fish_bait %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_bait_inp', '1')"
+                                                 style="color: dimgray;float: left;" id="fish_bait_opt_1">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt1 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "2" in update_boat.fish_bait %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_bait_inp', '2')"
+                                                 style="color: dimgray;float: left;" id="fish_bait_opt_2">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt2 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "3" in update_boat.fish_bait %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_bait_inp', '3')"
+                                                 style="color: dimgray;float: left;" id="fish_bait_opt_3">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt3 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "4" in update_boat.fish_bait %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_bait_inp', '4')"
+                                                 style="color: dimgray;float: left;" id="fish_bait_opt_4">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt4 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "5" in update_boat.fish_bait %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_bait_inp', '5')"
+                                                 style="color: dimgray;float: left;" id="fish_bait_opt_5">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt5 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "6" in update_boat.fish_bait %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_bait_inp', '6')"
+                                                 style="color: dimgray;float: left;" id="fish_bait_opt_6">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt6 }}</p>
+                                            </div>
+                                            <input type="hidden" id="fish_bait_inp" name="fish_bait_inp" value="{{ update_boat.fish_bait }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q24: FISHING PLACES  -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_24">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="24" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>5/5</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="24" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>{{ BoatReg_Fishing_Q5 }}</p>
+                                        <div id="fishing_places_div">
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "1" in update_boat.fish_places %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_place_inp', '1')"
+                                                 style="color: dimgray;float: left;" id="fish_place_opt_1">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt1 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "2" in update_boat.fish_places %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_place_inp', '2')"
+                                                 style="color: dimgray;float: left;" id="fish_place_opt_2">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt2 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "3" in update_boat.fish_places %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_place_inp', '3')"
+                                                 style="color: dimgray;float: left;" id="fish_place_opt_3">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt3 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "4" in update_boat.fish_places %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_place_inp', '4')"
+                                                 style="color: dimgray;float: left;" id="fish_place_opt_4">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt4 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "5" in update_boat.fish_places %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_place_inp', '5')"
+                                                 style="color: dimgray;float: left;" id="fish_place_opt_5">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt5 }}</p>
+                                            </div>
+                                            <div class="boat_reg_btn_square fish
+                                                {% if "6" in update_boat.fish_places %}{{ 'boat_reg_btn_cliked' }}{% endif %}" onclick="BoatReg_Option_Click(this.id, 'fish_place_inp', '6')"
+                                                 style="color: dimgray;float: left;" id="fish_place_opt_6">
+                                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt6 }}</p>
+                                            </div>
+                                            <input type="hidden" id="fish_place_inp" name="fish_place_inp" value="{{ update_boat.fish_places }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Q8 - 30 NEW: BATHROOMS -->
+                                <div class="boat_reg_div hideOnly" id="boat_reg_div_30">
+                                    <div class="w-100 d-flex justify-content-between">
+                                        <div class="boat_reg_arrows p-2" pag-id="30" onclick="BoatReg_Move('prev',this)">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </div>
+                                        <div class="boat_reg_paging p-2">
+                                            <span>8/20</span>
+                                        </div>
+                                        <div class="boat_reg_arrows p-2" pag-id="30" onclick="BoatReg_Move('next',this)">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 boat_reg_content">
+                                        <p>Quantos banheiros possui a embarcação?</p>
+                                        <div>
+                                            <select class="form-control fcontrol-sel" style="width: 70px;" name="boat_bathrooms">
+                                                <option {% if update_boat.bathrooms == 0 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="0">0</option>
+                                                <option {% if update_boat.bathrooms == 1 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="1">1</option>
+                                                <option {% if update_boat.bathrooms == 2 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="2">2</option>
+                                                <option {% if update_boat.bathrooms == 3 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="3">3</option>
+                                                <option {% if update_boat.bathrooms == 4 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="4">4</option>
+                                                <option {% if update_boat.bathrooms == 5 %}
+                                                        {{ 'selected' }}
+                                                    {% endif %} value="5">5+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md ua_div hideOnly" id="ua_boat_edit" style="padding-top: 20px !important;">
+
+            <div class="w-100" onclick="BackToBoatsList()"><i class="fas fa-arrow-left left" style="font-size: 25px;margin-bottom: 40px;margin-left: -15px;cursor: pointer;"></i></div>
+
+            <div class="fontSizeTwoFive w-100 ua_favorites_title" style="text-align: center;">
+                <h1 class="fontSizeThree" id="edt_boat_title"></h1>
+            </div>
+
+            <input type="hidden" id="edit_boat" value="{{ add_boat }}">
+
+            <div class="alert " role="alert"></div>
+
+            <!-- BOAT FIELDS -->
+            <form method="post" style="font-size: 20px !important;" id="ua_edt_boat_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- TITLE -->
+                <div class="form-group row">
+                    <label for="boat_edt_title" class="col-md-3 col-form-label">Título do barco</label>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" id="edt_boat_reg_title" name="boat_reg_title" value="">
+                    </div>
+                </div>
+                <!-- CATEGORY AND FABRICATION YEAR -->
+                <div class="form-group row">
+                    <label for="boat_edt_type_opt" class="col-md-3 col-form-label">Categoria do barco</label>
+                    <div class="col-md">
+                        <select class="form-control" style="" id="edt_boat_type_inp" name="boat_type_inp" onchange="fishing_area_display(this.id)">
+                            {% for btype in boat_types %}
+                                <option value="{{ btype.sid_bt }}">
+                                    {{ btype.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label for="boat_fab_year" class="col-md col-form-label">Ano de fabricação</label>
+                    <div class="col-md">
+                        <select class="form-control" name="boat_fab_year" id="edt_boat_fab_year">
+                            {% for year in years %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <!-- MANUFACTOR AND BOAT SIZE -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Fabricante</label>
+                    <div class="col-md">
+                        <select class="form-control" style=""
+                                name="boat_manufactor" id="edt_boat_manufactor">
+                            {% for manuf in boat_manufectors %}
+                                <option value="{{ manuf }}">{{ manuf }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label for="boat_fab_year" class="col-md col-form-label">Tamanho do barco (em pés)</label>
+                    <div class="col-md">
+                        <select class="form-control" style="" name="boat_size" id="edt_boat_size">
+                            {% for boat_size in boat_sizes %}
+                                <option value="{{ boat_size }}">{{ boat_size }}</option>
+                            {% endfor %}
+                            <option value="200">200+</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- DAILY AND OVERNIGHT CAPACITIES -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Capacidade de passageiros (sem comandante)</label>
+                    <div class="col-md">
+                        <select class="form-control " style="" name="boat_capacity" id="edt_boat_capacity">
+                            {% for boat_cap in boat_capacity %}
+                                <option value="{{ boat_cap }}">{{ boat_cap }}</option>
+                            {% endfor %}
+                            <option value="40">300+</option>
+                        </select>
+                    </div>
+                    <label for="boat_fab_year" class="col-md col-form-label">Capacidade pernoite (sem comandante)</label>
+                    <div class="col-md">
+                        <select class="form-control" style="" name="boat_overnight_capacity" id="edt_boat_overnight_capacity">
+                            <option value="0">0</option>
+                            {% for boat_cap in boat_capacity %}
+                                <option value="{{ boat_cap }}">{{ boat_cap }}</option>
+                            {% endfor %}
+                            <option value="40">40+</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- NUMBER OF ROOMS AND ACCEPT PET -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Número de camarotes</label>
+                    <div class="col-md">
+                        <select class="form-control" style="" name="boat_rooms" id="edt_boat_rooms">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                    <label for="boat_fab_year" class="col-md col-form-label">Aceita animais?</label>
+                    <div class="col-md">
+                        <select class="form-control" style="" name="pet_inp" id="edt_pet_inp">
+                            <option value="Yes">Sim</option>
+                            <option value="No">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- NUMBER OF BATHROOMS -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Número de banheiros</label>
+                    <div class="col-md">
+                        <select class="form-control" style="" name="boat_bathrooms" id="edt_boat_bathrooms">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- IS SMOKING ALLOWED and HAS IT ACCESSABILITY -->
+                <div class="form-group row">
+                    <label for="boat_edit_is_smoking_allowed" class="col-md-3 col-form-label">Permite Fumar?</label>
+                    <div class="col-md">
+                        <select class="form-control" style="" name="smoking_inp" id="edt_smoking_inp">
+                            <option value="Yes">Sim</option>
+                            <option value="No">Não</option>
+                        </select>
+                    </div>
+                    <label for="boat_edit_has_accessability" class="col-md col-form-label">Possui acessabilidade?</label>
+                    <div class="col-md">
+                        <select class="form-control" style="" name="accessibility_inp" id="edt_accessibility_inp">
+                            <option value="Yes">Sim</option>
+                            <option value="No">Não</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- BOAT AMENITIES -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Comodidades</label>
+                    <div class="col-md">
+                        <div style="overflow: hidden;" class="boat_amenities_sel7" id="boat_amenities_1_div">
+                            <div style="margin-right: 4% !important;" id="edt_boat_amenities_div_1" class="select7_container">
+                                <div class="select7_arrow">&#9662;</div>
+                                <div class="select7_placeholder">{{ BoatReg_Amenities_T1 }}</div>
+                                <select id="edt_boat_amenities_1" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                    <option class="select7_hide" value="filler"></option>
+                                    {% for amenity_t1 in boat_amenities_t1 %}
+                                        <option {% for am in update_boat.boat_amenities.all %}
+                                            {% if am == amenity_t1 %}
+                                                {{ 'selected' }}
+                                            {% endif %}
+                                            {% endfor %} value="{{ amenity_t1.sid_ba }}">{{ amenity_t1.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div id="boat_amenities_selected_1" class="select7_items"></div>
+                            </div>
+                            <div style="margin-right: 0 !important;" id="edt_boat_amenities_div_2" class="select7_container">
+                                <div class="select7_arrow">&#9662;</div>
+                                <div class="select7_placeholder">{{ BoatReg_Amenities_T2 }}</div>
+                                <select id="edt_boat_amenities_2" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                    <option class="select7_hide" value="filler"></option>
+                                        {% for amenity_t2 in boat_amenities_t2 %}
+                                            <option {% for am in update_boat.boat_amenities.all %}
+                                                {% if am == amenity_t2 %}
+                                                    {{ 'selected' }}
+                                                {% endif %}
+                                            {% endfor %} value="{{ amenity_t2.sid_ba }}"value="{{ amenity_t2.sid_ba }}">{{ amenity_t2.name }}</option>
+                                        {% endfor %}
+                                </select>
+                                <div class="select7_items"></div>
+                            </div>
+                        </div>
+                        <div style="overflow: hidden;" class="boat_amenities_sel7" id="boat_amenities_2_div">
+                            <div style="margin-right: 4% !important;" id="edt_boat_amenities_div_3" class="select7_container">
+                                <div class="select7_arrow">&#9662;</div>
+                                <div class="select7_placeholder">{{ BoatReg_Amenities_T3 }}</div>
+                                <select id="edt_boat_amenities_3" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                    <option class="select7_hide" value="filler"></option>
+                                    {% for amenity_t3 in boat_amenities_t3 %}
+                                        <option {% for am in update_boat.boat_amenities.all %}
+                                                {% if am == amenity_t3 %}
+                                                    {{ 'selected' }}
+                                                {% endif %}
+                                            {% endfor %} value="{{ amenity_t3.sid_ba }}"value="{{ amenity_t3.sid_ba }}">{{ amenity_t3.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="select7_items"></div>
+                            </div>
+                            <div style="margin-right: 0 !important;" id="edt_boat_amenities_div_4" class="select7_container">
+                                <div class="select7_arrow">&#9662;</div>
+                                <div class="select7_placeholder">{{ BoatReg_Amenities_T4 }}</div>
+                                <select id="edt_boat_amenities_4" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                    <option class="select7_hide" value="filler"></option>
+                                        {% for amenity_t4 in boat_amenities_t4 %}
+                                            <option {% for am in update_boat.boat_amenities.all %}
+                                                {% if am == amenity_t4 %}
+                                                    {{ 'selected' }}
+                                                {% endif %}
+                                            {% endfor %} value="{{ amenity_t4.sid_ba }}" value="{{ amenity_t4.sid_ba }}">{{ amenity_t4.name }}</option>
+                                        {% endfor %}
+                                </select>
+                                <div class="select7_items"></div>
+                            </div>
+                        </div>
+                        <div style="overflow: hidden;width: 100%;" class="boat_amenities_sel7" id="boat_amenities_5_div">
+                            <div style="margin-right: 0 !important;width: 100%;margin-bottom: 0 !important;" id="edt_boat_amenities_div_5" class="select7_container">
+                                <div class="select7_arrow">&#9662;</div>
+                                <div class="select7_placeholder">{{ BoatReg_Amenities_T5 }}</div>
+                                <select id="edt_boat_amenities_5" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                    <option class="select7_hide" value="filler"></option>
+                                    {% for amenity_t5 in boat_amenities_t5 %}
+                                        <option {% for am in update_boat.boat_amenities.all %}
+                                                {% if am == amenity_t5 %}
+                                                    {{ 'selected' }}
+                                                {% endif %}
+                                            {% endfor %} value="{{ amenity_t5.sid_ba }}" value="{{ amenity_t5.sid_ba }}">{{ amenity_t5.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="select7_items"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="edt_boat_amenities" name="boat_amenities" value="">
+                </div>
+                <!-- ADDRESS -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Endereço</label>
+                    <input type="text" name="address_street" placeholder="Rua, avenida, píer, praia..."
+                           class="form-control col-md-4" id="edt_address_street" value="" style="margin-right: 10px;">
+                    <input type="text" name="address_city" placeholder="Cidade" class="form-control col-md-2"
+                           id="edt_address_city" value="" style="margin-right: 10px;" required oninput="this.setCustomValidity('')"
+                           oninvalid="this.setCustomValidity('Por favor, entre a cidade onde está localizado a embarcação.')">
+                    <select class="form-control col-md-2" name="address_state" id="edt_address_state">
+                        {% for state in all_states %}
+                            <option value="{{ state.name }}">{{ state.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <!-- PHOTOS -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Fotos</label>
+                    <div class="col-md-9" data-toggle="modal" data-target="#modal_photos" onclick="$('#modal_photos').modal({backdrop: 'static',keyboard: false});">
+                        <div class="boat_reg_pic edit_img" id="viewdiv_pic_1">
+                            <img src='{% static '' %}media/admin/picture.PNG' id="view_pic_1" class="selected_pic" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                            <p class="fontSizeZeroEight" style="text-align: center;padding-top: 5px;" id="main_photo">DESTAQUE</p>
+                        </div>
+
+                        <div class="boat_reg_pic edit_img" id="viewdiv_pic_2">
+                            <img src='{% static '' %}media/admin/picture.PNG' id="view_pic_2" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                        </div>
+
+                        <div class="boat_reg_pic edit_img" id="viewdiv_pic_3">
+                            <img src='{% static '' %}media/admin/picture.PNG' id="view_pic_3" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                        </div>
+
+                        <div class="boat_reg_pic edit_img" id="viewdiv_pic_4">
+                            <img src='{% static '' %}media/admin/picture.PNG' id="view_pic_4" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                        </div>
+
+                        <div class="boat_reg_pic edit_img" id="viewdiv_pic_5">
+                            <img src='{% static '' %}media/admin/picture.PNG' id="view_pic_5" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                        </div>
+
+                        <div class="boat_reg_pic edit_img" id="viewdiv_pic_6">
+                            <img src='{% static '' %}media/admin/picture.PNG' id="view_pic_6" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                        </div>
+
+                        <!--<p class="fontSizeZeroEight" id="click_tochange" style="display: inline-block;margin-top: 20px;" onclick="ChangeMainPic(false)">Clique aqui para alterar a imagem em destaque</p>
+                        <p class="fontSizeZeroEight hideOnly" id="select_img" style="display: inline-block;margin-top: 20px;" onclick="ChangeMainPic(true)">Selecione a foto que deseja exibir em destaque</p>-->
+                    </div>
+                    <input type="hidden" id="photos_to_del" name="photos_to_del" value="">
+                    <!--<input type="hidden" id="photos_edit_mode" value="0">-->
+                    <input type="hidden" id="selected_main_photo" name="selected_main_photo" value="">
+                </div>
+                <!-- DESCRIPTION -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Descrição</label>
+                    <div class="col-md-9">
+                        <textarea maxlength="3000" class="form-control" id="edt_boat_reg_description"
+                                  name="boat_reg_description" placeholder=""
+                                  style="height: 160px;"></textarea>
+                    </div>
+                </div>
+                <!-- PRICES 2 and 4 hours-->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Preço Avulso (2 horas)</label>
+                    <div class="col-md-3">
+                        <input class="edt_price_inp onlyNumbers form-control" id="edt_price_item_single" name="price_item_single"
+                               onchange="PriceChange(this.id)" placeholder="0,00">
+                    </div>
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Preço Meia Diária (4 horas)</label>
+                    <div class="col-md-3">
+                        <input class="edt_price_inp onlyNumbers form-control" id="edt_price_item_hday" name="price_item_hday"
+                               onchange="PriceChange(this.id)" placeholder="0,00">
+                    </div>
+                </div>
+                <!-- PRICES 8 and 24 hours -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Preço Diária (8 horas)</label>
+                    <div class="col-md-3">
+                        <input class="edt_price_inp onlyNumbers form-control" id="edt_price_item_day" name="price_item_day"
+                               onchange="PriceChange(this.id)" placeholder="0,00">
+                    </div>
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Preço Pernoite (24 horas)</label>
+                    <div class="col-md-3">
+                        <input class="edt_price_inp onlyNumbers form-control" id="edt_price_item_overnight" name="price_item_overnight"
+                               onchange="PriceChange(this.id)" placeholder="0,00">
+                    </div>
+                </div>
+                <!-- PRICE INCLUDES -->
+                <div class="form-group row">
+                    <label for="boat_fab_year" class="col-md-3 col-form-label">Incluído no preço</label>
+                    <div class="col-md">
+                        <div style="overflow: hidden;" class="boat_pincludes_sel7" id="boat_pincludes_1_div">
+                            <div style="margin-right: 4% !important;"id="edt_div_boat_pincludes_1" class="select7_container">
+                                <div class="select7_arrow">&#9662;</div>
+                                <div class="select7_placeholder">{{ BookingPrice_Single }}</div>
+                                <select id="edt_boat_pincludes_1" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                    <option class="select7_hide" value="filler"></option>
+                                    {% for pinclude in boat_price_includes %}
+                                        <option value="{{ pinclude.sid_bpi }}">{{ pinclude.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="select7_items"></div>
+                                <input type="hidden" name="boat_pincludes_inp_1" id="edt_boat_pincludes_inp_1">
+                            </div>
+                            <div style="margin-right: 0 !important;" id="edt_div_boat_pincludes_2" class="select7_container">
+                                <div class="select7_arrow">&#9662;</div>
+                                <div class="select7_placeholder">{{ BookingPrice_HDay }}</div>
+                                <select id="edt_boat_pincludes_2" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                    <option class="select7_hide" value="filler"></option>
+                                    {% for pinclude in boat_price_includes %}
+                                        <option value="{{ pinclude.sid_bpi }}">{{ pinclude.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="select7_items"></div>
+                                <input type="hidden" name="boat_pincludes_inp_2" id="edt_boat_pincludes_inp_2">
+                            </div>
+                            <div style="margin-right: 4% !important;" id="edt_div_boat_pincludes_3" class="select7_container">
+                                <div class="select7_arrow">&#9662;</div>
+                                <div class="select7_placeholder">{{ BookingPrice_Day }}</div>
+                                <select id="edt_boat_pincludes_3" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                    <option class="select7_hide" value="filler"></option>
+                                    {% for pinclude in boat_price_includes %}
+                                        <option value="{{ pinclude.sid_bpi }}">{{ pinclude.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="select7_items"></div>
+                                <input type="hidden" name="boat_pincludes_inp_3" id="edt_boat_pincludes_inp_3">
+                            </div>
+                            <div style="margin-right: 0 !important;" id="edt_div_boat_pincludes_4" class="select7_container">
+                                <div class="select7_arrow">&#9662;</div>
+                                <div class="select7_placeholder">{{ BookingPrice_Overnight }}</div>
+                                <select id="edt_boat_pincludes_4" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                    <option class="select7_hide" value="filler"></option>
+                                    {% for pinclude in boat_price_includes %}
+                                        <option value="{{ pinclude.sid_bpi }}">{{ pinclude.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="select7_items"></div>
+                                <input type="hidden" name="boat_pincludes_inp_4" id="edt_boat_pincludes_inp_4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FISHING AREA -->
+                <div class="hideOnly" id="fishing_area_div">
+                    <!-- FISHING RULES -->
+                    <div class="form-group row">
+                        <label for="boat_fab_year" class="col-md-3 col-form-label">Regras da pesca</label>
+                        <div class="col-md-9">
+                            <select class="form-control" style="" id="edt_boat_edit_fish_type" name="fish_type">
+                                <option value="1">Permitido somente pesque e solte</option>
+                                <option value="2">Permite o abate do peixe para levar</option>
+                                <option value="3">Permitido o abate do peixe para consumo no local</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- FISH SPECIES -->
+                    <div class="form-group row">
+                        <label for="boat_fab_year" class="col-md-3 col-form-label">Espécies de peixes</label>
+                        <div class="col-md-9">
+                            <div style="overflow: hidden;" class="boat_fspecies_sel7" id="boat_fspecies_1_div">
+                                <div id="edt_boat_fspecies_3" class="select7_container" style="width: 100%;">
+                                    <div class="select7_arrow">&#9662;</div>
+                                    <div class="select7_placeholder">{{ BoatReg_Fishing_Q3_opts }}</div>
+                                    <select id="edt_boat_fspecies_1" class="select7_select boat_edt" onchange="add_selected_item(this, event);">
+                                        <option class="select7_hide" value="filler"></option>
+                                        {% for fish in fish_species %}
+                                            <option value="{{ fish.sid_bfs }}">{{ fish.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="select7_items"></div>
+                                    <input type="hidden" name="boat_fspecies_inp" id="edt_boat_fspecies_inp" value="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FISHING TECHNIQUES -->
+                    <div class="form-group row">
+                        <label for="boat_fab_year" class="col-md-3 col-form-label">Iscas de pesca</label>
+                        <div class="col-md-9" id ="edt_fish_bait_inp_div">
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_bait_inp', '1')"
+                                 style="color: dimgray;float: left;" id="edt_fish_bait_opt_1">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt1 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_bait_inp', '2')"
+                                 style="color: dimgray;float: left;" id="edt_fish_bait_opt_2">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt2 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_bait_inp', '3')"
+                                 style="color: dimgray;float: left;" id="edt_fish_bait_opt_3">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt3 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_bait_inp', '4')"
+                                 style="color: dimgray;float: left;" id="edt_fish_bait_opt_4">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt4 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_bait_inp', '5')"
+                                 style="color: dimgray;float: left;" id="edt_fish_bait_opt_5">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt5 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_bait_inp', '6')"
+                                 style="color: dimgray;float: left;" id="edt_fish_bait_opt_6">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q4_opt6 }}</p>
+                            </div>
+                            <input type="hidden" id="edt_fish_bait_inp" name="fish_bait_inp" value="{{ update_boat.fish_bait }}">
+
+                        </div>
+                    </div>
+                    <!-- FISHING PLACES -->
+                    <div class="form-group row">
+                        <label for="boat_fab_year" class="col-md-3 col-form-label">Zonas de Pesca</label>
+                        <div class="col-md-9" id ="edt_fish_place_inp_div">
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_place_inp', '1')"
+                                 style="color: dimgray;float: left;" id="edt_fish_place_opt_1">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt1 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_place_inp', '2')"
+                                 style="color: dimgray;float: left;" id="edt_fish_place_opt_2">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt2 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_place_inp', '3')"
+                                 style="color: dimgray;float: left;" id="edt_fish_place_opt_3">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt3 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_place_inp', '4')"
+                                 style="color: dimgray;float: left;" id="edt_fish_place_opt_4">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt4 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_place_inp', '5')"
+                                 style="color: dimgray;float: left;" id="edt_fish_place_opt_5">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt5 }}</p>
+                            </div>
+                            <div class="boat_reg_btn_square fish" onclick="BoatReg_Option_Click(this.id, 'edt_fish_place_inp', '6')"
+                                 style="color: dimgray;float: left;" id="edt_fish_place_opt_6">
+                                <p class="boat_reg_custom_p">{{ BoatReg_Fishing_Q5_opt6 }}</p>
+                            </div>
+                            <input type="hidden" id="edt_fish_place_inp" name="fish_place_inp" value="{{ update_boat.fish_places }}">
+
+                        </div>
+                    </div>
+                </div>
+                <!-- CALENDAR BLOCK -->
+                <div class="form-group row">
+                    <label for="" class="col-md-3 col-form-label">Calendário de disponibilidade</label>
+                    <div class="col-md-9">
+                        <div class="w-100" style="margin-top:20px;overflow: hidden;" id="boat_calendar">
+                            <div id="availability_calendar_left"></div>
+                            <div id="availability_calendar_division" style="border-right: 1px solid lightgrey;height: 330px;float: left;display: none;"></div>
+                            <div id="availability_calendar_right" style="display: none;"></div>
+                        </div>
+                        <div class="w-100">
+                            <p style="font-size: 1rem;">Selecione os dias que deseja alterar para disponível ou indisponível</p>
+                        </div>
+                        <div class="w-100">
+                            <div style="height: 40px;width: 40px;background-color: lightgrey;float: left;margin-right: 10px;"></div>
+                                <span style="color: #FF6A6A;float: left;margin-right: 10px;line-height: 40px;">Data indisponível</span>
+                            <div style="height: 40px;width: 40px;background-color: white;border: 1px solid dimgrey;float: left;margin-right: 10px;"></div>
+                                <span style="color: #4CAF50;float: left;margin-right: 10px;line-height: 40px;">Data disponível </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <input type="hidden" id="edt_updated_boat" name="updated_boat" value="">
+                <input type="hidden" id="booked_dates" name="booked_dates" value="">
+                <div class="" style="display: block;overflow: hidden;margin-top: 50px;">
+                    <button type="submit" class="hideOnly inp_sub"></button>
+                    <div style="width: 200px;position: relative;float: right;" id="ua_save_btn_div">
+                        <button type="submit" class="modal_btn form_btns" id="ua_submit" style="margin: 0;"
+                                onclick="if ($('#ua_edt_boat_form').checkValidity() === true) {$(this).attr('disabled','disabled');$('#ua_edt_boat_form').submit();}else{event.preventDefault();event.stopPropagation();}">{{ Save }}</button>
+                        <div class="loader hideOnly" id="loaderIcon" style="position: absolute;left: 80px;top: 3px;"></div>
+                    </div>
+                </div>
+
+                <!-- photos modal -->
+                <div class="modal fade" id="modal_photos" tabindex="-1" role="dialog" aria-labelledby="modal_photos_content" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px;">
+                                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container" id="modal_photos_content">
+                                    <div class="row" style="margin-bottom: 20px;" id="drag_drop_img">
+                                        <div class="col-md-12" style="display: flex;">
+                                            <div class="d-flex align-items-center" id="div_mainpic" ondrop="DropBoatPhoto(event)" ondragover="allowDrop(event)" style="border: 1px solid dimgray;border-radius: 5px;">
+                                                <img src='' id="edt_mainpic" class="hideOnly selected_pic" alt="Arraste a imagem em destaque aqui">
+                                            </div>
+                                        </div>
+                                        <p id="drag_drop_message" style="font-size: 1rem;margin: 0 auto;">Arraste para o quadro acima a imagem que quer destacar</p>
+                                    </div>
+                                    <div class="row" style="position: relative;">
+                                        <div class="photo_edit_div">
+                                            <div class="boat_reg_pic edit_img_popup" id="div_pic_1" onclick="TriggerFileInput('edt_inp_pic_1')">
+                                                <i class="fas fa-times-circle photo_delete_icon"
+                                                   onclick="event.preventDefault();event.stopPropagation();DeletePhoto('pic_1');"></i>
+                                                <img src='{% static '' %}media/admin/picture.PNG' id="edt_pic_1" draggable="true"
+                                                     ondragstart="DragBoatPhoto(event)" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                                            </div>
+                                            <input class="mandatory edt_inp_pic" type="file" id="edt_inp_pic_1" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="">
+                                            <input type="hidden" class="inp_pic_id" id="edt_inp_pic_id_1" name="inp_pic_id" value="">
+                                        </div>
+                                        <div class="photo_edit_div">
+                                            <div class="boat_reg_pic edit_img_popup" id="div_pic_2" onclick="TriggerFileInput('edt_inp_pic_2')">
+                                                <i class="fas fa-times-circle photo_delete_icon"
+                                                   onclick="event.preventDefault();event.stopPropagation();DeletePhoto('pic_2');"></i>
+                                                <img src='{% static '' %}media/admin/picture.PNG' id="edt_pic_2" draggable="true"
+                                                     ondragstart="DragBoatPhoto(event)" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                                            </div>
+                                            <input class="mandatory edt_inp_pic" type="file" id="edt_inp_pic_2" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="">
+                                            <input type="hidden" class="inp_pic_id" id="edt_inp_pic_id_2" name="inp_pic_id" value="">
+                                        </div>
+                                        <div class="photo_edit_div">
+                                            <div class="boat_reg_pic edit_img_popup" id="div_pic_3" onclick="TriggerFileInput('edt_inp_pic_3')">
+                                                <i class="fas fa-times-circle photo_delete_icon"
+                                                   onclick="event.preventDefault();event.stopPropagation();DeletePhoto('pic_3');"></i>
+                                                <img src='{% static '' %}media/admin/picture.PNG' id="edt_pic_3" draggable="true"
+                                                     ondragstart="DragBoatPhoto(event)" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                                            </div>
+                                            <input class="mandatory edt_inp_pic" type="file" id="edt_inp_pic_3" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="">
+                                            <input type="hidden" class="inp_pic_id" id="edt_inp_pic_id_3" name="inp_pic_id" value="">
+                                        </div>
+                                        <div class="photo_edit_div">
+                                            <div class="boat_reg_pic edit_img_popup" id="div_pic_4" onclick="TriggerFileInput('edt_inp_pic_4')">
+                                                <i class="fas fa-times-circle photo_delete_icon"
+                                                   onclick="event.preventDefault();event.stopPropagation();DeletePhoto('pic_4');"></i>
+                                                <img src='{% static '' %}media/admin/picture.PNG' id="edt_pic_4" draggable="true"
+                                                     ondragstart="DragBoatPhoto(event)" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                                            </div>
+                                            <input class="mandatory edt_inp_pic" type="file" id="edt_inp_pic_4" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="">
+                                            <input type="hidden" class="inp_pic_id" id="edt_inp_pic_id_4" name="inp_pic_id" value="">
+                                        </div>
+                                        <div class="photo_edit_div">
+                                            <div class="boat_reg_pic edit_img_popup" id="div_pic_5" onclick="TriggerFileInput('edt_inp_pic_5')">
+                                                <i class="fas fa-times-circle photo_delete_icon"
+                                                   onclick="event.preventDefault();event.stopPropagation();DeletePhoto('pic_5');"></i>
+                                                <img src='{% static '' %}media/admin/picture.PNG' id="edt_pic_5" draggable="true"
+                                                     ondragstart="DragBoatPhoto(event)" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                                            </div>
+                                            <input class="mandatory edt_inp_pic" type="file" id="edt_inp_pic_5" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="">
+                                            <input type="hidden" class="inp_pic_id" id="edt_inp_pic_id_5" name="inp_pic_id" value="">
+                                        </div>
+                                        <div class="photo_edit_div">
+                                            <div class="boat_reg_pic edit_img_popup" id="div_pic_6" onclick="TriggerFileInput('edt_inp_pic_6')">
+                                                <i class="fas fa-times-circle photo_delete_icon"
+                                                   onclick="event.preventDefault();event.stopPropagation();DeletePhoto('pic_6');"></i>
+                                                <img src='{% static '' %}media/admin/picture.PNG' id="edt_pic_6" draggable="true"
+                                                     ondragstart="DragBoatPhoto(event)" onerror="this.src='{% static '' %}media/admin/picture.PNG'">
+                                            </div>
+                                            <input class="mandatory edt_inp_pic" type="file" id="edt_inp_pic_6" style="display: none;" name="inp_pic" accept=".png, .jpg, .jpeg" value="">
+                                            <input type="hidden" class="inp_pic_id" id="edt_inp_pic_id_6" name="inp_pic_id" value="">
+                                        </div>
+                                        <div class="hideOnly loaderIconBoatImage" style="position: absolute;height: 96%;width:98%;background-color: gray;opacity: 0.7;border-radius: 10px;" id="loaderIconBoatImageEdit">
+                                            <div class="loader" id="loaderIconBoatReg" style="top: 50%;left: 50%;margin: -25px 0 0 -20px;position: absolute;"></div>
+                                            <p style="color: white;margin: 10px 0 0 20px;font-weight: 900;">Aguarde, estamos salvando sua foto ...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="width: 200px;overflow: hidden;margin: 20px auto;">
+                                    <button type="button" class="modal_btn form_btns" data-dismiss="modal" aria-label="Close" class="modal_btn form_btns" style="margin: 0;">Fechar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- calendar modal -->
+                <div class="modal fade" id="modal_calendar" tabindex="-1" role="dialog" aria-labelledby="modal_photos_content" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px;">
+                                <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="w-100">
+                                    <input type="text" readonly class="form-control" id="block_date_from" style="margin: 0 auto;max-width: 200px;text-align: center;cursor: default;">
+                                </div>
+                                <div class="w-100">
+                                    <div style="margin: 0 auto;display: table;">
+                                        <input type="checkbox" id="chk_block_date_from" style="margin: 10px !important;height: 1rem;width: 1rem;" onchange="SetDateAvailability()">
+                                        <label for="chk_block_date_from" id="lbl_block_date_from">Data disponível</label>
+                                    </div>
+                                </div>
+
+                                <div style="width: 200px;overflow: hidden;margin: 20px auto;">
+                                    <button type="button" class="modal_btn form_btns" data-dismiss="modal"
+                                            aria-label="Close" class="modal_btn form_btns" style="margin: 0;"
+                                            onclick="SaveBlockingDates()">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block body-after-js %}
+    <script src="{% static 'js/js_userarea.js' %}"></script>
+    <script type="application/javascript">
+
+
+        if (window.innerWidth < 900) {
+            $('#drag_drop_img').addClass("hideOnly");
+        }
+
+        $('#boat_calendar').on("click", '.cal_weekd', function () {
+
+            let cal_day = $(this).html();
+            let cal_month = $(this).parent().parent().find('.cal_month').attr("data-month");
+            let cal_year = $(this).parent().parent().find('.cal_month').attr("data-year");
+            if (cal_day === "" || cal_day === undefined || isNaN(cal_day)) {
+                return;
+            }
+
+            $('#modal_calendar').modal('show');
+
+            $('#block_date_from').val(cal_day+"/"+cal_month+"/"+cal_year);
+            if ($(this).hasClass("cal_day_blocked")) {
+                $('#chk_block_date_from').prop("checked",false);
+                $('#lbl_block_date_from').html("Data indisponível");
+            } else {
+                $('#chk_block_date_from').prop("checked",true);
+                $('#lbl_block_date_from').html("Data disponível");
+            }
+            SetDateAvailability();
+
+        });
+
+    </script>
+
+{% endblock %}

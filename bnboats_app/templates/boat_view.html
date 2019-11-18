@@ -1,0 +1,365 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+
+{% block head %}
+
+    <meta name="description" content="aluguel de {{ Boats_Query.boat_type.name }} em {{ Boats_Query.city.city }}">
+    <meta name="keywords" content="aluguel de {{ Boats_Query.boat_type.name }}, aluguel de {{ Boats_Query.boat_type.name }} em {{ Boats_Query.city.city }}">
+
+    <link rel="stylesheet" href="{% static 'css/css_bview.css' %}">
+
+{% endblock %}
+
+{% block title %} Aluguel de {{ Boats_Query.boat_type.name }} em {{ Boats_Query.city.city }} {% endblock %}
+
+{% block body %}
+
+    <div class="bview_container">
+
+        <div class="bview_div_imgs" data-toggle="modal" data-target="#modal_photos" style="cursor: pointer;">
+            <div class="bview_div_img" id="bview_div_img_1">
+                <img class="bview_img" src="{% static '' %}{{ Boats_Query.images.all.0 }}" alt="Boat Image" onerror="this.style.display='none'">
+            </div>
+            <div class="bview_div_img" id="bview_div_img_2">
+                {% for boat_img in Boats_Query.images.all %}
+                    {% if forloop.counter != 1 %}
+                        <div class="bview_div_img_subdiv">
+                            <img class="bview_img" src="{% static '' %}{{ boat_img }}" alt="Boat Image"  onerror="this.style.display='none'">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="container biew_container">
+
+            <div class="bview_left_div">
+
+                <!-- HEADER with boat title and captain pic -->
+                <div class="bview_items bview_ld_header w-100" style="overflow: hidden;">
+                    <div class="bview_ld_title">
+                        <h1 class="fontSizeTwo mb_zero" style="font-family: Segoe-Ul-Bold;">{{ Boats_Query.title }}</h1>
+                        <h2 class="fontSizeOneive">{{ Boats_Query.city }}, {{ Boats_Query.city.state }}</h2>
+                    </div>
+                    <div class="bview_ld_captain">
+                        <div class="bview_ld_cap_div_pic w-100">
+                            <img src="{% static '' %}{{ Boats_Query.user.userprofile.image }}" alt="owner" onerror="this.src='{% static 'media/admin/default_profile.png' %}'">
+                        </div>
+                        <div class="bview_ld_cap_div_name w-100" style="margin-top: 10px;">
+                            <div style="">
+                                <div class="w-100"><p class="fontSizeOne bview_cap_name"><img src="{% static 'media/admin/shat.png' %}" alt="captain" style="width: 30px;">  {{ Boats_Query.user.first_name }}</p></div>
+                                <div class="w-100" data-toggle="modal" data-target="#modal_captain_chat">
+                                    <p class="speak_with_captain" id="speak_with_captain" style="text-align: center;font-size: 0.9rem;cursor: pointer;">{{ SpeakWithCaptain }}</p>
+                                </div>
+                                <div class="w-100" style="margin-top: 20px;" id="booking_shortcut" onclick="BookShortcutOnMobile()">
+                                    <p class="speak_with_captain" id="booking_shortcut_id">Clique aqui para alugar</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOAT TYPE and summary items -->
+                <div class="bview_items bview_ld_btype w-100">
+                    <p class="bview_ld_p"><img class="bview_icons" src="{% static '' %}{{ Boats_Query.boat_type.image }}" alt="Boat type">{{ Boats_Query.boat_type.name }}:</p>
+                    <span style="margin-left: 70px;">{{ Boats_Query.capacity }} {{ People }}</span>
+                    <span>{{ Boats_Query.bathrooms }} {{ Bathroom }}</span>
+                    <span>{{ Boats_Query.rooms }} {{ Cabin }}</span>
+                </div>
+
+                <!-- BOAT DESCRIPTION -->
+                <div class="bview_items bview_ld_bdesc w-100">
+                    <p class="bview_ld_p"><img style="padding: 15px;" class="bview_icons" src="{% static 'media/admin/description.jpg' %}" alt="Boat Description">{{ Description }}:</p>
+                    <div class="bview_desc_tarea" style="max-width: 80%;">{{ Boats_Query.description }}</div>
+                </div>
+
+                <!-- BOAT AMENITIES -->
+                <div class="bview_items bview_ld_amenities w-100">
+                    <p class="bview_ld_p"><img style="padding: 15px;" class="bview_icons" src="{% static 'media/admin/amenities.jpg' %}" alt="Boat Amenities">{{ Amenities }}:</p>
+                    <div style="margin-left: 70px;">
+                        {% for amenitie in Boats_Query.boat_amenities.all %}
+                            <div class="w-50" style="float: left">{{ amenitie.name }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- BOAT CONTACT OWNER -->
+                <div class="bview_items bview_ld_cowner w-100 hideOnly" data-toggle="modal" data-target="#modal_captain_chat">
+                    <p class="bview_ld_p">{{ SpeakWithCaptain }}</p>
+                </div>
+
+                <!-- division -->
+                <div style="border-bottom: 1px solid lightgrey;"></div>
+
+                <!-- CALENDAR AVAILABILITY -->
+                <div class="bview_items w-100" style="margin-top: 20px;" onclick="BookShortcutOnMobile()">
+                    <p class="bview_ld_p">{{ Availability }}</p>
+                    <div class="w-100" style="margin-top:20px;">
+                        <div id="availability_calendar_left"></div>
+                        <div style="border-right: 1px solid lightgrey;height: 330px;float: left;"></div>
+                        <div id="availability_calendar_right"></div>
+                    </div>
+                </div>
+
+                <!-- division -->
+                <div style="border-bottom: 1px solid lightgrey;"></div>
+
+                <!-- REVIEW COUNT -->
+                <div class="bview_items w-100" style="margin-top: 20px;">
+                    <p class="bview_ld_p review_count_p">
+                        {{ Boats_Query.reviews_count }} {{ Comments }}
+                        <div class="results_div_owner_review review_count_score" score="{{ Boats_Query.review_score }}"
+                             score-count="" id="bview_owner_score">
+                        </div>
+                    </p>
+                </div>
+
+                <!-- division -->
+                <div style="border-bottom: 1px solid lightgrey;"></div>
+
+                <!-- REVIEWS -->
+                <div class="bview_items w-100" style="margin-top: 20px;">
+                    {% for review in reviews %}
+                        <div class="bview_review_div">
+                            <div class="bview_review_header">
+                                <div class="bview_review_img">
+                                    <img src="{% static '' %}{{ review.author.image }}" alt="owner">
+                                </div>
+                                <div class="bview_review_sender">
+                                    <p class="mb_zero">{{ review.author.user.first_name }}</p>
+                                    <div class="results_div_owner_review review_count_score" score="{{ review.score }}"
+                                         score-count="">
+                                    </div>
+                                </div>
+                                <div class="bview_review_date">
+                                    <p class="mb_zero">{{ review.created_on }}</p>
+                                </div>
+                            </div>
+                            <div class="bview_review_text">
+                                {{ review.review }}
+                            </div>
+                        </div>
+
+                        <!-- division -->
+                        <div style="border-bottom: 1px solid lightgrey;"></div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div class="bview_right_div">
+                <div id="bview_rd_booking_div">
+
+                    <!-- PRICE -->
+                    <div class="bview_rd_item_div">
+                        <div class="fontSizeOneTwo">
+                            <p class="mb_zero"><strong class="fontSizeOneEight">R${{ Boats_Query.price_day }}</strong> {{ PricePDay }}</p>
+                        </div>
+                    </div>
+
+                    <!-- OWNER REVIEW SCORE -->
+                    <div class="bview_rd_item_div" style="padding-top: 0;">
+                        <div class="results_div_owner_review" score="{{ Boats_Query.review_score }}"
+                             score-count="{{ Boats_Query.reviews_count }}" id="bview_owner_score">
+                        </div>
+                        <p class="mb_zero fontSizeZeroEight">{{ GasSkipperIncluded }}</p>
+                    </div>
+
+                    <!-- BOOKING TYPE -->
+                    <div class="bview_rd_item_div">
+                        <p class="mb_zero">{{ BookingTypePriod }}</p>
+                        <select class="form-control mb_zero booking_select" name="booking_type" id="booking_type_select"
+                        onchange="Boat_Type_Onchange()">
+                            {% if Boats_Query.price_single != 0 %}
+                                <option value="2">{{ BookingSingle }}</option>
+                            {% endif %}
+                            {% if Boats_Query.price_half_day != 0 %}
+                                <option value="4">{{ BookingHDay }}</option>
+                            {% endif %}
+                            {% if Boats_Query.price_day != 0 %}
+                                <option value="8" selected>{{ BookingDay }}</option>
+                            {% endif %}
+                            {% if Boats_Query.price_overnight != 0 %}
+                                <option value="24">{{ BookingOvernight }}</option>
+                            {% endif %}
+                        </select>
+                    </div>
+
+                    <!-- BOOKING DATES -->
+                    <div class="bview_rd_item_div">
+                        <p class="mb_zero">{{ BookingDates }}</p>
+                        <div class="bview_booking_dates" id="bview_booking_dates">
+                            <input required type="text" class="form-control inp_date mb_zero pholder_blue" id="filter_date_from"
+                                   name="booking_date_from" placeholder="Check in" autocomplete="off"
+                                   oninvalid="this.setCustomValidity('Por favor, preencha a data pretendida para sua viagem.')"
+                                   oninput="this.setCustomValidity('')">
+                            <div style="width: 10%;float: left;height: 38px;text-align: center;font-size: 1.5rem;">></div>
+                            <input disabled type="text" class="form-control inp_date mb_zero" id="filter_date_to"
+                                   name="booking_date_to" placeholder="Check out" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <!-- BOOKING PASSANGERS -->
+                    <div class="bview_rd_item_div">
+                        <p class="mb_zero">{{ BookingPassengers }}</p>
+                        <select class="form-control mb_zero booking_select" name="booking_pax" id="booking_pax">
+                            {% for bsize in boat_sizes %}
+                                <option value="{{ bsize }}">{{ bsize }} {% if bsize == 1 %} {{ BookingPassenger_lc }} {% else %} {{ BookingPassengers_lc }} {% endif %}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- BOOKING TOTAL PRICE -->
+                    <div class="bview_rd_item_div">
+                        <p class="mb_zero" style="font-family: Segoe-Ul-Bold;{{ strike }}">{{ Total }} R$ <span id="booking_total">{{ Boats_Query.price_day }}</span></p>
+                        {% if discount %}
+                        <p class="mb_zero" style="font-family: Segoe-Ul-Bold;color: red;">Desconto: R$ -<span id="booking_total_disc">{{ discount }},00</span></p>
+                        <p class="mb_zero" style="font-family: Segoe-Ul-Bold;">Valor final: R$ <span id="booking_total_final">{{ disc_price_day }}</span></p>
+                        {% endif %}
+                    </div>
+
+                    <!-- BOOKING: BOAT INFO -->
+                    <input type="hidden" id="boat_pk" name="boat_pk" value="{{ Boats_Query.pk }}">
+                    <input type="hidden" id="boat_owner_pk" value="{{ Boats_Query.user.pk }}">
+                    <input type="hidden" id="boat_price_2" value="{{ Boats_Query.price_single }}">
+                    <input type="hidden" id="boat_price_4" value="{{ Boats_Query.price_half_day }}">
+                    <input type="hidden" id="boat_price_8" value="{{ Boats_Query.price_day }}">
+                    <input type="hidden" id="boat_price_24" value="{{ Boats_Query.price_overnight }}">
+                    <input type="hidden" id="bprice_disc_2" value="{{ disc_price_single }}">
+                    <input type="hidden" id="bprice_disc_4" value="{{ disc_price_hday }}">
+                    <input type="hidden" id="bprice_disc_8" value="{{ disc_price_day }}">
+                    <input type="hidden" id="bprice_disc_24" value="{{ disc_price_overnight }}">
+                    <input type="hidden" id="booking_total_price" name="booking_total_price" value="{{ Boats_Query.price_day }}">
+                    <input type="hidden" id="booked_dates" value="{{ bookings }}">
+
+                    <!-- BOOKING: CUSTOMER INFO -->
+                    <input type="hidden" id="cust_name" value="{{ request.user.first_name }}">
+                    <input type="hidden" id="cust_email" value="{{ request.user.username }}">
+                    <input type="hidden" id="cust_doc_no">
+                    <input type="hidden" id="cust_street">
+                    <input type="hidden" id="cust_street_no">
+                    <input type="hidden" id="cust_city_area">
+                    <input type="hidden" id="cust_postcode">
+                    <input type="hidden" id="cust_city_id">
+
+                    <!-- CONTINUE -->
+                    <div class="bview_rd_item_div">
+                        <button id="booking_request" class="modal_btn form_btns" {{ Anonymous_User_Block_Class }} onclick="CreateBooking()">{{ BookNow }}</button>
+                        <p class="fontSizeZeroEight" style="text-align: center;">{{ BookingStartMsg }}</p>
+                    </div>
+
+                    <!-- PAYMENT -->
+                    <div class="bview_rd_item_div hideOnly" id="payment_div">
+                        <input type="hidden" id="pgc_tkn" value="{{ pag_token }}">
+                        <div id="payment_method_selection">
+                            <input type="hidden" id="booking_no">
+                            <p class="" style="font-family: Segoe-Ul-Bold;">{{ PaymentChoice }}</p>
+
+                            <!--    BOLETO    -->
+                            <div class="w-100">
+                                <input type="radio" name="payment_method_selection" id="pay_boleto" value="boleto"
+                                onclick="PaymentSelection_Expand('payment_div_boleto')">
+                                <a data-toggle="collapse" href="#payment_div_boleto" role="button" aria-expanded="false"
+                                   aria-controls="payment_div_boleto" id="boleto" onclick="PaymentSelection(this.id)"
+                                style="color: dimgray !important;">
+                                      Boleto
+                                    <img class="card_brand" src="{% static 'media/admin/boleto.png' %}">
+                                </a>
+                                <div class="collapse" id="payment_div_boleto">
+                                    <div class="card card-body">
+                                        <button id="print_boleto" class="modal_btn form_btns boleto_btn" onclick="Booking_Payment_Boleto(true)"><i class="fas fa-print"></i> {{ PrintBoleto }}</button>
+                                        <button id="send_boleto" class="modal_btn form_btns boleto_btn" onclick="Open_SendBoletoDiv()"><i class="fas fa-envelope"></i> {{ SendBoletoEmail }}</button>
+                                        <div class="hideOnly" id="send_boleto_email" style="margin: 0 auto;width: 250px;">
+                                            <input class="clean_btn" id="boleto_email" placeholder="{{ TypeEmail }}">
+                                            <button class="clean_btn" id="boleto_send_btn" onclick="Booking_Payment_Boleto(false)"><i class="fas fa-paper-plane" data-toggle="tooltip" data-placement="top" title="{{ Send }}"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CREDIT CARD -->
+                            <div class="w-100">
+                                <input type="radio" name="payment_method_selection" id="pay_ccard" value="ccard"
+                                onclick="PaymentSelection_Expand('payment_div_ccard')">
+                                <a data-toggle="collapse" href="#payment_div_ccard" role="button" aria-expanded="false"
+                                   aria-controls="payment_div_ccard" id="ccard" onclick="PaymentSelection(this.id)"
+                                style="color: dimgray !important;">  Cartão de crédito
+                                    <img class="card_brand" src="{% static 'media/admin/mastercard.png' %}">
+                                    <img class="card_brand" src="{% static 'media/admin/visa.png' %}">
+                                    <img class="card_brand" src="{% static 'media/admin/amex.png' %}">
+                                    <img class="card_brand" src="{% static 'media/admin/diners.png' %}">
+                                    <img class="card_brand" src="{% static 'media/admin/elo.png' %}">
+                                    <img class="card_brand" src="{% static 'media/admin/hipercard.png' %}">
+                                </a>
+                                <div class="collapse" id="payment_div_ccard">
+                                    <div class="card card-body">
+                                        <input required type="text" class="clean_inp w-100" id="ccard_nname" placeholder="{{ Card_Name }}">
+                                        <input required type="text" class="clean_inp w-100" id="ccard_no" placeholder="{{ Card_No }}">
+                                        <div class="card_exp_div" style="float: left;">
+                                            <input required type="text" class="clean_inp card_exp" id="ccard_mm" maxlength="2" placeholder="{{ Card_MM }}">
+                                            <input required type="text" class="clean_inp card_exp" id="ccard_yy" maxlength="2" placeholder="{{ Card_YY }}">
+                                            <input required type="password" class="clean_inp card_code" id="ccard_code" placeholder="{{ Card_Code }}">
+                                            <button class="clean_inp card_pay_btn" id="ccard_pay_btn" onclick="Pagcerto_Payment_Card(true)"><i class="far fa-credit-card"></i>{{ Pay }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="alert {{ Booking_Alert_Class }}" role="alert" id="booking_message" style="margin: 20px;">{{ Booking_Alert_Message|safe }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- photos modal -->
+    <div class="modal fade" id="modal_photos" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width: 1000px !important;display: table;">
+            <div class="modal-content modal_photos_content">
+                <div style="position: absolute;z-index: 10;position: absolute;right: 50px;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px;">
+                        <i class="fas fa-times" style="color: white;"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal_photos_div" style="padding: 0 !important;">
+                    <div class="left-arrow disabled" onclick="BoatImageNextOrPrev('prev', this)" pag-id="1"><i class="fas fa-chevron-circle-left"></i></div>
+                    {% for image in Boats_Query.images.all %}
+                        <div class="boat_img_div hideOnly" id="boat_img_{{ forloop.counter }}">
+                            <img class="boat_img img_{{ forloop.counter }}" src="{% static '' %}{{ image }}">
+                        </div>
+                    {% endfor %}
+                    <div class="right-arrow" onclick="BoatImageNextOrPrev('next', this)" pag-id="1"><i class="fas fa-chevron-circle-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- captain chat modal -->
+    <div class="modal fade" id="modal_captain_chat" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px;">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body" id="captain_chat">
+                    <p>{{ CaptainChat }}</p>
+                    <textarea class="clean_inp w-100 h-300" id="captain_chat_text"></textarea>
+                    <div class="w-100" style="overflow: hidden">
+                        <button class="modal_btn form_btns w-50" {{ Anonymous_User_Block_Message_Class }} id="send_btn" onclick="SendMessage()">{{ Send }}</button>
+                    </div>
+                    <div class="alert {{ Message_Alert_Class }}" role="alert" id="message_alert" style="margin: 20px;">{{ Message_Alert_Message|safe }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body-after-js %}
+
+    <script src="{% static 'js/js_bview.js' %}"></script>
+
+{% endblock %}

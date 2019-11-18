@@ -1,0 +1,458 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+{% load utils %}
+
+{% block head %}
+
+    <meta name="description" content="aluguel de barcos {{ city_only }}">
+    <meta name="keywords" content="aluguel de barco, aluguel de lancha, aluguel de barco em {{ city_only }}">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style type="text/css">
+        .page_design {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 1px solid dimgray;
+            box-shadow: 2px 2px 5px;
+            margin-bottom: 40px;
+        }
+        .full_page {
+            padding: 20px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block title %} aluguel de barcos {{ city_only }} {% endblock %}
+
+{% block body %}
+
+    <div class="full_page">
+
+        <!-- Clausula 1 -->
+        <div class="page_design">
+            <font face="Century Schoolbook, serif"><b>1. INTRODU&Ccedil;&Atilde;O</b></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Esta Pol&iacute;tica de
+            Privacidade descreve como s&atilde;o coletados, utilizados,
+            processados e divulgados as informa&ccedil;&otilde;es prestadas pelos
+            Usu&aacute;rios, em conjunto com seu acesso e uso do site </font><font face="Century Schoolbook, serif"><i>Bnboats</i></font><font face="Century Schoolbook, serif">
+            e dos Servi&ccedil;os de Pagamento. </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Pela natureza dos servi&ccedil;os
+            prestados a Bnboats recolhe e, em alguns casos, revela informa&ccedil;&otilde;es
+            sobre os Usu&aacute;rios e visitantes de seu site. </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Esta Pol&iacute;tica de
+            Privacidade descreve a informa&ccedil;&atilde;o que a Bnboats coleta
+            sobre seus Usu&aacute;rios e visitantes e as regras a serem adotadas,
+            a fim de garantir aos Usu&aacute;rios total transpar&ecirc;ncia no
+            tratamento das informa&ccedil;&otilde;es disponibilizadas.</font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Com esta Pol&iacute;tica, a
+            Bnboats quer demonstrar que a privacidade da informa&ccedil;&atilde;o
+            dos Usu&aacute;rios &eacute; muito importante e, por isso, toma
+            precau&ccedil;&otilde;es e cautelas para resguardar toda a
+            informa&ccedil;&atilde;o.</font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Por favor, leia a pol&iacute;tica
+            de privacidade antes de efetivar a contrata&ccedil;&atilde;o dos
+            servi&ccedil;os.</font></p>
+            <ol>
+                <ol>
+                    <li><p align="justify" style="margin-top: 0.19in; margin-bottom: 0.19in; line-height: 150%; background: #ffffff">
+                    <font face="Century Schoolbook, serif"><b>DEFINI&Ccedil;&Otilde;ES</b></font></p>
+                </ol>
+            </ol>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Caso voc&ecirc; veja um termo
+            n&atilde;o definido nesta Pol&iacute;tica de Privacidade, ele ter&aacute;
+            a mesma defini&ccedil;&atilde;o encontrada em nossos&nbsp;</font><a href="https://www.airbnb.com.br/terms"><font face="Century Schoolbook, serif"><u>Termos
+            e Condi&ccedil;&otilde;es de Servi&ccedil;o</u></font></a><font face="Century Schoolbook, serif">.</font></p>
+            <ol>
+                <ol start="2">
+                    <li><p align="justify" style="margin-top: 0.19in; margin-bottom: 0.19in; line-height: 150%; background: #ffffff">
+                    <font face="Century Schoolbook, serif"><b>CONTROLADOR DE DADOS</b></font></p>
+                </ol>
+            </ol>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Quando esta pol&iacute;tica
+            menciona &ldquo;Bnboats&rdquo;, ela se refere &agrave; empresa que &eacute;
+            respons&aacute;vel pelas informa&ccedil;&otilde;es prestadas pelos
+            usu&aacute;rios sob esta Pol&iacute;tica de Privacidade (o
+            &ldquo;</font><font face="Century Schoolbook, serif"><b>Controlador
+            de Dados</b></font><font face="Century Schoolbook, serif">&rdquo;),
+            com abrang&ecirc;ncia apenas em territ&oacute;rio nacional.</font></p>
+            <p align="justify" style="margin-left: 0.79in; text-indent: -0.49in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>1.3	APLICABILIDADE AOS
+            PAGAMENTOS</b></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Esta Pol&iacute;tica de
+            privacidade tamb&eacute;m se aplica aos Servi&ccedil;os de Pagamento
+            fornecidos ao Usu&aacute;rio em parceria com a </font><font face="Century Schoolbook, serif"><i>Pagcerto</i></font><font face="Century Schoolbook, serif">
+            conforme os&nbsp;</font><a href="https://www.airbnb.com.br/terms/payments_terms"><font face="Century Schoolbook, serif"><u>Termos
+            de Pagamentos de Servi&ccedil;o</u></font></a><font face="Century Schoolbook, serif">s&nbsp;(&ldquo;</font><font face="Century Schoolbook, serif"><b>Termos
+            de Pagamento</b></font><font face="Century Schoolbook, serif">&rdquo;).
+            </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Ao usar os Servi&ccedil;os de
+            Pagamento, o Usu&aacute;rio tamb&eacute;m fornecer&aacute;
+            informa&ccedil;&otilde;es, incluindo informa&ccedil;&otilde;es
+            pessoais, que ser&atilde;o os Controladores de Dados (o &quot;</font><font face="Century Schoolbook, serif"><b>Controlador
+            de Dados de Pagamento</b></font><font face="Century Schoolbook, serif">&quot;)
+            de suas informa&ccedil;&otilde;es relativas aos Servi&ccedil;os de
+            Pagamento.</font></p>
+        </div>
+        <!-- Clausulas 2 -->
+        <div class="page_design">
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff"><a name="sec2"></a>
+            <font face="Century Schoolbook, serif"><b>2. INFORMA&Ccedil;&Otilde;ES
+            COLETADAS</b></font></p>
+            <p align="justify" style="text-indent: 0.49in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>2.1 Informa&ccedil;&otilde;es
+            fornecidas pelo usu&aacute;rio.</b></font></p>
+            <p align="justify" style="margin-left: 0.49in; text-indent: 0.49in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">2.1.1&nbsp;</font><font face="Century Schoolbook, serif"><u>Informa&ccedil;&otilde;es
+            necess&aacute;rias para o uso do site.</u></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">A Bnboats solicita e coleta as
+            informa&ccedil;&otilde;es pessoais sobre o Usu&aacute;rio quando usa
+            o site pela primeira vez. Essas informa&ccedil;&otilde;es s&atilde;o
+            necess&aacute;rias para a execu&ccedil;&atilde;o do contrato e para
+            permitir o cumprimento das obriga&ccedil;&otilde;es legais. </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">A coleta de informa&ccedil;&otilde;es,
+            ainda, visa ajudar o </font><font face="Century Schoolbook, serif"><u>Usu&aacute;rio
+            Locat&aacute;rio</u></font><font face="Century Schoolbook, serif"> e
+            o </font><font face="Century Schoolbook, serif"><u>Usu&aacute;rio
+            Locador</u></font><font face="Century Schoolbook, serif"> a entrarem
+            em contato direto entre si quando efetivada a loca&ccedil;&atilde;o;
+            bem como em outros casos, envolvendo eventuais ocorr&ecirc;ncias com
+            a loca&ccedil;&atilde;o, em que o contato entre Usu&aacute;rios seja
+            necess&aacute;rio para melhor solu&ccedil;&atilde;o de pend&ecirc;ncias
+            e/ou para prestar informa&ccedil;&otilde;es e esclarecimentos. </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>Informa&ccedil;&otilde;es
+            de Conta.</b></font><font face="Century Schoolbook, serif">&nbsp;Quando
+            o Usu&aacute;rio se cadastra em uma conta Bnboats, a primeira
+            provid&ecirc;ncia para desfrutar dos servi&ccedil;os do site &eacute;
+            registrar-se e informar seus dados pessoais (&quot;DADOS PESSOAIS&quot;)
+            completos e exatos.</font> <font face="Century Schoolbook, serif">Poder&atilde;o
+            ser solicitados, recebidos e armazenados os seguintes dados: nome de
+            utilizador para operar no site, informa&ccedil;&atilde;o de contato
+            (n&uacute;mero de telefone celular e e-mail). </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">A Bnboats poder&aacute;
+            confirmar os dados pessoais informados e est&aacute; desde j&aacute;
+            autorizado a consultar entidades p&uacute;blicas, companhias
+            especializadas ou bancos de dados. A informa&ccedil;&atilde;o que o
+            site obtiver ser&aacute; tratada de forma confidencial. </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>Informa&ccedil;&otilde;es
+            do Perfil e An&uacute;ncio.</b></font><font face="Century Schoolbook, serif">&nbsp;Para
+            utilizar certos recursos do site (como alugar um barco ou criar um
+            An&uacute;ncio), poder&aacute; ser requisitado do Usu&aacute;rio o
+            fornecimento de informa&ccedil;&otilde;es adicionais, que podem
+            incluir endere&ccedil;o, n&uacute;mero de telefone e foto do perfil e
+            do barco.</font></p>
+            <ul>
+                <li><p align="justify" style="margin-top: 0.19in; margin-bottom: 0in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif"><b>Informa&ccedil;&otilde;es
+                para Verifica&ccedil;&atilde;o de Identidade.</b></font><font face="Century Schoolbook, serif">&nbsp;Para
+                ajudar a criar e manter um ambiente confi&aacute;vel, poder&aacute;
+                ser coletada informa&ccedil;&otilde;es para verifica&ccedil;&atilde;o
+                de identidade (como passaporte, RG ou CNH) ou outras informa&ccedil;&otilde;es
+                de autentica&ccedil;&atilde;o. </font>
+                </p>
+                <li><p align="justify" style="margin-bottom: 0in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif"><b>Informa&ccedil;&otilde;es
+                de Pagamento.</b></font><font face="Century Schoolbook, serif">&nbsp;Para
+                usar determinados recursos do site Bnboats (como alugar ou criar um
+                An&uacute;ncio), ser&aacute; exigido do Usu&aacute;rio o
+                fornecimento de determinadas informa&ccedil;&otilde;es financeiras
+                (como conta banc&aacute;ria ou informa&ccedil;&otilde;es do cr&eacute;dito
+                para facilitar o processamento dos pagamentos (atrav&eacute;s do
+                Paggcerto).</font></p>
+                <li><p align="justify" style="margin-bottom: 0.19in; line-height: 150%; orphans: 0; widows: 0; background: #ffffff">
+                <font face="Century Schoolbook, serif"><b>Comunica&ccedil;&otilde;es
+                com a Bnboats e com outros Membros.</b></font><font face="Century Schoolbook, serif">&nbsp;Quando
+                o Usu&aacute;rio se comunica com a Bnboats ou utilizar o site para
+                se comunicar com outros membros, s&atilde;o coletadas informa&ccedil;&otilde;es
+                sobre essa comunica&ccedil;&atilde;o e qualquer informa&ccedil;&atilde;o
+                que o Usu&aacute;rio escolha fornecer.</font></p>
+            </ul>
+            <p align="justify" style="margin-left: 0.49in; text-indent: 0.49in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">2.1.2&nbsp;</font><font face="Century Schoolbook, serif"><u>Informa&ccedil;&otilde;es
+            opcionais.</u></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">O Usu&aacute;rio poder&aacute;
+            optar por fornecer informa&ccedil;&otilde;es pessoais adicionais para
+            obter uma melhor experi&ecirc;ncia de uso do site. </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>Informa&ccedil;&otilde;es
+            Adicionais do Perfil.&nbsp;</b></font><font face="Century Schoolbook, serif">O
+            Usu&aacute;rio poder&aacute; optar por fornecer informa&ccedil;&otilde;es
+            adicionais como parte do seu perfil Bnboats (como g&ecirc;nero,
+            idioma(s) que fala e experi&ecirc;ncia). Algumas dessas informa&ccedil;&otilde;es,
+            conforme indicado nas configura&ccedil;&otilde;es de conta, fazem
+            parte da p&aacute;gina e do perfil p&uacute;blico e ser&atilde;o
+            publicamente vis&iacute;veis pelas pessoas.</font></p>
+            <p align="justify" style="margin-left: 0.49in; text-indent: 0.49in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">2.1.3&nbsp;</font><font face="Century Schoolbook, serif"><u>Informa&ccedil;&otilde;es
+            necess&aacute;rias para o uso dos Servi&ccedil;os de Pagamento</u></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">O Controlador de Dados de
+            Pagamento precisa coletar as informa&ccedil;&otilde;es a seguir, por
+            serem necess&aacute;rias para a execu&ccedil;&atilde;o adequada do
+            seu contrato e para cumprir com a legisla&ccedil;&atilde;o aplic&aacute;vel
+            (como regulamenta&ccedil;&otilde;es contra lavagem de dinheiro). Sem
+            essas informa&ccedil;&otilde;es, o Usu&aacute;rio n&atilde;o
+            conseguir&aacute; usar os Servi&ccedil;os de Pagamento:</font></p>
+            <ul>
+                <li><p align="justify" style="margin-top: 0.19in; margin-bottom: 0in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif"><b>Informa&ccedil;&otilde;es
+                de Pagamento.&nbsp;</b></font><font face="Century Schoolbook, serif">Ao
+                usar os Servi&ccedil;os de Pagamento, o Controlador de Dados de
+                Pagamento exige determinadas informa&ccedil;&otilde;es financeiras
+                (como conta banc&aacute;ria ou informa&ccedil;&otilde;es do cart&atilde;o
+                de cr&eacute;dito, bem como documentos pessoais) para poder
+                processar pagamentos e cumprir com a legisla&ccedil;&atilde;o
+                aplic&aacute;vel.</font></p>
+                <li><p align="justify" style="margin-bottom: 0.19in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif"><b>Informa&ccedil;&otilde;es
+                para Verifica&ccedil;&atilde;o de Identidade e Outras
+                Informa&ccedil;&otilde;es.</b></font><font face="Century Schoolbook, serif">&nbsp;Se
+                for um Locador, o Controlador de Dados de Pagamento pode exigir
+                informa&ccedil;&otilde;es para a verifica&ccedil;&atilde;o de
+                identidade (como imagens do documento de identifica&ccedil;&atilde;o
+                oficial, passaporte, RG ou CNH) ou outras informa&ccedil;&otilde;es
+                de autentica&ccedil;&atilde;o, como data de nascimento, endere&ccedil;o,
+                endere&ccedil;o de e-mail, n&uacute;mero de telefone e outras
+                informa&ccedil;&otilde;es para verificar a identidade, fornecer-lhe
+                os Servi&ccedil;os de Pagamento e cumprir com a legisla&ccedil;&atilde;o
+                aplic&aacute;vel.</font></p>
+            </ul>
+            <p align="justify" style="text-indent: 0.49in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>2.2 Dados das Crian&ccedil;as.</b></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">O site da Bnboats n&atilde;o &eacute;
+            direcionado para pessoas menores de 18 anos e n&atilde;o s&atilde;o
+            coletadas, intencionalmente, informa&ccedil;&otilde;es pessoais
+            diretamente de crian&ccedil;as menores de 18 anos. </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Se houver suspeita que est&aacute;
+            sendo processado informa&ccedil;&otilde;es pessoais de uma crian&ccedil;a
+            inapropriadamente, ser&aacute; levado ao conhecimento da autoridade
+            policial ou judici&aacute;ria competente.</font></p>
+        </div>
+        <!-- Clausulas 3 e 4 -->
+        <div class="page_design">
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff"><a name="sec3"></a>
+            <font face="Century Schoolbook, serif"><b>3. COMO &Eacute; UTILIZADA
+            AS INFORMA&Ccedil;&Otilde;ES COLETADAS</b></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Poder&aacute; se usada,
+            armazenada e processada informa&ccedil;&otilde;es pessoais para (1)
+            fornecer, entender, melhorar e desenvolver o Site da Bnboats, (2)
+            criar e manter um ambiente confi&aacute;vel e seguro (como cumprir
+            obriga&ccedil;&otilde;es legais e garantir a conformidade com as
+            Pol&iacute;ticas do Site) e (3) fornecer, personalizar, avaliar e
+            melhorar a publicidade e marketing.</font></p>
+            <p align="justify" style="text-indent: 0.49in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>3.1 Como o Controlador de
+            Dados de Pagamentos usa as Informa&ccedil;&otilde;es Pessoais
+            Coletadas.</b></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Poder&aacute; ser usada as
+            informa&ccedil;&otilde;es pessoais como parte dos servi&ccedil;os de
+            pagamento, tais como:</font></p>
+            <ul>
+                <li><p align="justify" style="margin-top: 0.19in; margin-bottom: 0in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif">Permitir que o acesso e uso
+                dos servi&ccedil;os de pagamento;</font></p>
+                <li><p align="justify" style="margin-bottom: 0in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif">Detectar e evitar fraudes,
+                abuso, incidentes de seguran&ccedil;a e outras atividades
+                prejudiciais;</font></p>
+                <li><p align="justify" style="margin-bottom: 0in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif">Realizar investiga&ccedil;&otilde;es
+                de seguran&ccedil;a e avalia&ccedil;&otilde;es de risco;</font></p>
+                <li><p align="justify" style="margin-bottom: 0in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif">Realizar verifica&ccedil;&otilde;es
+                em bancos de dados e outras fontes de informa&ccedil;&atilde;o;</font></p>
+                <li><p align="justify" style="margin-bottom: 0in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif">Cumprir as obriga&ccedil;&otilde;es
+                legais (como regulamenta&ccedil;&otilde;es contra lavagem de
+                dinheiro);</font></p>
+                <li><p align="justify" style="margin-bottom: 0.19in; line-height: 150%; background: #ffffff">
+                <font face="Century Schoolbook, serif">Aplicar as condi&ccedil;&otilde;es
+                de pagamento e outras pol&iacute;ticas de pagamento;</font></p>
+            </ul>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">O Controlador de Dados de
+            Pagamentos processa essas informa&ccedil;&otilde;es pessoais devido
+            ao seu interesse leg&iacute;timo em melhorar os Servi&ccedil;os de
+            pagamento e a experi&ecirc;ncia de seus usu&aacute;rios, e quando
+            necess&aacute;rio para o cumprimento adequado do contrato com o
+            Usu&aacute;rio e para cumprir as leis aplic&aacute;veis.</font></p>
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff"><a name="sec4"></a>
+            <font face="Century Schoolbook, serif"><b>4. COMPARTILHAMENTO E
+            DIVULGA&Ccedil;&Atilde;O</b></font></p>
+            <p align="justify" style="text-indent: 0.49in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>4.1 Publicidade e M&iacute;dias
+            Sociais. Compartilhamento com o Consentimento do Usu&aacute;rio.</b></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Ao assinar o termo de servi&ccedil;os
+            e tomar ci&ecirc;ncia desta pol&iacute;tica de privacidade, o Usu&aacute;rio
+            outorga seu consentimento para que haja compartilhamento de certas
+            informa&ccedil;&otilde;es, incluindo informa&ccedil;&otilde;es
+            pessoais gen&eacute;ricas como tipo de habilita&ccedil;&atilde;o
+            n&aacute;utica, bem como informa&ccedil;&otilde;es sobre a
+            embarca&ccedil;&atilde;o, tais como tamanho, pot&ecirc;ncia e
+            capacidade de pessoas.</font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">O Usu&aacute;rio ainda outorga
+            o consentimento para utiliza&ccedil;&atilde;o das fotografias
+            anexadas aos an&uacute;ncios do Site nas redes sociais da Bnboats, de
+            maneira livre e n&atilde;o onerosa, com a finalidade de promover
+            melhor publicidade ao an&uacute;ncio.</font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">As plataformas de m&iacute;dia
+            social com as quais poder&aacute; ser compartilhada as informa&ccedil;&otilde;es
+            pessoais n&atilde;o s&atilde;o controladas ou supervisionadas pela
+            Bnboats. Portanto, qualquer d&uacute;vida sobre como seu provedor de
+            servi&ccedil;os de plataforma de m&iacute;dia social processa suas
+            informa&ccedil;&otilde;es pessoais deve ser direcionada para esse
+            provedor.</font></p>
+            <p align="justify" style="text-indent: 0.49in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>4.2 Conformidade com a Lei,
+            Respondendo a Requisitos Legais, Prevenindo Danos e Prote&ccedil;&atilde;o
+            aos Direitos.</b></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">A Bnboats e os Servi&ccedil;os
+            de Pagamento podem divulgar suas informa&ccedil;&otilde;es, incluindo
+            informa&ccedil;&otilde;es pessoais, ao judici&aacute;rio ou
+            autoridades policiais ou governamentais, ou terceiros autorizados, se
+            e na medida necess&aacute;ria ou permitida para atender a lei ou caso
+            essa divulga&ccedil;&atilde;o seja razoavelmente necess&aacute;ria:
+            (i) para cumprir com suas obriga&ccedil;&otilde;es legais, (ii) para
+            cumprir com o processo legal e responder a alega&ccedil;&otilde;es
+            feitas contra a Bnboats, (iii) para responder a solicita&ccedil;&otilde;es
+            validadas relacionadas &agrave; investiga&ccedil;&otilde;es criminais
+            ou alega&ccedil;&otilde;es ou suspeitas de atividade ilegal ou
+            qualquer outra atividade que possa expor a Bnboats ou qualquer outro
+            Usu&aacute;rio &agrave; responsabilidade legal, (iv) para aplicar e
+            administrar os Termos de Servi&ccedil;o, os Servi&ccedil;os de
+            Pagamento ou outros contratos com os Membros ou (v) para proteger os
+            direitos, a propriedade ou a seguran&ccedil;a pessoal da Bnboats, de
+            seus funcion&aacute;rios, membros ou membros do p&uacute;blico. Por
+            exemplo, as informa&ccedil;&otilde;es fiscais do locador podem ser
+            compartilhadas com as autoridades fiscais ou outras ag&ecirc;ncias
+            governamentais.</font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Onde for apropriado, poder&aacute;
+            ser tentado a notifica&ccedil;&atilde;o dos Membros sobre essas
+            solicita&ccedil;&otilde;es legais, a menos que: (i) seja proibido
+            fornecer aviso por conta do pr&oacute;prio processo legal, por ordem
+            judicial, ou pela lei aplic&aacute;vel, ou (ii) seja considerado que
+            dar tal notifica&ccedil;&atilde;o seria f&uacute;til, ineficiente,
+            poderia criar um risco de les&atilde;o ou dano f&iacute;sico a uma
+            pessoa ou a um grupo, ou criaria ou aumentaria o risco de fraude
+            sobre a propriedade da Bnboats, seus Membros e o site. </font>
+            </p>
+        </div>
+        <!-- Clausulas 5, 6 e 7 -->
+        <div class="page_design">
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff"><a name="sec8"></a><a name="sec5"></a>
+            <font face="Century Schoolbook, serif"><b>5. SEGURAN&Ccedil;A</b></font></p>
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">A  Bnboats &eacute; obrigada a
+            observar todas as normas aplic&aacute;veis em mat&eacute;ria de
+            medidas de seguran&ccedil;a dos DADOS PESSOAIS e para tanto emprega
+            os padr&otilde;es da ind&uacute;stria em mat&eacute;ria de prote&ccedil;&atilde;o
+            da confidencialidade das informa&ccedil;&otilde;es pessoais, a
+            incluir, entre outras medidas, firewalls e Secure Socket Layers
+            (&quot;SSL&quot;). </font>
+            </p>
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">A Bnboats considera os DADOS
+            PESSOAIS de seus Usu&aacute;rios como um bem jur&iacute;dico a ser
+            preservado, devendo ser protegido da perda, acesso ou divulga&ccedil;&atilde;o
+            n&atilde;o autorizada.</font></p>
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">A Bnboats emprega t&eacute;cnicas
+            de seguran&ccedil;a para proteger tais DADOS PESSOAIS, n&atilde;o
+            autorizando sua utiliza&ccedil;&atilde;o por Usu&aacute;rios dentro
+            ou fora da empresa.</font></p>
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Ainda assim, &eacute;
+            necess&aacute;rio considerar que a seguran&ccedil;a perfeita n&atilde;o
+            existe na internet. Portanto, A Bnboats n&atilde;o ser&aacute;
+            respons&aacute;vel por intercepta&ccedil;&otilde;es ilegais ou
+            viola&ccedil;&atilde;o de seus sistemas ou bases de dados por parte
+            de pessoas n&atilde;o autorizadas, tampouco se responsabilizar&aacute;
+            pela indevida utiliza&ccedil;&atilde;o da informa&ccedil;&atilde;o
+            obtida por esses meios.</font></p>
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif"><b>6. ALTERA&Ccedil;&Otilde;ES
+            A ESTA POL&Iacute;TICA DE PRIVACIDADE</b></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">A Bnboats se reserva ao
+            direito de modificar esta Pol&iacute;tica de Privacidade a qualquer
+            momento de acordo com esta provis&atilde;o. Caso ocorra altera&ccedil;&otilde;es
+            nesta Pol&iacute;tica de Privacidade, ser&aacute; publicada a
+            Pol&iacute;tica de Privacidade revisada no site da Bnboats e
+            atualizada a data da &ldquo;&Uacute;ltima Atualiza&ccedil;&atilde;o&rdquo;
+            no in&iacute;cio desta Pol&iacute;tica de Privacidade. </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Tamb&eacute;m ser&aacute;
+            enviada ao Usu&aacute;rio, por e-mail, uma notifica&ccedil;&atilde;o
+            da altera&ccedil;&atilde;o pelo menos 30 (trinta) dias antes da data
+            de vig&ecirc;ncia da altera&ccedil;&atilde;o. </font>
+            </p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Caso o Usu&aacute;rio n&atilde;o
+            concorde com a Pol&iacute;tica de Privacidade revisada, poder&aacute;
+            cancelar a Conta.</font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Caso o Usu&aacute;rio n&atilde;o
+            cancele a Conta antes da data de vig&ecirc;ncia da Pol&iacute;tica de
+            Privacidade revisada, seu acesso continuado ou uso do site Bnboats
+            constituir&aacute; aceita&ccedil;&atilde;o da Pol&iacute;tica de
+            Privacidade revisada.</font></p>
+            <p align="justify" style="margin-top: 0.26in; margin-bottom: 0.16in; line-height: 150%; background: #ffffff"><a name="sec10"></a>
+            <font face="Century Schoolbook, serif"><b>7. FALE CONOSCO</b></font></p>
+            <p align="justify" style="margin-bottom: 0.16in; line-height: 150%; background: #ffffff">
+            <font face="Century Schoolbook, serif">Se voc&ecirc; tiver d&uacute;vidas
+            ou reclama&ccedil;&otilde;es sobre esta Pol&iacute;tica de
+            Privacidade ou sobre as pr&aacute;ticas de manipula&ccedil;&atilde;o
+            de informa&ccedil;&otilde;es do Bnboats, envie-nos um e-mail para
+contato@bnboats.com.</font></p>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block body-after-js %}
+
+    <script type="application/javascript">
+        if ($(document).width() >= 1000) {
+            $('#top_bar_search').removeClass('hideOnly');
+        }
+    </script>
+
+{% endblock %}

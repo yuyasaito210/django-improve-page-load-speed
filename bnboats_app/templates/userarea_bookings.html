@@ -1,0 +1,187 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'css/css_userarea.css' %}">
+
+{% endblock %}
+
+{% block title %} {{ Title }} {% endblock %}
+
+{% block body %}
+
+    <div class="row w-100" style="margin:0;">
+
+        <div class="col-md-3" id="ua_leftmenu" style="float:left;">
+            {% include 'userarea_leftmenu.html' %}
+        </div>
+
+        <div class="col-md ua_div container" id="ua_bookings" style="float:left;">
+
+
+            {% if page == "bookings" %}
+                <div class="fontSizeTwoFive w-100 ua_favorites_title row" style="text-align: center;">
+                    <h1 class="fontSizeThree ua_profile_title">{{ MyBookings }}</h1>
+                </div>
+            {% else %}
+                <div class="fontSizeTwoFive w-100 ua_favorites_title row" style="text-align: center;">
+                    <h1 class="fontSizeThree ua_profile_title">{{ MyBookingRequests }}</h1>
+                </div>
+            {% endif %}
+
+            <div class="alert {{ msg_class }}" role="alert" id="message_alert" style="margin: 20px;">{{ message }}</div>
+            {% for booking in bookings %}
+                <div class="row" style="margin-bottom: 50px;">
+                    <div class="div_status col-md-12"><div class="div_status_desc">{{ booking.status }}</div><div class="div_status_color status_id_{{ booking.status_id }}"></div></div>
+
+                    <div class="col-xl-9 float-left ua_bookings_single_div row">
+                        <div class="col-lg-3 booking_div_item" style="padding: 10px !important;">
+                            <img class="boat_favorities_img img-fluid" src="{% static '' %}{{ booking.boat.images.all.0 }}" alt="boat"
+                                 onclick="location.href ='/barco/{{ booking.boat.pk }}'">
+                        </div>
+                        <div class="col-lg-5" style="padding: 10px 0 0 20px;">
+                            <p class="fontSizeOneive" style="margin-bottom: 5px;">{{ booking.boat.title }}</p>
+                            <p style="font-size: 0.9rem !important;">{{ Boarding_Place }}: {{ booking.boat.address }}, {{ booking.boat.additional }}, {{ booking.boat.postcode }}, {{ booking.boat.city }}</p>
+                            <div class="w-100" style="font-size: 0.9rem !important;">
+                                <div class="w-50 float-left">{{ Boarding_Date }}: {{ booking.date_from|date:"d/m/Y" }}</div>
+                                <div class="w-50 float-left">{{ Boarding_Period }}: {{ booking.booking_period }}</div>
+                                <div class="w-50 float-left">{{ Boarding_PeopleQry }}: {{ booking.no_passengers }}</div>
+                                <div class="w-50 float-left">{{ Boarding_Total }}: R$ {{ booking.total_cost }}</div>
+                            </div>
+                        </div>
+
+                        <!-- CONFIRMED -->
+                        {% if booking.status_id == "Confirmed" %}
+                            <div class="col-lg-4">
+                                <div class="skipper_div">
+                                    <p class="fontSizeOneive" style="margin:10px auto;">Reserva {{ booking.pk }}</p>
+                                    {% if page == "bookings" %}
+                                        <p class="fontSizeOneTwo" style="margin:5px auto;">Fale com o capitão!</p>
+                                    {% else %}
+                                        <p class="fontSizeOneTwo" style="margin:5px auto;">Fale com o passageiro!</p>
+                                    {% endif %}
+                                    <p class="fontSizeOneTwo">
+                                        <i class="fab fa-whatsapp-square fontSizeOneive" style="color: #53CD5E;"></i>
+                                    {% if page == "bookings" %}
+                                        ({{ booking.boat.user.userprofile.mobile_area }}) {{ booking.boat.user.userprofile.mobile_number }}
+                                    {% else %}
+                                        ({{ booking.customer.userprofile.mobile_area }}) {{ booking.customer.userprofile.mobile_number }}
+                                    {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-xl-3 float-left" style="padding-left: 40px;">
+
+                        <!-- NEW OR WATING FOR PAYMENT -->
+                        {% if booking.status_id == "New" or booking.status_id == "PaymentPending" %}
+                            {% if page == "bookings" %}
+                            <!-- button to pay with card -->
+                            <!-- button to pay with boleto -->
+                            {% endif %}
+                        {% endif %}
+
+                        <!-- CANCEL -->
+                        {% if booking.status_id != "Cancelled" %}
+                            <form method="post" class="{{ booking.hideAfterBookingDay }}" id="booking_request_form">
+                                {% csrf_token %}
+                                <input type="hidden" name="cancel_booking_id" value="{{ booking.pk }}">
+                                <button type="submit" class="float-left modal_btn form_btns booking_btn cancel_status_{{ booking.status_id }}"
+                                        id="ua_booking_cancel_{{ booking.pk }}" onclick="BookingCancelRequest('booking_request_form',{{ booking.status_id }})">Cancelar</button>
+                            </form>
+                            {% if booking.status_id != "Paid" and page == "booking_requests" or booking.status_id == "Paid" and page == "bookings" %}
+                            {% endif %}
+                        {% endif %}
+
+                        <!-- PAID -->
+                        {% if booking.status_id == "Paid" %}
+                            {% if page == "booking_requests" %}
+                                <form method="post" id="approve_booking_form">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="approve_booking_id" value="{{ booking.pk }}">
+                                    <input type="hidden" name="approve_booking_action" id="approve_booking_action" value="">
+                                    <button type="submit" class="float-left modal_btn form_btns booking_btn booking_status_{{ booking.status_id }}"
+                                    style="background-color: limegreen !important;" id="ua_booking_approve_{{ booking.pk }}" onclick="ApproveBooking('true')">Aprovar</button>
+                                    <button type="submit" class="float-left modal_btn form_btns booking_btn red
+                                    booking_status_{{ booking.status_id }}" id="ua_booking_reject_{{ booking.pk }}" onclick="ApproveBooking('false')">Rejeitar</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+
+                        <!-- CONFIRMED -->
+                        {% if booking.status_id == "Confirmed" %}
+                            <!--form method="POST" id="approve_booking_form">
+                                {% csrf_token %}
+                                <input type="hidden" name="approve_booking_id" value="{{ booking.pk }}">
+                                <input type="hidden" name="approve_booking_action" id="approve_booking_action" value="">
+                                <button type="submit" class="float-left modal_btn form_btns booking_btn red
+                                booking_status_{{ booking.status_id }}" id="ua_booking_reject_{{ booking.pk }}" onclick="ApproveBooking('false')">Cancelar</button>
+                            </form-->
+                            <button type="submit" class="float-left modal_btn form_btns booking_btn
+                            review_status_{{ booking.status_id }} gold-color {{ booking.hideBeforeBookingDay }}"
+                                    id="ua_booking_review_{{ booking.pk }}"  data-toggle="modal"
+                                    data-target="#modal_booking_review" onclick="UpdateBookingId('{{ booking.pk }}', '{{ booking.customer }}','{{ page }}')">Avaliar</button>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <form method="post" style="display: none" id="ua_favorites_form">
+        {% csrf_token %}
+        <input type="hidden" id="ua_fav_to_remove" name="ua_fav_to_remove">
+    </form>
+
+    <!-- review modal -->
+    <div class="modal fade" id="modal_booking_review" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px;">
+                    <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                    </button>
+                </div>
+                <div class="modal-body" id="booking_review">
+                    <form method="post" id="ua_review_form">
+                        {% csrf_token %}
+                        <p style="font-family: Folks-Bold" class="fontSizeTwo">{{ Booking_Review }}</p>
+                        <p class="mb_zero fontSizeOneTwo">{{ Booking_Grade }}</p>
+                        <div id="review_score_div" style="margin-bottom: 20px;overflow: hidden;">
+                            <i class="far fa-star" score="1" score-desc="{{ Booking_Grade_1 }}"></i>
+                            <i class="far fa-star" score="2" score-desc="{{ Booking_Grade_2 }}"></i>
+                            <i class="far fa-star" score="3" score-desc="{{ Booking_Grade_3 }}"></i>
+                            <i class="far fa-star" score="4" score-desc="{{ Booking_Grade_4 }}"></i>
+                            <i class="far fa-star" score="5" score-desc="{{ Booking_Grade_5 }}"></i>
+                            <div id="score_description"></div>
+                            <input type="hidden" id="review_score" name="review_score">
+                        </div>
+                        <p class="mb_zero fontSizeOneTwo">{{ Booking_Comments }}</p>
+                        <textarea class="clean_inp w-100 h-400" name="booking_review_text" id="booking_review_text"></textarea>
+                        {% if page == booking_requests %}
+                            <input type="hidden" name="passenger_review_id" id="passenger_review_id" value="">
+                        {% endif %}
+                        {% if page == bookings %}
+                            <input type="hidden" name="booking_review_id" id="booking_review_id" value="">
+                        {% endif %}
+                        <div class="w-100" style="overflow: hidden">
+                            <button class="modal_btn w-50" style="float: right" id="send_btn">{{ Send }}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block body-after-js %}
+    <script src="{% static 'js/js_userarea.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'css/css_home.css' %}">
+
+{% endblock %}
+
+{% block title %} {{ Title }} {% endblock %}
+
+{% block body %}
+
+    <!-- #####   Image top and search field   ##### -->
+    <div class="" style="position: relative;margin-top: 50px;">
+
+        <div id="welcome_div">
+            <h1 class="welcome_first">{{ Header_Welcome }}</h1>
+            <h1 class="welcome_second">{{ Header_SecondPhrase }}</h1>
+        </div>
+
+        <div id="welcome_search_div">
+            <form method="post">
+                {% csrf_token %}
+                <div class="" style="position: relative;height: 50px;">
+                    <i class='fas fa-map-marker-alt city_search_icon'></i>
+                    <input type="text" class="form-control autocomplete home_filter_city" id="home_filter_city"
+                           name="home_filter_city" value="" placeholder="{{ Search_Placeholder }}" onchange="UpdateSearchField(this.id)"
+                            autocomplete="off">
+                    <input type="submit" class="home_filter_submit" name="home_filter_submit" id="home_filter_submit"
+                           value="" onclick="ValidateCity(this.id)">
+                    <input type="hidden" class="search_city_name" name="search_city_name" id="home_search_city_name" value="">
+                </div>
+            </form>
+        </div>
+
+        <div class="home_back_img" id="home_back_img"></div>
+    </div>
+
+    <!-- #####   CITIES WE ARE LOCATED   ##### -->
+    <div style="" class="row border_bottom_divisions home_divisions" id="div_allCities">
+
+        <div class="row" style="">
+            <div class="col-sm-12">
+                <p class="home_div_titles"><strong>{{ Home_cities }}</strong></p>
+            </div>
+        </div>
+
+        <div class="row" style="margin: 0 auto;" id="allCities_block">
+
+            <div class="col-md city_img_div">
+                <img src="{% static 'media/admin/paraty.jpg' %}" class="city_img_home img-fluid" onclick="location.href ='procurar/Paraty'">
+            </div>
+
+            <div class="col-md city_img_div">
+                <img src="{% static 'media/admin/angra.jpg' %}" class="city_img_home img-fluid" onclick="location.href ='procurar/Angra%20dos%20Reis'">
+            </div>
+
+            <div class="col-md city_img_div">
+                <img src="{% static 'media/admin/ilhabela.jpg' %}" class="city_img_home img-fluid" onclick="location.href ='procurar/Ilhabela'">
+            </div>
+
+            <div class="col-md city_img_div">
+                <img src="{% static 'media/admin/guaruja.jpg' %}" class="city_img_home img-fluid" onclick="location.href ='procurar/Guarujá'">
+            </div>
+
+            <div class="col-md city_img_div">
+                <img src="{% static 'media/admin/floripa.jpg' %}" class="city_img_home img-fluid" onclick="location.href ='procurar/Florianópolis'">
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- #####   BOATS WITH REVIEWS   #####
+    <div style="" class="row border_bottom_divisions home_divisions hideOnly" id="div_boats_view">
+        <div class="col-sm-12">
+            <p class="home_div_titles"><strong>{{ Reviews_Title }}</strong></p>
+        </div>
+       {% for boat in newBoats %}
+            <div class="col-lg-3 boats_view_bview" id="new_boats_{{ boat.pk }}" onclick="location.href ='/boat/{{ boat.pk }}'">
+                <img class="boats_view_img img-fluid" src="{% static '' %}{{ boat.images.all.0 }}" alt="boat">
+                <p class="fontSizeOneTwo boats_view_btitle">
+                    {{ boat.type.name }} {{ boats_view_btitle_partOne }} {{ boat.capacity }} {{ boats_view_btitle_partTwo }}
+                </p>
+                <p class="fontSizeOneTwo boats_view_bcity"><i class='fas fa-map-marker-alt fontSizeOne'></i>
+                    {{ boat.city.city }}, {{ boat.city.state.name }}
+                </p>
+                <p class="boats_view_bprice fontSizeOne">{{ CharterPrice }} {{ boat.price_pperson }},00 {{ People }}</p>
+                <div class="fontSizeOne boats_view_breview">
+                    <div id="boats_view_reviews_{{ boat.pk }}" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for review in boat.review_set.all %}
+                                <div class="carousel-item">
+                                    <p>{{ review.author }}, {{ review.author.address_city }} - {{ review.author.address_state }}</p>
+                                    <p>{{ review.review }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+       {%  endfor %}
+    </div>-->
+
+    <!-- list of cities to load in the search input -->
+    <input type="hidden" id="all_cities" value="{{ cityList }}">
+    <input type="hidden" id="signin" value="{{ signin }}">
+
+{% endblock %}
+
+{% block body-after-js %}
+    <script src="{% static 'js/js_home.js' %}"></script>
+    <script type="application/javascript">
+        if ($('#signin').val() === "True") {
+            modalSignIn();
+            $('#modal_login').modal("show");
+        }
+    </script>
+{% endblock %}

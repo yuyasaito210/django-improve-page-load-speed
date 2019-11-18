@@ -1,0 +1,351 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TZP45XF');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148361456-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-148361456-1');
+    </script> -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% block main-css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% endblock %}
+    <link rel="shortcut icon" href="{% static 'media/admin/favicon.png' %}" />
+
+    {% block head %}
+
+    {% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Facebook Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '591014721303563');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=591014721303563&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+
+</head>
+<body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TZP45XF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="" id="body_div">
+
+        {% include 'includes/top_bar.html' %}
+
+        <div id="right_user_menu_open" class="container standHover">
+
+            <a class="closebtn" onclick="closeNav()" style="cursor:pointer;"><i class="fas fa-times fontSizeOne"></i></a>
+
+            <div class="right_menu_item"><a href="{% url 'user_profile' %}">{{ Profile }}</a><i class="fa fa-user" style="float:right;"></i></div>
+            <div class="right_menu_item"><a href="{% url 'user_messages' %}">{{ Messages }}</a><i class="fa fa-inbox" style="float:right;"></i></div>
+
+            <div class="right_menu_item"><a href="{% url 'user_bookings' %}">{{ MyBookingsShort }}</a><i class="fa fa-ship" style="float:right;"></i></div>
+            <div class="right_menu_item"><a href="{% url 'user_favorites' %}">{{ Favorites }}</a><i class="fa fa-heart" style="float:right;"></i></div>
+
+            <div class="right_menu_item"><a href="{% url 'user_boats' 'add' %}">{{ RegisterBoat_LeftMenu }}</a><i class="fa fa-plus" style="float:right;"></i></div>
+            <div class="right_menu_item {{ hideToClients }}"><a href="{% url 'user_boats' %}">{{ MyBoatsShort }}</a><i class="fa fa-anchor" style="float:right;"></i></div>
+            <div class="right_menu_item {{ hideToClients }}"><a href="{% url 'user_book_requests' %}">{{ BookingRequestsShort }}</a><i class="fas fa-clipboard-check" style="float:right;"></i></div>
+
+            <div class="right_menu_item"><a href="{% url 'blog:posts' %}">BLOG</a><i class="fas fa-blog" style="float:right;"></i></div>
+            <div class="right_menu_item"><a href="{% url 'how_it_works' %}">{{ Help_LeftMenu }}</a><i class="far fa-question-circle" style="float:right;"></i></div>
+            <div class="right_menu_item"><a href="{% url 'logout' %}">{{ Exit }}</a><i class="fa fa-power-off" style="float:right;"></i></div>
+
+            <div class="col-md-12 redes-sociais-color">
+                <a href="https://www.instagram.com/bnboats/" class="ig rightm-rdsociais" target="_blank"></a>
+                <a href="https://www.youtube.com/channel/UCdGhGFVCJ8uOHNVCy93V86Q" class="yt rightm-rdsociais" target="_blank"></a>
+                <a href="https://www.facebook.com/bnboats/" class="fb rightm-rdsociais" target="_blank"></a>
+                <a href="mailto:contato@bnboats.com" class="ml rightm-rdsociais" target="_blank"></a>
+                <div class="right_menu_item fontSizeOne" style="text-align: center;margin-bottom: 5px;" id="lnk_email_addrs"><a href="mailto:contato@bnboats.com">CONTATO@BNBOATS.COM</a></div>
+                <div class="right_menu_item fontSizeOne" style="text-align: center;margin-top: 0;" id="lnk_whats_div"><a href="https://api.whatsapp.com/send?1=pt_BR&phone=5511930000135" target="_blank" class="rightm-rdsociais"><i class="fab fa-whatsapp" style=""></i><span id="lnk_whats_name">WHATSAPP</span></a></div>
+            </div>
+        </div>
+
+
+        <!-- captain signup modal -->
+        <div class="modal fade" id="modal_captain_signup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px;">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form method="POST" id="CapitainSignUpForm" onkeypress="return event.keyCode !== 13;">
+                            {% csrf_token %}
+
+                            <!-- PART 1 - Captain or Owner only / Skipper license type -->
+                            <div class="CapitainSignUpForm-div" id="modal_captain_signup_part1">
+                                <p class="paging">1/5</p>
+                                <div class="form-group">
+                                    <label for="id_is_captaion" class="col-form-label fontSizeOneive">{{ Captain_Q1 }}</label>
+                                    <div class="CapitainSignUpForm-ul">
+                                        {{ CaptainForm.is_captaion }}
+                                    </div>
+                                </div>
+                                <button type="button" class="modal_btn" onclick="CapitainSignUpForm_Next('1', '2')" style="width: 70%;margin: 20px auto 0;display: block;">{{ Next }}</button>
+                            </div>
+
+                            <!-- PART 2 - Captain or Owner only / Skipper license type -->
+                            <div class="CapitainSignUpForm-div hideOnly" id="modal_captain_signup_part2">
+
+                                <p class="paging">2/5</p>
+
+                                <div class="form-group">
+                                    <label for="id_license_type" class="col-form-label fontSizeOneive">{{ Captain_Q2 }}</label>
+                                    <div class="CapitainSignUpForm-ul">
+                                        {{ CaptainForm.license_type }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group hideOnly" id="professional_skipper">
+                                    <label for="id_license_type" class="col-form-label fontSizeOneive">{{ Captain_Q2b }}</label>
+                                    <div class="CapitainSignUpForm-ul">
+                                        {{ CaptainForm.lt_professional }}
+                                    </div>
+                                </div>
+
+                                <button type="button" class="modal_btn" onclick="CapitainSignUpForm_Next('2', '3')" style="width: 70%;margin: 20px auto 0;display: block;">{{ Next }}</button>
+
+                            </div>
+
+                            <!-- PART 3 - Skipper experience -->
+                            <div class="CapitainSignUpForm-div hideOnly" id="modal_captain_signup_part3">
+
+                                <p class="paging">3/5</p>
+
+                                <div class="form-group">
+                                    <label for="id_first_name" class="col-form-label fontSizeOneive">{{ Captain_Q3 }}</label>
+                                    <div class="CapitainSignUpForm-ul">
+                                        {{ CaptainForm.experience }}
+                                    </div>
+                                </div>
+
+                                <button type="button" class="modal_btn" onclick="CapitainSignUpForm_Next('3', '4')" style="width: 70%;margin: 20px auto 0;display: block;">{{ Next }}</button>
+
+                            </div>
+
+                            <!-- PART 4 - Extra activities -->
+                            <div class="CapitainSignUpForm-div hideOnly" id="modal_captain_signup_part4">
+
+                                <p class="paging">4/5</p>
+
+                                <div class="form-group">
+                                    <label for="id_first_name" class="col-form-label fontSizeOneive">{{ Captain_Q4 }}</label>
+                                    <div class="CapitainSignUpForm-ul">
+                                        {{ CaptainForm.extra_activities }}
+                                    </div>
+                                </div>
+
+                                <button type="button" class="modal_btn" onclick="CapitainSignUpForm_Next('4', '5')" style="width: 70%;margin: 20px auto 0;display: block;">{{ Next }}</button>
+
+                            </div>
+
+                            <!-- PART 5 - Languages skills -->
+                            <div class="CapitainSignUpForm-div hideOnly" id="modal_captain_signup_part5">
+
+                                <p class="paging">5/5</p>
+                                <div class="alert alert-primary hideOnly" role="alert" id="CaptainSetupMsg">{{ CaptainSetupMsg }}</div>
+                                <div class="form-group">
+                                    <label for="id_first_name" class="col-form-label fontSizeOneive">{{ Captain_Q5 }}</label>
+                                    <label for="id_first_name" class="col-form-label fontSizeOne">{{ Captain_Q5a }}</label>
+                                    <div class="CapitainSignUpForm-ul">
+                                        {{ CaptainForm.languages }}
+                                    </div>
+                                </div>
+
+                                <input type="submit" class="modal_btn inp_sub" id="captaionSubmit_btn" onclick="$(this).attr('disabled','disabled');create_extra_activity('CapitainSignUpForm');" style="width: 70%;margin: 20px auto 0;display: -webkit-box;" value="{{ MobileConfirm_Button }}">
+                                <button type="submit" class="hideOnly inp_sub"></button>
+
+                            </div>
+                        </form>
+
+                        <div id="modal_alert_cap" class="w-100 alert {{ LogonFormMsgClass }}" role="alert" style="float: left;"> {{ LogonFormMsg }} </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="is_owner" value="{{ IsOwner }}">
+        <input type="hidden" id="user_added" value="{{ user_created }}">
+
+        {% block body %}
+        {% endblock %}
+
+
+        <!-- logon modal -->
+        <div class="modal fade" id="modal_login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin: 20px;">
+                        <span aria-hidden="true"><i class="fas fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- SIGN IN MODAL -->
+                        <div class="{{ SignInFormVisibilityClass }}" id="modal_login_content">
+                            <form method="post" id="SignInForm">
+                                {% csrf_token %}
+                                {{ SignInForm }}
+                                <input type="hidden" name="add_boat" id="add_boat_signin" value="{{ add_boat }}">
+                                <div class="w-100" style="position: relative;margin-top: 20px;">
+                                    <input class="modal_btn" type="submit" id="login_btn" value="{{ Login_Btn }}" style="margin-top: 0;"
+                                           onclick="$(this).attr('disabled','disabled').css('opacity','0.6');$('#loading_icon_signin').removeClass('hideOnly');$('#SignInForm').submit();">
+                                    <div class="w-100 hideOnly" style="position: absolute;top: 4px;" id="loading_icon_signin">
+                                        <div class="loader" id="loaderIconSignIn" ></div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="w-100" style="float:left;margin-top: 5px;">
+                                <a href="#" class="fontSizeZeroEight" style="float:right;" onclick="ForgotPassword()">{{ Login_ForgotPass }}</a>
+                            </div>
+                            <div id="modal_login_Register">
+                                <p class="fontSizeOne">{{ Login_CreateAcc }}
+                                    <a href="#" onclick="ModalToggleLoginRegister()">
+                                        <strong>{{ Login_Register }}</strong>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- SIGN UP MODAL -->
+                        <div class="{{ SignUpFormVisibilityClass }}" id="modal_register_content">
+                            <form method="post" id="SignUpForm" onkeypress="return event.keyCode !== 13;">
+                                {% csrf_token %}
+                                {{ SignUpForm }}
+                                <p style="font-size: 0.8rem;margin: -10px 0 20px !important;">Senha: Deve conter pelo menos 8 caracteres, sendo no mínimo 1 letra e 1 número.</p>
+                                <p><input type="checkbox" id="chk_terms" required name="chk_terms" style="font-size: 0.9rem;"
+                                    oninput="this.setCustomValidity('')"
+                                    oninvalid="this.setCustomValidity('Favor aceitar o Termo de adesão antes de prosseguir')">
+                                    Eu aceito os <a href="{% url 'terms_page' %}" target="_blank">Termos de Adesão</a> e as <a href="{% url 'privacy_policy' %}" target="_blank">Política de Privacidade</a>.</p>
+                                <input type="hidden" id="add_boat" name="add_boat">
+                                <div class="w-100" style="position: relative;margin-top: 20px;">
+                                    <button style="margin-top: 0 !important;" type="submit" class="modal_btn"
+                                            onclick="if ($('#SignUpForm').checkValidity() === true) {$(this).attr('disabled','disabled');$('#loading_icon').removeClass('hideOnly');$('#SignUpForm').submit();}else{event.preventDefault();event.stopPropagation();}">{{ Login_RegisterButton }}</button> <!-- onclick="SignUp_SendSms()" -->
+                                    <div class="w-100 hideOnly" style="position: absolute;top: 4px;" id="loading_icon">
+                                        <div class="loader" id="loaderIcon" ></div>
+                                    </div>
+                                </div>
+                                <input class="hideOnly" type="submit" id="register_btn" value="">
+                            </form>
+                            <div class="w-100 modal_center_btn_div">
+                                <p class="fontSizeOne">{{ Login_HasAcc }}
+                                    <a href="#" onclick="ModalToggleLoginRegister()">
+                                        <strong>{{ Login_ClickToLogin }}</strong>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- SIGN UP MOBILE CONFIRMATION MODAL -->
+                        <div class="hideOnly" id="modal_register_mobile">
+                            <p id="mobile_confirm_title" style="color:dimgray;">{{ MobileConfirm_Title }}</p>
+                            <form method="post" id="SMSConfirmForm" onkeypress="return event.keyCode !== 13;">
+                                {% csrf_token %}
+                                <input type="text" class="form-control fontSizeOneTwo" id="mobile_code" name="mobile_code"
+                                       style="margin: 0 auto;text-align: center;width: 70%;"
+                                       successmsg="{{ MobileConfirm_Validated }}" errormsg="{{ MobileConfirm_ValidationError }}">
+                                <input type="hidden" name="add_boat" value="{{ add_boat }}">
+                                <button type="submit" class="modal_btn" onclick="" style="width: 70%;margin: 20px auto;display: block;">{{ MobileConfirm_Button }}</button>
+                            </form>
+                            <div class="w-100 modal_center_btn_div">
+                                <p class="fontSizeOne">{{ MobileConfirm_SendAgain }}
+                                    <input type="hidden" id="sms_confirm" name="sms_confirm" value="">
+                                    <a href="#" onclick="SignUp_SendSms()">
+                                        <strong>{{ ClickHere }}</strong>
+                                    </a>
+                                </p>
+                            </div>
+                            <div id="modal_alert_sms" class="w-100 alert {{ LogonFormMsgClass }}" role="alert" style="float: left;"> {{ LogonFormMsg }} </div>
+                        </div>
+                        <div id="modal_alert" class="w-100 alert {{ LogonFormMsgClass }}" role="alert" style="float: left;"> {{ LogonFormMsg }} </div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer style="" class="row standHover" id="div_rodape">
+            <div class="col-md-3 redes-sociais">
+                <a href="https://www.instagram.com/bnboats/" class="ig" target="_blank"></a>
+                <a href="https://www.youtube.com/channel/UCdGhGFVCJ8uOHNVCy93V86Q" class="yt" target="_blank"></a>
+                <a href="https://www.facebook.com/bnboats/" class="fb" target="_blank"></a>
+                <a href="mailto:contato@bnboats.com" class="ml" target="_blank"></a>
+                <span><a href="mailto:contato@bnboats.com">CONTATO@BNBOATS.COM</a></span>
+            </div>
+            <div class="col-md-1">
+                {{ debug }}
+            </div>
+            <div class="col-md-2">
+                <a href="#" onclick="modalSignUp('user')" data-toggle="modal" data-target="#modal_login" id="SignUpBtn"> {{ RegisterUser }}</a>
+                <a href="#" onclick="modalSignIn()" data-toggle="modal" data-target="#modal_login"> {{ HasLogin }}</a>
+                <a href="#" class="hideOnly">{{ Terms }}</a>
+                <a href="#" class="hideOnly">{{ FAQ }}</a>
+                <a href="{% url 'how_it_works' %}">{{ HowItWorks }}</a>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'search_results' 'brasil' %}"> {{ RentABoat }}</a>
+                <a href="{% url 'user_boats' 'add' %}"> {{ RegisterBoat }} </a>
+                <a href="{% url 'blog:posts' %}">Blog</a>
+                <!--<a href="#"> {{ Boatmate }}</a>-->
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'terms_page' %}">Termos de Adesão</a>
+                <a href="{% url 'privacy_policy' %}">Política de Privacidade</a>
+            </div>
+            <div class="col-md-2">
+                <a href="https://api.whatsapp.com/send?1=pt_BR&phone=5511930000135" target="_blank">Ainda restam dúvidas? Clique aqui para falar conosco pelo Whatsapp</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="{% static 'js/control.js' %}"></script>
+    {% block body-after-js %}  {% endblock %}
+
+</body>
+</html>

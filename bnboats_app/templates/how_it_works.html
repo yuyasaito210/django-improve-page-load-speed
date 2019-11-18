@@ -1,0 +1,104 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'css/css_how_it_works.css' %}">
+
+{% endblock %}
+
+{% block title %} {{ Title }} {% endblock %}
+
+
+{% block body %}
+	<div class="header">
+		<h1>{{ How_can_we_help }}</h1>
+	</div>
+	<div class="tabs">
+
+		<div class="tab active" onclick="navigate('owner', this)">{{ Tab_owner }}</div>
+		<div class="tab" onclick="navigate('passenger', this)">{{ Tab_passengers }}</div>
+	</div>
+	<div class="template">
+		<div class="infos">
+			<div class="free-share">
+				<img src="">
+				<h2>{{ Infos_free_announcement_title }}</h2>
+				<p>{{ Infos_free_announcement_text }}</p>
+			</div>
+			<div class="taxa">
+				<img src="">
+				<h2>{{ Infos_tax_title }}</h2>
+				<p>{{ Infos_tax_text }}</p>
+			</div>
+			<div class="pagamento">
+				<img src="">
+				<h2>{{ Infos_payment_title }}</h2>
+				<p>{{ Infos_payment_text }}</p>
+			</div>
+		</div>
+		<div class="perguntas owner">
+			<h1 class="mobile-title">{{ Tab_owner }}</h1>
+			<h2>{{ Questions_title }}</h2>
+			<div class="container-questions">
+				{% for question in Questions_owners %}
+				<div class="block-questions">
+					<p class="title">{{ question.title }} <span><img src="{% static '' %}{{ question.img }}"></span></p>
+					<ul class="list-questions">
+						{% for doubt in question.doubts %}
+						<li><a data-toggle="collapse" href="#ownerCollapseAnswer_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}">{{ doubt.text }}</a></li>
+						<div class="collapse hiw" id="ownerCollapseAnswer_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}">
+							{{ doubt.answer | safe}}
+							{% if doubt.topics %}
+								<ul>
+									{% for topic in doubt.topics %}
+									<li> {{topic}} </li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+							{% if doubt.postopics %}
+								{{ doubt.postopics }}
+							{% endif %}
+						</div>
+						{% endfor %}
+					</ul>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="perguntas passenger hide">
+			<h1 class="mobile-title">{{ Tab_passengers }}</h1>
+			<h2>{{ Questions_title }}</h2>
+			<div class="container-questions">
+				{% for question in Questions_passengers %}
+				<div class="block-questions">
+					<p class="title">{{ question.title }} <span><img src="{% static '' %}{{ question.img }}"></span></p>
+					<ul class="list-questions">
+						{% for doubt in question.doubts %}
+						<li><a data-toggle="collapse" href="#passengerCollapseAnswer_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}">{{ doubt.text }}</a></li>
+						<div class="collapse hiw" id="passengerCollapseAnswer_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}">
+							{{ doubt.answer | safe}}
+							{% if doubt.topics %}
+								<ul>
+									{% for topic in doubt.topics %}
+									<li> {{topic}} </li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+							{% if doubt.postopics %}
+								{{ doubt.postopics }}
+							{% endif %}
+						</div>
+						{% endfor %}
+					</ul>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+
+{% block body-after-js %}
+    <script src="{% static 'js/js_how_it_works.js' %}"></script>
+{% endblock %}

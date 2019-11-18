@@ -1,0 +1,121 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+
+{% block head %}
+
+    <link rel="stylesheet" href="{% static 'css/css_userarea.css' %}">
+
+{% endblock %}
+
+{% block title %} {{ Title }} {% endblock %}
+
+{% block body %}
+
+    <div class="row w-100" style="margin:0;">
+
+
+        <div class="col-md-3" id="ua_leftmenu" style="float:left;">
+            {% include 'userarea_leftmenu.html' %}
+        </div>
+
+        <div class="col-md" id="" style="float:left;">
+
+            <div class="w-100"><h1 class="fontSizeThree ua_profile_title" style="margin: 50px 0 0 0 !important;">Mensagens</h1></div>
+            <div class="col-md ua_div" id="ua_message" style="float:left;height: 600px;">
+
+                <!-- CONTACTS LIST IN THE LEFT -->
+                <div id="ua_msg_users_list">
+                    <div style="height: 10px;"></div>
+
+                    {% for key, value in all_contacts.items %}
+                        <div class="ua_msg_contact" id="contact_{{ key }}" onclick="OpenContactChat(this.id)">
+                            <div class="ua_picture">
+                                <img src="{% static '' %}{{ value.1 }}"
+                                     onerror="this.src='{% static 'media/admin/default_profile.png' %}'"
+                                     alt="profile" class="pic_img">
+                            </div>
+                            <div class="float-left username">
+                                {{ value.0 }}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div style="height: 10px;"></div>
+                </div>
+
+                <!-- WHOLE CHAT WINDOW IN THE RIGHT -->
+                <div id="ua_msg_texts_area" style="width: 70%;float:left;">
+                    <div class="ua_msg_header">
+
+                        <!-- HEADER WITH IMAGE AND NAME OF SELECTED CONTACT -->
+                        <div class="ua_msg_title">
+                            <!-- BACK BUTTON - only visible on mobile -->
+                            <i class="fas fa-chevron-left hideOnly ua_msg_back" onclick="ChangeChatToMobileVersion()"></i>
+                            <!-- PICTURE -->
+                            <div class="ua_picture">
+                                <img src="{% static '' %}{{ value.1 }}"
+                                     onerror="this.src='{% static 'media/admin/default_profile.png' %}'"
+                                     alt="profile" style="margin-left: 20px !important;" class="pic_img">
+                            </div>
+                            <!-- NAME -->
+                            <div class="float-left username" style="margin-left: 40px !important;">
+                            </div>
+                        </div>
+
+                        <!-- CHAT WINDOW -->
+                        <div class="chat-window">
+                            {% for key, value in messages.items %}
+                                <!-- LOOP LOADING CHATS FOR ALL CONTACTS -->
+                                <div class="ua_msg_content hideOnly" id="msg_content_{{ key }}" style="height: 370px;padding-top:20px;">
+                                    {% for item_key, item_value in value.items %}
+                                        <!-- LOOP LOADING EACH MESSAGE OF THE SPECIFIC CHAT -->
+                                        <div class="w-100" style="overflow: hidden;margin-bottom: 30px;">
+                                            <!-- PROFILE IMAGE OF CONTACT PROFILE -->
+                                            <div class="ua_picture hideOnly img-left">
+                                                <img src="" onerror="this.src='{% static 'media/admin/default_profile.png' %}'"
+                                                     alt="profile" style="margin: 0 !important;" class="pic_img">
+                                            </div>
+                                            <!-- PROFILE IMAGE OF OWN USER -->
+                                            <div class="ua_picture hideOnly img-right">
+                                                <img src="" onerror="this.src='{% static 'media/admin/default_profile.png' %}'"
+                                                     alt="profile" style="margin: 0 !important;" class="pic_img">
+                                            </div>
+                                            <!-- MESSAGE -->
+                                            <div class="ua_msg_item" msg_type="{{ item_value.1 }}"
+                                                 msg_isread="{{ item_value.3 }}" user="{{ item_value.0 }}">
+                                                {{ item_value.2 }}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <!-- TYPE TEXT TO MESSAGE AREA -->
+                        <div class="ua_msg_inputtext">
+                            <div class="w-100">
+                                <textarea class="ua_msg_new form-control" id="ua_msg_new"
+                                          placeholder="{{ TypeMsg }}"></textarea>
+                                <button type="submit" class="modal_btn form_btns" id="ua_msg_submit" receiver="0"
+                                        onclick="SubmitMsg(this.id)">
+                                    {{ Send }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ errors }}
+    <input type="hidden" id="user_id" value="{{ user.id }}">
+    <form method="post" id="form_message" class="hideOnly">
+        {% csrf_token %}
+        {{ msg_form.as_p }}
+    </form>
+    <input type="hidden" id="msg_focus" value="{{ msg_focus }}">
+
+{% endblock %}
+
+{% block body-after-js %}
+    <script src="{% static 'js/js_userarea.js' %}"></script>
+{% endblock %}

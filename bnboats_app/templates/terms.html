@@ -1,0 +1,942 @@
+{% extends 'index_template.html' %}
+{% load static from staticfiles %}
+{% load utils %}
+
+{% block head %}
+
+    <meta name="description" content="aluguel de barcos {{ city_only }}">
+    <meta name="keywords" content="aluguel de barco, aluguel de lancha, aluguel de barco em {{ city_only }}">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style type="text/css">
+        .page_design {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 1px solid dimgray;
+            box-shadow: 2px 2px 5px;
+            margin-bottom: 40px;
+        }
+        .full_page {
+            padding: 20px;
+        }
+    </style>
+
+{% endblock %}
+
+{% block title %} aluguel de barcos {{ city_only }} {% endblock %}
+
+{% block body %}
+
+    <div class="full_page">
+
+        <div class="page_design">
+
+            <p style="text-align: center;margin: 50px 0 70px;"><FONT SIZE=5><B>Termo de Adesão e Condições de Uso </B></FONT></p>
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><FONT SIZE=3>Bnboats</FONT><FONT SIZE=3>
+            é uma plataforma </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>
+            de anúncios de aluguel de barcos e venda de tíquetes. Bnboats atua
+            como mero veiculador de anúncios advindos de diversos anunciantes,
+            não agindo, em hipótese alguma, como agente de turismo, nem tendo
+            qualquer vínculo como empregado, prestador de serviços, consultor,
+            intermediário ou participante nem dos usuários, nem dos
+            anunciantes. </FONT>
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><FONT SIZE=3>A
+            Bnboats não é empresa de turismo. Por isso, não se vincula a
+            quaisquer diretrizes da Embratur, nem do Ministério do Turismo.</FONT></P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><FONT SIZE=3>A
+            Bnboats não participa do contrato de locação realizado entre o
+            anunciante e o usuário, mas apenas e tão somente assessora os donos
+            das embarcações a concretizarem tais contratos. A Bnboats
+            simplesmente disponibiliza soluções de pagamento, e facilita o
+            negócio entre usuários e anunciantes, colocando as partes
+            interessadas em contato para realizarem o contrato de locação entre
+            si.</FONT></P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><FONT SIZE=3>Para
+            sua utilização, é necessária a aceitação expressa e irrestrita
+            ao presente Termo de Adesão e Condições de Uso, a seguir descrito,
+            em conformidade com a legislação brasileira e internacional
+            vigente. </FONT>
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><BR><BR>
+            </P>
+            <OL TYPE=I>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3><B>CONDIÇÕES GERAIS</B></FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>--><BR>
+            </P>
+            <OL>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Os anunciantes da Bnboats&nbsp;poderão utilizar as
+                plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>
+                apenas para finalidades lícitas, não podendo publicar, enviar,
+                distribuir ou divulgar conteúdo ou informação de caráter
+                difamatório, obsceno ou ilícito, inclusive informações de
+                propriedade exclusiva pertencentes a outras pessoas ou empresas, bem
+                como marcas registradas ou informações protegidas por direitos
+                autorais, sem a expressa autorização do detentor desses direitos.
+                A Bnboats não é obrigada a monitorar, nem a restringir o acesso a
+                qualquer área das plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>
+                onde usuários e prestadores de serviço transmitem e trocam
+                informações entre si, mas poderá fazê-lo para garantir a boa
+                qualidade nos serviços prestados.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Os textos dos anúncios não podem conter informações
+                sobre o contato do anunciante, tais como: e-mail, números de
+                telefone, links ou sites externos. Bnboats reserva-se o direito a
+                intervir nos textos dos anúncios para a retirada desse tipo de
+                conteúdo.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <FONT SIZE=3>As fotos enviadas pelos proprietários que tiverem o
+            nome da embarcação a mostra serão alteradas para manter o sigilo
+            do nome antes de serem lançadas ao ar.</FONT></P>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=3>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Bnboats não poderá ser responsabilizada, em hipótese
+                alguma, em função de qualquer relação entre o usuário e o
+                anunciante, seja ela direta ou indireta. Se o usuário, anunciante,
+                ou terceiro demandar reclamação ou ação legal, todos os
+                envolvidos eximirão a Bnboats de toda e qualquer responsabilidade,
+                assim como seus funcionários, agentes, operários, representantes e
+                procuradores.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=4>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Em hipótese alguma, fica caracterizada relação de
+                consumo entre a Bnboats e o anunciante, visto que esse trata de
+                relação estritamente comercial, entre prestadores de serviços e
+                fornecedores, independentemente se pessoas jurídicas ou não, nos
+                termos do Código Civil, do sistema civilista e das regras do
+                Direito Civil.   </FONT>
+                </P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=5>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Bnboats não se responsabiliza por obrigações
+                tributárias, trabalhistas, penais, civis, administrativas,
+                ambientais, nem quaisquer outras, pertinentes às atividades
+                realizadas por usuários e anunciantes, isoladamente, entre si, ou
+                em conjunto, de modo que esses a eximirão ou a ressarcirão pelos
+                prejuízos assim que cientificadas da respectiva ocorrência.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=6>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Para anunciar embarcações, basta o dono ou operador
+                preencher completa e corretamente os dados do formulário do
+                cadastro e a(s) embarcação(ões) ficará(ão) disponibilizada(s)
+                para aluguel no sistema. Caso surja algum interessado na embarcação
+                anunciada, a relação contratual será estabelecida entre o
+                anunciante, e o usuário que adquirir o tíquete para embarcação
+                em questão, por meio de um contrato de locação, no qual a Bnboats
+                não figurará, nem será mencionada em nenhum momento. </FONT>
+                </P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=7>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>O anunciante compromete-se, desde já, a utilizar e
+                preencher, obrigatoriamente, todos os modelos e formulários
+                disponibilizados pela Bnboats, especialmente o modelo de contrato de
+                locação que deverá ser assinado em conjunto com os compradores
+                dos tíquetes. Nesse caso, os anunciantes não poderão fazer
+                alterações, nem alterar o preço final estabelecido pela Bnboats.
+                </FONT>
+                </P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=8>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Todos os riscos derivados da utilização da Bnboats
+                são do usuário e do anunciante. Em nenhum caso a Bnboats será
+                responsabilizada por qualquer dano direto, indireto, incidental,
+                especial ou como consequência de quaisquer fatos resultantes do uso
+                das plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>
+                ou da inabilidade de uso destas, ou ainda por quaisquer informações,
+                produtos ou serviços obtidos através dele ou em decorrência do
+                seu uso.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=9>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Usuários e anunciantes indenizarão a Bnboats, seus
+                administradores, colaboradores, representantes e empregados por
+                qualquer demanda promovida por outros usuários, anunciantes ou
+                terceiros, decorrentes de suas atividades ilegais ou pela violação
+                de qualquer lei ou direitos de terceiros, sendo de responsabilidade
+                do respectivo usuário ou anunciante a reparação por perdas e
+                danos, juros de mora, correção monetária e honorários
+                advocatícios.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=10>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Todas as transações financeiras na Bnboats&nbsp;são
+                realizadas através do Pagcerto. Soluções adicionais de pagamento,
+                poderão ser incorporadas sempre levando em consideração os mesmos
+                rigorosos critérios na avaliação da segurança e da qualidade da
+                operação oferecida pela operadora de pagamentos em questão.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=11>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Os proprietários, administradores e funcionários da
+                Bnboats&nbsp;poderão, a seu exclusivo critério e em qualquer
+                tempo, modificar as plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>,
+                bem como limitar, cancelar ou suspender seu uso ou acesso, e também
+                alterar este Termo de Adesão e Condições de Uso ou os preços dos
+                serviços e produtos institucionais das plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>,
+                como comissões, unilateralmente e a qualquer momento, sem atingir,
+                entretanto, as operações já concluídas.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL START=12>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>A Bnboats exige dos seus anunciantes o mais alto nível
+                de atendimento, </FONT><FONT SIZE=3><I>compliance</I></FONT><FONT SIZE=3>
+                e profissionalismo. Entretanto, ela não se responsabiliza pela
+                qualidade dos serviços, informações e facilidades contidas nos
+                anúncios, nem tampouco por qualquer ação ou omissão de quaisquer
+                das partes por informações, anúncios, fotos, vídeos ou outros
+                materiais veiculados com imprecisão, erro, fraude, inexatidão ou
+                divergência. </FONT>
+                </P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=13>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Em nenhum caso os proprietários, administradores e
+                funcionários da Bnboats serão responsabilizados pelos anunciantes
+                por quaisquer danos, incluindo lucros cessantes, interrupção de
+                negócio, não prestação de serviços ou perda de informação que
+                resultem do uso ou da incapacidade de usar as embarcações
+                anunciadas, nem tampouco dano, material ou moral, que o proprietário
+                das embarcações venha sofrer, decorrentes dos charters realizados,
+                tíquetes vendidos ou serviços prestados.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+
+        </div>
+        <div class="page_design">
+            <BR>
+            <OL TYPE=I START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3><B>POLÍTICA DE </B></FONT><FONT SIZE=3><I><B>COMPLIANCE</B></I></FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <OL>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>O anunciante deve ser o mais transparente possível em
+                todas as informações que prestar, comprovando ser o verdadeiro
+                dono ou alguém que tenha condições legais de alugar em nome do
+                dono, respeitando assim os seus direitos sob a propriedade do barco,
+                não sendo aceitas negociações com marinheiros que dizem alugar em
+                nome do proprietário, salvo quando a Bnboats entender pertinente
+                tal tipo de contratação. </FONT>
+                </P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não serão aceitas embarcações que estejam sofrendo
+                algum embargo das autoridades brasileiras, seja ele temporário ou
+                permanente, nem que não estejam em dia com as obrigações perante
+                os órgãos reguladores e fiscalizatórios brasileiros.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=3>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>O anunciante assume todos os riscos inerentes à
+                embarcação e aos usuários da plataforma que transportar, ou seja,
+                tanto o risco de integridade e preservação da embarcação, quanto
+                o risco em relação à a integridade física dos usuários e de
+                terceiros. Por mera liberalidade, a Bnboats pode auxiliar o
+                anunciante na avaliação e escolha dos produtos de transferência
+                de risco, oferecidos pelas principais seguradoras do Brasil, ou
+                exigidos em algum momento por norma nacional, ou decisão isolada de
+                uma delegacia ou capitania dos portos do Brasil. Contudo, não é
+                obrigada a oferecer soluções de seguro para os proprietários, nem
+                a proporcionar algum produto nesse sentido.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=4>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não serão aceitas locações de embarcação para um
+                número de pessoas maior do que o limite superior expressado no
+                registro da embarcação.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=5>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>O anunciante não poderá negar conhecimentos
+                significativos para o bom e seguro uso da embarcação, como falhas
+                mecânicas, ausência de peças e equipamentos a bordo, barulhos que
+                indiquem colapso de equipamentos ou colapso da integridade
+                estrutural do casco da embarcação, devendo inclusive assegurar que
+                todos os itens exigidos pela marinha deverão estar de acordo com as
+                normas da autoridade brasileira. Por isso, o preenchimento do </FONT><FONT SIZE=3><I>check
+                list </I></FONT><FONT SIZE=3>constante do Anexo I é condição
+                obrigatória antes da saída da embarcação.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=6>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não serão aceitas embarcações que não respeitem a
+                lista de equipamentos mínimos de segurança publicado pela
+                autoridade marítima brasileira.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=7>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não serão aceitas embarcações compradas para
+                esconder recursos financeiros de origem ilegal ou transportar ou
+                esconder valores não declarados ou para a prática de qualquer
+                ilicitude, prevista na legislação brasileira.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=8>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não serão aceitas locações de embarcação com
+                marinheiros que não saibam respeitar os limites do bom convívio
+                com os usuários, adotando posturas invasivas, ofensivas ou
+                agressivas.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=9>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não serão aceitas embarcações que sejam abastecidas
+                com combustível de origem duvidosa, pondo em risco a integridade
+                física dos usuários.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=10>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não serão aceitos marinheiros indicados pelos
+                anunciantes que tenham conduta sabidamente indiligente, negligente,
+                imperita ou despreocupada com a segurança dos usuários.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=11>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não serão aceitas embarcações que não estejam
+                limpas, organizadas e preparadas para bem receber os usuários.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=12>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não será aceito o embarque de usuários em locais
+                ilegais ou que ponham em risco a integridade física dos usuários
+                em risco.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=13>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Os anunciantes deverão envidar todos os esforços a
+                seu alcance para atender da melhor maneira os usuários indicados
+                para o aluguel de suas embarcações.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+        </div>
+        <div class="page_design">
+            <BR>
+            <OL TYPE=I START=3>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3><B>POLÍTICA DE CANCELAMENTO</B></FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <BR>
+            <OL>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>As Políticas de Cancelamento da Bnboats valem para
+                todas as embarcações cadastradas e se aplicam segundo o prazo em
+                que o usuário ou o anunciante do barco cancela a reserva realizada.
+                Elas existem para proteger tanto os usuários quanto o proprietário
+                do barco.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>O anunciante e/ou usuário pode cancelar o passeio em
+                até 7 dias corridos antes do passeio, sem gerar qualquer penalidade
+                perante a Bnboats. Entretanto, eventuais divergências geradas com
+                os usuários devem ser resolvidas entre si, ou mediante os meios de
+                solução de disputa oferecidos pela Bnboats. </FONT>
+                </P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=3>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Se o cancelamento ocorrer por parte do usuário, dentro
+                dos 7 dias antes do passeio, esse pagará multa à Bnboats de 20%
+                sobre o valor do aluguel, sendo que a metade desta taxa será
+                repassada ao anunciante, além da taxa do sistema de pagamento no
+                importe de 5%, também sobre o valor do aluguel, que diz respeito
+                somente à Bnboats.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=4>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Se o cancelamento ocorrer por parte do anunciante,
+                dentro dos 7 dias antes do passeio, esse pagará taxa do sistema de
+                pagamento no importe de 5%, mais a taxa de exposição para Bnboats
+                de 10 %, ambos sobre o valor do aluguel.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <OL START=5>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>No Show:</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL TYPE=a>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Quando o usuário não se apresenta na data e horário
+                combinado, o serviço é considerado prestado e o usuário não tem
+                direito a reembolso. Fica a critério do dono ou operador da
+                embarcação dar ou não carta de crédito dos serviços adquiridos
+                pelo usuário para serem utilizados em um período futuro estipulado
+                em cada situação e de comum acordo.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.75in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL TYPE=a START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Quando o dono ou operador da embarcação não se
+                apresenta a prestar o serviço na data e horário combinado deverá
+                fazer o reembolso total já incluindo o valor pago pela comissão e
+                o usuário tem direito a reembolso total. Alternativamente, de comum
+                acordo, e por mera liberalidade, a Bnboats tentará agendar um
+                passeio similar para o mesmo dia ou dias seguintes, segundo
+                disponibilidade de outros barcos. O dono ou operador da embarcação
+                levará um cartão Vermelho e terá seu cadastro e anúncios
+                removidos das plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>
+                e não poderá operar novamente na Bnboats.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <OL START=6>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Cancelamento de Reservas:</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL TYPE=a>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Antes de confirmar a reserva – se o anunciante ainda
+                não confirmou a reserva –, deve apenas clicar em Cancelar dentro
+                do Menu “Reservas”. O usuário e o anunciante vão receber uma
+                notificação também via e-mail com a informação do cancelamento.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL TYPE=a START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Após confirmar a reserva – se o anunciante já
+                confirmou a reserva –, deve enviar e-mail para
+                contato@bnboats.com.&nbsp;O usuário e o anunciante vão receber uma
+                notificação também via e-mail com a informação do cancelamento.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <OL START=7>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Cancelamento em função de condições climáticas:</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL TYPE=a>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Qualquer condição climática que não comprometa o
+                passeio, não será motivo para cancelamento.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.75in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL TYPE=a START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Em caso de condições climáticas severas
+                (tempestades, ventania), segundo os padrões internacionais de
+                navegação e meteorologia, o anunciante será obrigado a agendar
+                nova data com o usuário para realização do passeio, sem alteração
+                nas condições ajustadas, salvo desistência do usuário, na forma
+                desta política de cancelamento.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <OL START=8>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>C</FONT><FONT SIZE=3>aso a embarcação fique
+                impossibilitada de retornar por conta própria a marina, a taxa de
+                resgate ficará por conta do proprietário, e este terá também que
+                indenizar os usuários com o retorno do valor do passeio ou oferecer
+                um novo passeio em outro momento no prazo de 1 ano.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+        </div>
+        <div class="page_design">
+            <BR>
+            <OL TYPE=I START=4>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3><B>TRATAMENTO DE INFORMAÇÕES</B></FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <OL>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Não é permitida a utilização de nenhum dispositivo,
+                software ou outro recurso que venha a interferir nas atividades e
+                operações do site da Bnboats, bem como nos anúncios, descrições,
+                contas ou seus bancos de dados. Qualquer intromissão, tentativa de,
+                ou atividade que viole ou contrarie as leis de direito de
+                propriedade intelectual e/ou as proibições estipuladas nestes
+                termos, tornarão o responsável passível das ações legais
+                pertinentes, sendo ainda responsável pelas indenizações por
+                eventuais danos causados.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.59in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Toda informação ou dados pessoais inseridos pelo
+                usuário no site é armazenada em servidores com segurança. A
+                Bnboats se compromete em adotar as medidas necessárias para manter
+                o sigilo e a segurança das informações, conforme a </FONT><FONT SIZE=3><I>Lei
+                de Proteção de Dados</I></FONT><FONT SIZE=3>, ficando
+                estabelecido, entretanto, que não responderá por quaisquer
+                prejuízos ocasionados pela violação das medidas necessárias de
+                segurança e sigilo por terceiros que utilizem as redes públicas ou
+                a internet, subvertendo os sistemas de segurança para acessar as
+                informações de usuários.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=3>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Eventuais dúvidas sobre a proteção e sigilo dos
+                dados pessoais ou para obter maiores informações consulte nossa de
+                política de privacidade.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <BR>
+            <OL TYPE=I START=5>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3><B>RECLAMAÇÕES</B></FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <OL>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Reclamações dos Proprietários:</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL TYPE=a>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Antes do desembarque dos usuários, o dono e o
+                marinheiro devem conferir o estado da embarcação, e, se foi o
+                combinado, fazer as contas das despesas com combustível, marinas,
+                ancoradouros, restaurantes, marinheiros, alimentação e bebidas a
+                bordo, dentre outros. Se entender que precisa solicitar algum tipo
+                de reembolso ou ressarcimento, deve tentar chegar a um acordo
+                diretamente com o usuário.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.75in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL TYPE=a START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Se o proprietário percebe algum problema após o
+                desembarque dos usuários, Bnboats oferece um sistema de Disputas
+                para atender essas reclamações. O prazo para abrir uma Disputa é
+                de até 3 dias (72 horas) após o desembarque dos usuários. Depois
+                desse prazo, o comportamento dos usuários, seu cuidado com o barco
+                e consumação de produtos e serviços a bordo, dentre outros, serão
+                considerados satisfatórios e não será mais possível fazer
+                reclamação sobre o mesmo charter, viagem ou passeio.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL TYPE=a START=3>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Para iniciar uma Disputa, o dono ou operador da
+                embarcação deve enviar um e-mail para contato@bnboats.com,&nbsp;com
+                todas as informações disponíveis sobre o problema, número da
+                reserva, nome do usuário e titular da compra, descrição da
+                situação, fotos e vídeos, dentre outros. Assim que a reclamação
+                for enviada, a Bnboats será o “mediador” entre o dono e&nbsp;o
+                usuário, atendendo aos argumentos das duas partes. Após análise,
+                Bnboats tomará uma decisão e comunicará o resultado às partes
+                envolvidas, solicitando um ressarcimento em dinheiro ao usuário
+                (anexando&nbsp;orçamentos) ou não solicitando indenização
+                nenhuma, segundo a decisão, que é&nbsp;inapelável e tomada
+                atendendo aos preceitos de imparcialidade, exaustivo processamento
+                das informações disponíveis, argumentos, senso comum e justiça.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <BR>
+            <OL TYPE=I START=6>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3><B>COMISSÕES</B></FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <OL>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>As comissões pagas à Bnboats, no percentual de 13.5%
+                (treze inteiros e cinco décimos por cento), resultam do preço
+                final passado aos usuários no contrato de locação, entabulado
+                entre os proprietários dos barcos, e os compradores dos tíquetes,
+                não sendo retirada do valor do aluguel devido aos anunciantes. </FONT>
+                </P>
+            </OL>
+            <P STYLE="margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <FONT SIZE=3>Aluguel: 13,5% (Bnboats) + 5% (Sistema de Pagamento
+            </FONT><FONT SIZE=3><I>Online</I></FONT><FONT SIZE=3>) = 18,5% do
+            valor anunciado pelo proprietário.</FONT></P>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Tampouco serão descontados do valor do aluguel devido
+                aos anunciantes, as taxas cobradas pela utilização de serviços de
+                pagamento </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>, no
+                valor de 5% (cinco por cento), que também serão incluídas,
+                conforme o caso, no preço do contrato de locação a ser firmado
+                entre proprietários dos barcos e os compradores dos tíquetes.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL START=3>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Em razão do comissionamento da Bnboats, e das taxas
+                cobradas pela utilização dos serviços de pagamento </FONT><FONT SIZE=3><I>online,</I></FONT><FONT SIZE=3>
+                não impactarem no valor a ser recebido pelos anunciantes, a Bnboats
+                é livre para alterar os valores e percentuais como bem entender a
+                título de comissionamento, independentemente da anuência ou
+                aceitação dos anunciantes, assim como para fixar o preço final do
+                contrato de locação, que contemplará, evidentemente, o valor do
+                aluguel informado pelo anunciante à Bnboats. </FONT>
+                </P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=4>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Os anunciantes não podem se negar a assinatura do
+                contrato de locação com os compradores de tíquetes sob qualquer
+                pretexto, principalmente sob a justificativa de discordarem dos
+                percentuais de comissionamento praticados pela Bnboats, ou do valor
+                final do contrato de locação fixado pela Bnboats.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=5>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Os donos e operadores das embarcações anunciadas tem
+                duas maneiras de receber o dinheiro:</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.75in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL TYPE=a>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Se tiverem conta em determinado serviço de pagamento
+                </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3> (Pagcerto),
+                podem escolher receber os valores diretamente nela, após os
+                respectivos descontos acima mencionados.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 1.25in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL TYPE=a START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Mediante depósito na conta de banco informada no
+                cadastro do barco, após o desconto das respectivas taxas de
+                transferência, conforme o caso.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <OL START=6>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>A Bnboats se reserva no direito de realizar a
+                transferência do valor devido ao proprietário do barco no prazo
+                máximo de 5 dias úteis, contados após a realização do passeio,
+                tendo-se em vista o tempo médio gasto pelos sistemas de pagamento
+                </FONT><FONT SIZE=3><I>online </I></FONT><FONT SIZE=3>realizar as
+                transações.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+        </div>
+
+        <div class="page_design">
+            <BR>
+            <OL TYPE=I START=7>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3><B>DIREITOS AUTORAIS</B></FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <BR>
+            <OL>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>As informações, textos, imagens, formulários,
+                documentos, arquivos e conteúdos institucionais contidos nas
+                plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>
+                pertencem aos proprietários da Bnboats e são protegidos por leis
+                nacionais e internacionais. Não podem ser copiados, reproduzidos,
+                modificados, publicados, atualizados, postados, transmitidos ou
+                distribuídos de qualquer maneira sem autorização prévia e por
+                escrito da Bnboats.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Todo conteúdo, material, fotos, vídeos, informação,
+                artigos, imagens e/ou outras comunicações que forem transmitidas,
+                enviadas ou publicadas na Bnboats&nbsp;são públicas e não
+                confidenciais, e qualquer violação aos direitos dos anunciantes ou
+                dos usuários não será de responsabilidade da Bnboats. Nem
+                anunciante, nem usuário podem copiar, modificar, alugar, arrendar,
+                emprestar, vender, ceder, transferir, distribuir, executar, exibir,
+                licenciar, sublicenciar, distribuir, transmitir, reproduzir,
+                publicar, criar trabalho derivado, colocar e/ou usar em outra página
+                da Internet, transferir ou vender qualquer material da Bnboats, tais
+                como </FONT><FONT SIZE=3><I>layout</I></FONT><FONT SIZE=3>, marcas,
+                logotipos, produtos, sistemas, denominações de serviços e outros
+                materiais, incluindo programas, bases de dados, imagens, arquivos,
+                materiais de qualquer outra espécie e que têm contratualmente
+                autorizadas as suas veiculações em suas plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>,
+                informação, </FONT><FONT SIZE=3><I>software</I></FONT><FONT SIZE=3>,
+                lista de usuários, produtos ou serviços obtidos na Bnboats, assim
+                como os relacionados à sua aparência e função, e a todos os
+                dados, informações, textos, gráficos, imagens, materiais de áudio
+                ou vídeo, fotografias, desenhos, marcas comerciais, nomes
+                comerciais, endereços eletrônicos, que formam parte das
+                plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>,
+                que nele aparecem ou que por ele são disponibilizados, tanto de
+                propriedade da Bnboats, quanto de seus licenciantes ou editoras de
+                terceiros, para uso comercial, assim como realizar engenharia
+                reversa, montagem reversa, criar trabalhos derivados e/ou baseados
+                em qualquer código-fonte da Bnboats ou no conteúdo da Bnboats nem
+                dedicar-se, de outra forma, à tentativa de descobrir qualquer
+                código-fonte da Bnboats, estando tais conteúdos protegidos por
+                direitos autorais, direitos de propriedade industrial e os demais
+                direitos cabíveis ao caso.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL START=3>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>As fotos e imagens institucionais da Bnboats são
+                publicadas para fins de visualização, e, salvo autorização
+                expressa por escrito, não podem ser gravadas ou baixadas via
+                download. A reprodução ou armazenamento dos conteúdos
+                institucionais das plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>
+                sujeitará os infratores às penas da lei.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=4>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>O nome Bnboats, seu logotipo e domínios de
+                Internet</FONT><FONT SIZE=3>,</FONT><FONT SIZE=3>&nbsp;bem como
+                todos os elementos da plataforma web e bases de dados desenvolvidas
+                e utilizadas aqui, constituem marcas registradas e propriedades
+                intelectuais privadas e todos os direitos decorrentes de seu
+                registro são assegurados por Lei.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=5>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Toda e qualquer violação de direitos autorais deverá
+                ser notificada à Bnboats e acompanhada dos documentos e informações
+                que confirmam a autoria. A notificação poderá ser enviada pelos
+                canais de comunicação oficiais.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=6>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>O acesso à Bnboats&nbsp;é proibido em territórios
+                onde o conteúdo seja considerado ilegal. Aqueles que optarem por
+                acessar as plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>
+                a partir de localidades onde o acesso é proibido, o farão por
+                iniciativa própria e serão responsáveis pelo cumprimento das leis
+                locais aplicáveis.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL START=7>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>O uso indevido de materiais protegidos por propriedade
+                intelectual (direito autoral, marcas comerciais, patentes etc.)
+                apresentados nas plataformas </FONT><FONT SIZE=3><I>online</I></FONT><FONT SIZE=3>
+                da Bnboats será caracterizado como infração da legislação
+                pertinente, sujeitando o infrator às ações judiciais cabíveis e
+                dando ensejo à respectiva indenização aos prejudicados, seja à
+                Bnboats ou a terceiros, sem prejuízo de perdas e danos e honorários
+                advocatícios.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <BR>
+            <OL TYPE=I START=8>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3><B>CONTATO E SUPORTE</B></FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <OL>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Existem duas maneiras de solicitar ajuda, enviar
+                sugestões e fazer consultas na Bnboats:</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.5in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-left: 0.75in; margin-bottom: 0.11in; line-height: 115%">
+            <!--<BR><BR>-->
+            </P>
+            <OL TYPE=a>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Contato – no menu do rodapé do site tem o botão
+                “Contato” com um formulário de atendimento, preencha seus
+                dados, envie uma mensagem e aguarde até 24 horas para receber uma
+                resposta no seu e-mail.</FONT></P>
+            </OL>
+            <P STYLE="margin-left: 0.5in; margin-bottom: 0.11in"><!--<BR><BR>-->
+            </P>
+            <OL TYPE=a START=2>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3>Telefone: contato pelo telefone listado no rodapé da
+                página inicial no site da Bnboats.</FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <BR>
+            <OL TYPE=I START=9>
+                <LI><P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%">
+                <FONT SIZE=3><B>FORO DE ELEIÇÃO</B></FONT></P>
+            </OL>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+            <BR>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><FONT SIZE=3><B>As
+            partes, de comum acordo, elegem o foro da Comarca de Santos para nele
+            resolver qualquer divergência, litígio ou controvérsia decorrente
+            do presente </B></FONT><FONT SIZE=3><B>Termo de Adesão e Condições
+            de Uso</B></FONT><FONT SIZE=3><B>, de sua execução ou liquidação,
+            ou que com ele se relacione.</B></FONT></P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><FONT SIZE=3>Diante
+            desses termos, o ANUNCIANTE aceita expressa e irrestritamente o </FONT><FONT SIZE=3><B>Termo
+            de Adesão e Condições de Uso </B></FONT><FONT SIZE=3>aqui
+            descrito.</FONT></P>
+            <P ALIGN=JUSTIFY STYLE="margin-bottom: 0.11in; line-height: 115%"><!--<BR><BR>-->
+            </P>
+        </div>
+
+
+    </div>
+
+{% endblock %}
+
+{% block body-after-js %}
+
+    <script type="application/javascript">
+        if ($(document).width() >= 1000) {
+            $('#top_bar_search').removeClass('hideOnly');
+        }
+    </script>
+
+{% endblock %}
