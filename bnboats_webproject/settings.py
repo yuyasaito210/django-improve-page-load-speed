@@ -154,39 +154,38 @@ LOGIN_URL = '/?signin'
 
 default_dburl = 'postgres:///' + os.path.join(BASE_DIR, 'django.db.backends.postgresql_psycopg2')
 
-# if config("ENVIRONMENT") == "PROD":
-#     SECURE_SSL_REDIRECT = True
-#     ENFORCE_HOST = config('ENFORCE_HOST') #'www.bnboats.com'
-#     DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
-# else:
-#     if config("ENVIRONMENT") == "QA":
-#         SECURE_SSL_REDIRECT = False
-#         DATABASES = {'default': config('DATABASE_URL_QA', default=default_dburl, cast=dburl), }
-#     else:
-#         SECURE_SSL_REDIRECT = False
-#         DATABASES = {
-#             'default': {
-#                 'ENGINE': 'django.db.backends.postgresql',
-#                 'NAME': 'bnboats',
-#                 'USER': 'postgres',
-#                 'PASSWORD': 'gaspar1',
-#                 'HOST': '127.0.0.1',
-#                 'PORT': '5432',
-#             }
-#         }
+if config("ENVIRONMENT") == "PROD":
+    SECURE_SSL_REDIRECT = True
+    ENFORCE_HOST = config('ENFORCE_HOST') #'www.bnboats.com'
+    DATABASES = {'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
+else:
+    if config("ENVIRONMENT") == "QA":
+        SECURE_SSL_REDIRECT = False
+        DATABASES = {'default': config('DATABASE_URL_QA', default=default_dburl, cast=dburl), }
+    else:
+        # SECURE_SSL_REDIRECT = False
+        # DATABASES = {
+        #     'default': {
+        #         'ENGINE': 'django.db.backends.postgresql',
+        #         'NAME': 'bnboats',
+        #         'USER': 'postgres',
+        #         'PASSWORD': 'gaspar1',
+        #         'HOST': '127.0.0.1',
+        #         'PORT': '5432',
+        #     }
+        # }
 
-SECURE_SSL_REDIRECT = False
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bnboats',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5433',
-    }
-}
-
+        SECURE_SSL_REDIRECT = False
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': 'bnboats',
+                'USER': 'postgres',
+                'PASSWORD': 'postgres',
+                'HOST': '127.0.0.1',
+                'PORT': '5433',
+            }
+        }
 
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' #config('EMAIL_HOST')
