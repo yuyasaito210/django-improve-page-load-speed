@@ -22,6 +22,7 @@ from django.core import serializers
 from django.forms.models import model_to_dict
 from bnboats_webproject.settings import STATIC_URL
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.cache import cache_page
 
 def paggcerto_gettoken():
 
@@ -58,6 +59,7 @@ def logout_view(request):
     #        user_pass.save()
 
 
+@cache_page(60 * 30)
 def home(request):
     data = {}
 
