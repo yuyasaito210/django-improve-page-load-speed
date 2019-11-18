@@ -1,0 +1,260 @@
+#welcome_div, #welcome_search_div {
+    position: absolute;
+    margin-left: 10%;
+    color: black;
+    font-family: Folks-Bold, serif;
+}
+
+#welcome_search_div {
+    position: absolute;
+    margin-left: 10%;
+    bottom: 20%;
+}
+@media only screen and (max-width: 349px) and (min-width: 100px) {   /* ------- SMALL MOBILE SCREEN -------------- */
+
+    /* WELCOME DIV WITH TITLE AND CITY SEARCH STYLE */
+    #welcome_div {
+        margin-left: 0;
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+    }
+    #welcome_div h1, h3, form {
+        margin: 0 10%;
+        width: 80%;
+    }
+    #welcome_div h1 {
+        font-size: 2rem;
+    }
+    #welcome_div h3 {
+        font-size: 0.8rem;
+        margin-bottom: 50px;
+    }
+
+    /* WELCOME DIV - SEARCH FIELD AND BUTTON */
+    #welcome_search_div {
+        width: 80% !important;
+    }
+    .home_filter_city {
+        width: 80% !important;
+        margin-bottom: 0;
+    }
+    .home_filter_submit {
+        width: 20%;
+    }
+
+    /* DIVISIONS BETWEEN SECTIONS IN HOME */
+    .home_divisions{
+        padding: 10px;
+    }
+    .border_bottom_divisions {
+        text-align: center;
+    }
+
+    /* ALL CITIES VIEW - ONE CITY PER LINE IN SMALL DEVICES */
+    .allCities_cityDiv {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 599px) and (min-width: 350px) {   /* ------- MOBILE SCREEN -------------------- */
+
+     /* WELCOME DIV WITH TITLE AND CITY SEARCH STYLE */
+    #welcome_div {
+        margin-left: 0;
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+    }
+    #welcome_div h1, h3, form {
+        margin: 0 10%;
+        width: 80%;
+    }
+    #welcome_div h1 {
+        font-size: 2rem;
+    }
+    #welcome_div h3 {
+        font-size: 1rem;
+        margin-bottom: 50px;
+    }
+
+    /* WELCOME DIV - SEARCH FIELD AND BUTTON */
+    #welcome_search_div {
+        width: 80% !important;
+    }
+    .home_filter_city {
+        width: 80% !important;
+        margin-bottom: 0;
+    }
+    .home_filter_submit {
+        width: 20%;
+    }
+
+    /* DIVISIONS BETWEEN SECTIONS IN HOME */
+    .home_divisions{
+        padding: 25px;
+    }
+    .border_bottom_divisions {
+        text-align: center;
+    }
+
+    /* ALL CITIES VIEW - ONE CITY PER LINE IN SMALL DEVICES */
+    .allCities_cityDiv {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 999px) and (min-width: 600px) {    /* ------- IPAD/TABLET SCREEN ---------------- */
+
+    /* WELCOME DIV WITH TITLE AND CITY SEARCH STYLE */
+    #welcome_div h1 {
+        font-size: 3rem;
+    }
+    #welcome_div h3 {
+        font-size: 1.3rem;
+        margin-bottom: 50px;
+    }
+
+    /* WELCOME DIV - SEARCH FIELD AND BUTTON */
+    .home_filter_city {
+        width: 300px !important;
+    }
+
+    /* DIVISIONS BETWEEN SECTIONS IN HOME */
+    .home_divisions{
+        padding: 40px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {    /* ------ BIGGEST SCREEN ------------------ */
+
+    /* WELCOME DIV WITH TITLE AND CITY SEARCH STYLE */
+    #welcome_div h1 {
+        font-size: 4rem;
+    }
+    #welcome_div h3 {
+        font-size: 1.3rem;
+        margin-bottom: 50px;
+    }
+
+    /* WELCOME DIV - SEARCH FIELD AND BUTTON */
+    .home_filter_city {
+        width: 400px !important;
+    }
+
+    /* DIVISIONS BETWEEN SECTIONS IN HOME */
+    .home_divisions{
+        padding: 50px;
+    }
+}
+
+/* FISHING HOME BACKGROUND IMAGE */
+.fish_home_back_img {
+    background-image: url('/static/media/admin/home_fishing.jpg') !important;
+}
+
+/* HOME BACKGROUND IMAGE */
+#home_back_img {
+    background-image: url('/static/media/admin/fundo_v3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    z-index: -1000;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+/*#home_back_img:before {
+    background-image: linear-gradient(#032051 8%, transparent);
+    content: '';
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    height: 50%;
+}*/
+
+/* ALL SECTIONS IN HOME - TITLE STYLE*/
+.home_div_titles {
+    font-size: 2.2rem;
+    margin: 0 0 50px;
+    color: black;
+}
+.home_div_subtitles {
+    font-size: 1.7rem;
+    margin: 0 0 50px;
+    color: dimgrey;
+}
+
+/* BORDER BETWEEN SECTIONS IN HOME */
+.border_bottom_divisions {
+    border-bottom: rgb(193, 209, 240) 1px solid;
+    margin: 0 5%;
+}
+
+/* BOATS VIEW STYLE */
+.boats_view_img {
+    height: 220px;
+    width: 100%;
+    border-radius: 5px;
+}
+.boats_view_btitle {
+    margin: 1rem 0 0;
+}
+.boats_view_bcity {
+    margin: 0;
+}
+.boats_view_bprice {
+    margin: 0.5rem 0 1rem;
+    color: gray;
+}
+.boats_view_breview > p {
+    margin: 0 0 0.5rem 0;
+    font-style: italic;
+}
+.boats_view_bview {
+    cursor: pointer;
+    padding-top: 15px;
+    border-radius: 5px;
+}
+.boats_view_bview:hover {
+    box-shadow: 2px 2px 5px grey;
+}
+.carousel-item {
+    font-style: italic;
+}
+.linkHover:hover {
+    text-decoration: underline;
+    text-decoration-color: #007bff;
+    color: #007bff;
+}
+
+
+
+
+
+/* ALL CITIES VIEW */
+
+.city_img_home {
+    border-radius: 10px;
+    cursor: pointer;
+    height: 460px;
+    width: 230px;
+}
+
+.city_img {
+    border-radius: 10px;
+    cursor: pointer;
+    height: 350px;
+    width: 260px;
+}
+
+.city_img:hover,.city_img_home:hover {
+    box-shadow: 3px 3px 8px black;
+}
+
+.city_img_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}

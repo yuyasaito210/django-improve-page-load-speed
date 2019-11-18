@@ -1,0 +1,1009 @@
+h1 {
+    font-weight: 500;
+    color: dimgrey;
+}
+
+.fish.boat_reg_btn_cliked {
+    font-weight: 900;
+    background-color: #EDF9FF;
+}
+
+.fish {
+    height: 70px !important;
+    width: 30% !important;
+    padding-top: 3%;
+    margin-right: 3%;
+}
+
+.fish > .boat_reg_custom_p {
+    display: inline-block;
+}
+
+.ua_msg_title .fa-chevron-left {
+    float: left;
+    font-size: 25px;
+    margin: 20px 0 20px 10px;
+}
+
+@media only screen and (max-width: 349px) and (min-width: 100px) {   /* ------- SMALL MOBILE SCREEN -------------- */
+    #ua_menu {
+        display: none;
+    }
+    /*#ua_profile {*/
+    .ua_bookings_single_div {
+        margin-left: 0 !important;
+    }
+    .ua_div {
+        margin: 0 5% 10% 5% !important;
+        padding: 10% 7% !important;
+    }
+    #ua_profile label { text-align: left !important; }
+    #ua_profile { text-align: center !important; }
+    #ua_profile_form div div {
+        padding: 0;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+    .dob_tag { margin-right: 6px !important; }
+    .dob_tag select { padding-right: 7px !important; }
+    .doc_type_tag { width: 100%; }
+    .ua_profile_title { margin-bottom: 40px !important; }
+    .mobile_c { max-width: 30%; }
+    .mobile_a { max-width: 20%; }
+    .mobile_n { max-width: 50%; }
+    .ua_address { margin-bottom: 5px; }
+    .ua_address_div { margin-bottom: 0 !important; }
+    #ua_submit { float: none; }
+    #id_address_street { width: 100% !important; }
+    #id_address_city { width: 70% !important; }
+    #id_address_state { width: 28% !important; }
+    .boat_reg_pic { width: 45% !important; }
+    .boat_reg_price_div_item { width: 48% !important; }
+    .fish {
+        width: 45% !important;
+        margin-right: 5% !important;
+        padding-top: 5% !important;
+    }
+    .select7_container {
+        width: 100% !important;
+        margin-right: 0 !important;
+    }
+    #ua_save_btn_div {
+        margin: 0 auto !important;
+        float: none !important;
+    }
+    #ua_mobileno_div {
+        float: left !important;
+    }
+    #ua_message {
+        padding: 0 !important;
+        width: 96% !important;
+        margin: 40px 2% !important;
+    }
+    h1 {
+        text-align: center !important;
+    }
+    #ua_profile_form .row {
+        margin-bottom: 0 !important;
+    }
+
+}
+
+
+@media only screen and (max-width: 599px) and (min-width: 350px) {   /* ------- MOBILE SCREEN -------------------- */
+    #ua_menu {
+        display: none;
+    }
+    /*#ua_profile {*/
+    .ua_bookings_single_div {
+        margin-left: 0 !important;
+    }
+    .ua_div {
+        margin: 0 5% 10% 5% !important;
+        padding: 10% 7% !important;
+    }
+    #ua_profile label { text-align: left !important; }
+    #ua_profile { text-align: center !important; }
+    #ua_profile_form div div {
+        padding: 0;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+    .dob_tag { margin-right: 6px !important; }
+    .dob_tag select { padding-right: 7px !important; }
+    .doc_type_tag { width: 100%; }
+    .ua_profile_title { margin-bottom: 40px !important; }
+    .mobile_c { max-width: 30%; padding-right: 7px !important; }
+    .mobile_a { max-width: 20%; padding-right: 7px !important; }
+    .mobile_n { max-width: 50%; }
+    .ua_address { margin-bottom: 5px; }
+    .ua_address_div { margin-bottom: 0 !important; }
+    #ua_submit { float: none; }
+    #id_address_street { width: 100% !important; }
+    #id_address_city { width: 70% !important; }
+    #id_address_state { width: 28% !important; }
+    .boat_reg_pic { width: 45% !important; }
+    .boat_reg_price_div_item { width: 48% !important; }
+    .select7_container {
+        width: 100% !important;
+        margin-right: 0 !important;
+    }
+    .fish {
+        width: 45% !important;
+        margin-right: 5% !important;
+        padding-top: 5% !important;
+    }
+    #ua_save_btn_div {
+        margin: 0 auto !important;
+        float: none !important;
+    }
+    #ua_mobileno_div {
+        float: left !important;
+    }
+    #ua_message {
+        padding: 0 !important;
+        width: 96% !important;
+        margin: 40px 2% !important;
+    }
+    h1 {
+        text-align: center !important;
+    }
+    #ua_profile_form .row {
+        margin-bottom: 0 !important;
+    }
+}
+
+@media only screen and (min-width: 1100px) {    /* ------ BIGGEST SCREEN ------------------ */
+    #availability_calendar_division, #availability_calendar_right {
+        display: block !important;
+    }
+}
+
+@media only screen and (max-width: 1099px) {    /* ------ BIGGEST SCREEN ------------------ */
+    #availability_calendar_left {
+        width: 100% !important;
+    }
+    #availability_calendar_left .fa-arrow-right {
+        display: block !important;
+    }
+}
+
+/* WELCOME DIV - SEARCH FIELD AND BUTTON */
+.home_filter_city {
+    width: 90% !important;
+    margin-bottom: 0;
+}
+#home_filter_submit {
+    width: 10%;
+}
+.lang_sel {
+    border: 1px solid #b3b3b3 !important;
+    color: dimgray !important;
+}
+.autocomplete-items {
+    width: 540px;
+    border: 1px solid #DBDBDB;
+    border-top: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+/* LEFT MENU */
+.ua_picture img {
+    -webkit-clip-path: circle(50% at 50% 50%);
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    margin: 30px auto 5px;
+    display: block;
+}
+.ua_picture p {
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 50px;
+}
+.ua_picture {
+    margin-top: 60px;
+    display: block;
+    /*width: 250px;
+    height: 250px;
+    margin: 30px auto;
+    -webkit-clip-path: circle(50% at 50% 50%);*/
+}
+
+/* --------------------   PROFILE PAGE - START   -------------------------- */
+#ua_profile label{
+    text-align: right;
+    margin: auto 0;
+    padding: 0;
+    font-size: 1.3rem;
+}
+#ua_message {
+    padding: 0;
+}
+.ua_div {
+    padding: 60px;
+    /*max-width: 900px;*/
+    border: 1px solid #DBDBDB;
+    border-radius: 25px;
+    margin: 60px 60px 60px 0;
+}
+#ua_profile .alert {
+    margin-bottom: 2rem;
+}
+.form_btns {
+    width: 200px;
+    float: right;
+    background-color: #FF6A6A !important;
+}
+.ua_menu_item:hover{
+    color: dodgerblue;
+}
+.ua_menu_item div {
+    margin: 0 auto 10px;
+    width: 200px;
+    font-size: 1.3rem;
+}
+#ua_profile .form-control {
+    margin-bottom: 0;
+    height: 40px;
+    font-size: 1.2rem;
+}
+#ua_profile .form-group div {
+    padding-right: 0;
+}
+#ua_profile textarea {
+    height: 6rem !important;
+}
+.top_header_menu {
+    border-bottom: 1px solid #b3b3b3;
+}
+.ua_form_tag {
+    padding-left: 15px;
+}
+
+/* --------------------   MESSAGES PAGE - START   -------------------------- */
+.ua_msg_contact:hover {
+    font-weight: bold;
+}
+.ua_msg_contact:hover img {
+    border: 2px solid dimgray;
+    border-radius: 50px;
+}
+.ua_msg_selected_img {
+    border: 2px solid dimgray;
+    border-radius: 50px;
+}
+.ua_msg_selected_username {
+    font-weight: bold;
+}
+#ua_msg_new:focus {
+    background-color: #f1f3f7 !important;
+    border-color: #f1f3f7 !important;
+    box-shadow: unset !important;
+}
+.message-buble-right {
+	position: relative;
+	background: #0096DC;
+	border-radius: .4em;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    width: 30%;
+    color: white;
+    padding: 10px;
+    float: right;
+}
+.message-buble-left {
+	position: relative;
+	background: lightblue;
+	border-radius: .4em;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    width: 30%;
+    color: white;
+    padding: 10px;
+    float: left;
+}
+.message-buble-right:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 30px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-left-color: #0096DC;
+    border-right: 0;
+    margin-top: -20px;
+    margin-right: -10px;
+}
+.message-buble-left:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 30px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-right-color: lightblue;
+    border-left: 0;
+    margin-top: -20px;
+    margin-left: -10px;
+}
+#ua_msg_submit {
+    float: right;
+    margin: auto 20px 20px auto;
+    width: 100px;
+}
+.ua_profile_title {
+    margin-bottom: 80px;
+    text-shadow: 2px 2px 2px lightgrey;
+}
+.flex {
+    display:flex;
+}
+#ua_msg_users_list{
+    width: 30%;
+    border-right: 1px solid #DBDBDB;
+    height:100%;
+    float:left;
+}
+.ua_msg_contact {
+    border-bottom: 1px solid lightgray;
+    height: 70px;
+    cursor: pointer;
+}
+.ua_picture {
+    width: 50px !important;
+    height: 50px !important;
+    float:left;
+    margin: 0;
+}
+.img-left {
+    margin: 10px 20px 10px 0 !important;
+}
+.img-right {
+    float:right !important;
+    margin: 10px 0 10px 20px !important;
+}
+.pic_img {
+    width: 50px !important;
+    height: 50px !important;
+    margin: 10px 0 10px 10px !important;
+}
+.username {
+    margin: 20px 0 20px 20px;
+    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+}
+.ua_msg_header {
+    border-bottom: 1px solid lightgray;
+    height: 70px;
+    width: 100%;
+}
+.ua_msg_title {
+    width: 90%;
+    border: 1px solid lightgray;
+    height: 70px;
+    position: relative;
+    margin: 0 5%;
+    top:20px;
+    background-color: white;
+    border-radius: 10px;
+    z-index: 1;
+}
+.ua_msg_inputtext {
+    height: 158px;
+    width: 100%;
+    border-top: 1px solid lightgray;
+    background-color: #F1F3F7;
+    border-bottom-right-radius: 25px;
+    padding-top:13px;
+}
+#ua_msg_new {
+    height: 70px;
+    margin-bottom: 10px;
+    resize: none;
+}
+.chat-window {
+    width: 100%;
+    height: 370px;
+    padding: 40px 20px 0;
+    overflow-x: auto;
+}
+
+.strike {
+  position: relative;
+}
+.strike:before {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-bottom: 1px solid #DBDBDB;
+  width: 100%;
+}
+
+.boat_favorities_div{
+    width: 32%;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+
+.boat_favorities_img {
+    width: 100%;
+    border-radius: 5px;
+    height: 160px;
+}
+
+.boat_favorities_div_item {
+    margin: 5%;
+    width: 90%;
+    display: flow-root;
+    position: relative;
+}
+
+.ua_favorites_title {
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 2px lightgrey;
+}
+
+.boat_favorities_div_item > .fas {
+    color: red;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.boat_price {
+    float: left;
+    text-align: left;
+    font-size: 1.5rem;
+}
+.boat_price_sel {
+    float: right;
+    text-align: right;
+}
+.fc-select {
+    height: 30px;
+    margin-top: 5px;
+    padding: 0 0 0 5px;
+    font-size: 12px;
+}
+
+.fav_book {
+    height: 40px;
+    margin: 0;
+}
+
+.fav_item_txt_div {
+    position: relative;
+    display: flex;
+    margin-top: 10px;
+}
+
+.fav_item_left {
+    text-align: left;
+}
+
+.fav_item_txt_div > p {
+    margin: 0;
+}
+
+.fav_arrow {
+    position: relative;
+    width: 2%;
+    float: left;
+    margin-top: 120px;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.ua_bookings_single_div {
+    border: 1px solid #DBDBDB;
+    border-radius: 15px;
+}
+
+.div_status_color {
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    float: left;
+    margin-left: 5px;
+    margin-top: 4px;
+}
+.status_id_New {
+    background-color: gold;
+}
+.status_id_PaymentPending {
+    background-color: gold;
+}
+.status_id_Paid {
+    background-color: #0096DC;
+}
+.status_id_Confirmed {
+    background-color: springgreen;
+}
+.status_id_Cancelled {
+    background-color: red;
+}
+.status_id_InReview {
+    background-color: #0096DC;
+}
+
+.status_id_Published {
+    background-color: springgreen;
+}
+
+.status_id_Paused {
+    background-color: gold;
+}
+
+.skipper_div {
+    border: 1px solid #DBDBDB;
+    border-radius: 15px;
+    margin: 7% 0;
+    width: 100%;
+    height: 81%;
+    text-align: center;
+}
+
+.ua_bookings_single_div > div > p {
+    margin-bottom: 0;
+}
+
+.booking_div_item {
+    padding: 20px 0 0 20px;
+}
+
+.div_status_desc {
+    max-width: 80%;
+    float: left;
+}
+
+.div_status{
+    overflow: hidden;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.booking_btn {
+    width: 120px !important;
+    font-size: 0.9rem !important;
+    height: 40px;
+    margin-right: 20px;
+    margin-top: 10px !important;
+}
+
+.gold-color {
+    background-color: gold !important;
+}
+
+.cancel_status_10 { display: block; }
+.cancel_status_20 { display: block; }
+.cancel_status_30 { display: block; }
+.cancel_status_40 { display: block; }
+.cancel_status_50 { display: block; }
+.cancel_status_60 { display: none; }
+.review_status_10 { display: none; }
+.review_status_20 { display: none; }
+.review_status_30 { display: none; }
+.review_status_40 { display: none; }
+.review_status_50 { display: block; }
+.review_status_60 { display: none; }
+
+.extra-acts-add {
+    float: left;
+    width: 80% !important;
+    height: 25px !important;
+    padding: 0 5px;
+    margin-bottom: 0;
+}
+
+#id_extra_activities > li > label {
+    line-height: 15px;
+}
+
+.boat_reg_arrows {
+    width: 50px;
+    text-align: center;
+    background-color: #baeaff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 1px grey;
+    cursor: pointer;
+}
+
+.boat_reg_paging {
+
+}
+.boat_reg_div {
+    margin: 20px 0;
+}
+
+.boat_reg_btn_disabled {
+    background-color: gray;
+    cursor: no-drop;
+}
+
+.boat_reg_content {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.fcontrol-sel-2 {
+    width: 70%;
+    margin: 0 auto;
+    font-size: 20px;
+    text-align: center;
+}
+
+.fcontrol-sel {
+    margin: 0 auto;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#ua_boat_edit select, #ua_boat_edit input, #ua_boat_edit textarea, #ua_boat_edit .select7_select {
+    font-size: 18px;
+    margin: auto !important;
+    color: dimgrey;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    background-color: #f1f3f7 !important;
+    padding: 2px 13px 0 13px;
+}
+
+#ua_boat_edit .select7_placeholder {
+    font-size: 18px;
+    font-weight: normal;
+}
+
+#ua_boat_edit .fish {
+    width: 90px !important;
+    padding-top: 17px !important;
+    text-align: center !important;
+    margin-bottom: 20px !important;
+}
+
+.boat_reg_custom_p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.boat_amenities_sel7 {
+    cursor: pointer;
+}
+
+.boat_amenities {
+    width: 48%;
+    float: left;
+    margin: 20px 1%;
+}
+
+.boat_reg_pic {
+    cursor: pointer;
+    box-shadow: 1px 1px 10px grey !important;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    width: 30%;
+    height: 100px;
+    float: left;
+    margin: 5px 5px 20px;
+}
+
+.boat_reg_pic img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.boat_reg_q16_p {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+}
+
+.boat_reg_price_div_item {
+    width: 23%;
+    margin-top: 20px;
+    float: left;
+    margin-right: 2%;
+}
+
+.period_box p {
+    margin-bottom: 0;
+    font-weight: 900;
+}
+
+.period_box {
+    font-size: 1rem;
+    border: 1px solid dimgray;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 1px 1px 5px dimgrey;
+}
+
+.price_inp {
+    float: left;
+    width: 76%;
+    line-height: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid lightgray;
+    background-color: white;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+.price_lbl{
+    float: left;
+    font-size: 1rem;
+    margin-right: 2px;
+}
+
+.form-check-label {
+    font-size: 1rem;
+    margin-left: 5px;
+}
+
+.form-check-input {
+    width: 1rem;
+    height: 1rem;
+    margin-top: 13px;
+}
+
+.select7_container {
+    box-sizing: border-box;
+    position: relative;
+    background-color: #f1f3f7;
+    padding: 5px 5px 0 5px;
+    padding-right: 30px;
+    border-radius: 5px;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    width: 48%;
+    user-select: none;
+    border: 1px solid lightgrey;
+    margin-bottom: 20px;
+    float: left;
+    margin-right: 2%;
+    min-height: 50px;
+}
+
+.select7_placeholder {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: dimgray; /*rgba(255, 255, 255, 0.445);*/
+    font-size: 14px;
+    position: absolute;
+    top: 45%;
+    left: 6px;
+    transform: translateY(-50%);
+    padding: 2px 13px 0 13px;
+}
+
+.select7_arrow {
+    position: absolute;
+    right: 10px;
+    vertical-align: middle;
+    font-size: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+    cursor: pointer;
+}
+
+.select7_item {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: rgba(0, 0, 0, .9);
+    padding:2px 4px;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    user-select: none;
+    margin-bottom: 5px;
+    max-width: 99%;
+    border: 1px solid lightgrey;
+}
+
+.select7_content {
+    padding-right: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: rgba(0, 0, 0, .9);
+}
+
+.select7_select {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.486);
+    color: rgba(255, 255, 255, 0);
+    border: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.select7_select > option {
+    background: rgba(0, 0, 0, 0.486);
+    font-size: 15px;
+    background-color: white;
+    color: dimgray;
+    /* font-weight: bold; */ /* add this for bold options */
+}
+
+.select7_del {
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    /*border: 1px solid lightgray;*/
+}
+
+.select7_del:hover {
+    cursor: pointer;
+}
+
+.select7_item:hover {
+
+    background-color: rgba(255, 255, 255, 0.603);
+}
+
+.select7_hide {
+    display:none;
+}
+
+.select7_x {
+    width: 2px;
+    height: 8px;
+    background-color: black;
+    position: absolute;
+    top: 0;
+}
+
+.select7_x:first-child {
+    transform: rotate(45deg);
+}
+
+.select7_x:last-child {
+    transform: rotate(-45deg);
+}
+
+.CapitainSignUpForm-ul input[type=checkbox] {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+}
+
+#id_is_captaion {/*padding: 20px 0 20px 40px;*/}
+#id_license_type {/*padding: 20px 0 20px 30px;*/}
+#id_experience {/*padding: 20px 0 20px 80px;*/}
+
+#boat_reg_address > #id_address_postcode {
+    width: 25%;
+    margin-right: 2%;
+    float: left;
+}
+
+#boat_reg_address > #id_address_street {
+    width: 55%;
+    float: left;
+    margin-right: 2%;
+}
+
+#boat_reg_address > #id_address_additional {
+    width: 55%;
+    float: left;
+    margin-right: 2%;
+}
+
+#boat_reg_address > #id_address_city {
+    width: 25%;
+    float: left;
+    margin-right: 2%;
+}
+
+#boat_reg_address > #id_address_state {
+    width: 16%;
+    float: left;
+    font-size: 1rem;
+}
+
+.booking_div_item {
+    cursor: pointer;
+}
+
+#review_score_div i {
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #37B0F1;
+    float: left;
+}
+
+#score_description {
+    float: left;
+    margin-left: 20px;
+}
+
+.myboat_single_div {
+    border: 1px solid lightgrey;
+    padding: 10px;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.boat_actions {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.actions_btn{
+    float: left;
+    cursor: pointer;
+}
+.actions_btn:hover {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}
+
+.myboat_single_div img {
+    height: 150px;
+    width: 100%;
+}
+
+.col-form-label {
+    height: 58px !important;
+    display: flex;
+    align-items: center;
+}
+
+.edit_img {
+    width: 70px !important;
+    height: 70px !important;
+}
+
+.edit_img_popup {
+    width: 100% !important;
+}
+
+.selected_pic {
+    border: 5px double #0096DC;
+    box-shadow: 2px 2px 5px #0096DC;
+    height: auto;
+    border-radius: 5px;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#div_mainpic {
+    min-width: 200px !important;
+    height: 200px;
+    margin: 0 auto 20px;
+    max-width: 100%;
+    max-height: 100%;
+}
+.photo_delete_icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
+    cursor: pointer;
+    text-shadow: 2px 2px 5px black;
+}
+.boat_call_div {
+    max-width: 400px;
+}
