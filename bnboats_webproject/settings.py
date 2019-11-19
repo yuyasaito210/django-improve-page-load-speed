@@ -46,10 +46,10 @@ DEFAULT_LOGGING = {
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '123qwe!@#QWE' #config('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True #config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 THUMBNAIL_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['bnboats.herokuapp.com', '127.0.0.1', 'localhost', 'www.bnboats.com', 'www.bnboats.com.br',
@@ -70,8 +70,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'ckeditor',
     'ckeditor_uploader',
-    'bootstrap',
-    'fontawesome',
+    'img_cache',
     
     #Apps
     'bnboats_app',
@@ -164,33 +163,33 @@ else:
         SECURE_SSL_REDIRECT = False
         DATABASES = {'default': config('DATABASE_URL_QA', default=default_dburl, cast=dburl), }
     else:
-        # SECURE_SSL_REDIRECT = False
-        # DATABASES = {
-        #     'default': {
-        #         'ENGINE': 'django.db.backends.postgresql',
-        #         'NAME': 'bnboats',
-        #         'USER': 'postgres',
-        #         'PASSWORD': 'gaspar1',
-        #         'HOST': '127.0.0.1',
-        #         'PORT': '5432',
-        #     }
-        # }
-
         SECURE_SSL_REDIRECT = False
         DATABASES = {
             'default': {
                 'ENGINE': 'django.db.backends.postgresql',
                 'NAME': 'bnboats',
                 'USER': 'postgres',
-                'PASSWORD': 'postgres',
+                'PASSWORD': 'gaspar1',
                 'HOST': '127.0.0.1',
-                'PORT': '5433',
+                'PORT': '5432',
             }
         }
 
+# SECURE_SSL_REDIRECT = False
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'bnboats',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5433',
+#     }
+# }
+
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST = config('EMAIL_HOST') #'smtp.gmail.com' #
+EMAIL_PORT = config('EMAIL_PORT') #465
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # EMAIL_USE_TLS = True
@@ -250,7 +249,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = "bucket-principal" #"bucket-boats-improve" #config('AWS_S3_BUCKET_NAME') #"bucket-principal"
+AWS_STORAGE_BUCKET_NAME = config('AWS_S3_BUCKET_NAME') #'bucket-principal' #"bucket-boats-improve" #
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
@@ -270,3 +269,11 @@ STATIC_MEDIA_URL = 'https://%s/static/' % (AWS_S3_CUSTOM_DOMAIN)
 
 BNBOATS_TAX = 1.185 # %
 FISHING_STORES_DISCOUNT = 50 # BRL
+
+IMGCACHE_DEFAULT_STYLE='width:100%' # used in imgcache and imgcache_src
+IMGCACHE_DEFAULT_CLASS='img-responsive'
+IMGCACHE_DEFAULT_Q='10' # default resizing percent
+IMGCACHE_TMP_DIR='img-cache' # full path will be /tmp/img-cache
+IMGCACHE_KEY_PREFIX='django-img-cache' # cache key prefix
+IMGCACHE_DEFAULT_CONTENT_CLASS='img-blur' # used in imgcache_content
+IMGCACHE_DEFAULT_CONTENT_STYLE='width:100%' # used in imgcache_content
