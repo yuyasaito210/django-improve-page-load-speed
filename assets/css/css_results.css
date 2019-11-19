@@ -1,0 +1,364 @@
+
+
+@media only screen and (max-width: 1200px) {
+    /* ------- IPAD/TABLET SCREEN ---------------- */
+    .owner_name_p {
+        text-align: center !important;
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 999px) {  /* ------- IPAD/TABLET SCREEN ---------------- */
+    .boat_single_div {
+        width: 100%;
+        /*display: flex;*/
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .results_div_owner_name {
+        text-align: center !important;
+    }
+    .results_div_capacity {
+        text-align: center !important;
+    }
+    .results_div_owner_review {
+        text-align: center !important;
+    }
+    .results_div_price_pperson {
+        text-align: center !important;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+#results_top_btns {
+    padding: 30px 0;
+}
+
+.results_top_btns {
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid dimgray;
+    padding: 5px 10px;
+    margin: 5px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    padding: 3px !important;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #0096DC;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slidecontainer{
+    line-height: 100px;
+}
+
+#results_top_filter_city {
+    width: 78%;
+    height: 40px !important;
+}
+
+#results_filter_submit {
+    max-width: 50px;
+    width: 20%;
+    background-color: #1376ef !important;
+    background-image: url('/static/media/admin/icon_search.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 0 6px 6px 0 !important;
+    margin-top: 0;
+    padding: 13px 15px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0;
+    border: none;
+    float: left;
+    height: 40px;
+    background-size: 75% 75%;
+}
+
+#results_top_search {
+    margin: 33px 0;
+}
+
+#results_top_search * i {
+    line-height: 0.7;
+}
+
+.results_container {
+    max-width: 2000px !important;
+}
+
+.results_container > .row{
+    padding: 0 50px;
+    box-shadow: 1px 1px 1px grey;
+}
+
+.boat_single_div {
+    text-align: center;
+    margin-bottom: 50px;
+    cursor: pointer;
+}
+
+.boat_single_div:hover {
+    box-shadow: 1px 1px 5px grey;
+    border-radius: 10px;
+}
+
+.results_div_img {
+    border-radius: 10px;
+    margin-top: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.results_div_item {
+    position: relative;
+    padding-bottom: 65%;
+    padding-top: 25px;
+    height: 0;
+}
+.results_div_item > SPAN {
+    color: black !important;
+    background-color: white;
+    border-radius: 5px;
+    position: absolute;
+    right: 10%;
+    bottom: 5%;
+    padding: 3px 7px;
+}
+
+.results_div_owner_pic {
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-left: 2%;
+}
+.results_div_owner_pic img {
+    -webkit-clip-path: circle(50% at 50% 50%);
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.results_div_owner_data {
+    width: 80%;
+    float: left;
+}
+.results_div_owner_name {
+    /*width: 50%;*/
+    float: left;
+    text-align: left;
+    /*padding-left: 20px;*/
+    padding-right: 0;
+}
+
+.results_div_owner_review {
+    /*width: 50%;*/
+    margin: 0 auto;
+    float: left;
+    /*margin-top: 5px;*/
+    text-align: left;
+    /*padding-left: 20px;*/
+    padding-right: 0;
+}
+
+.results_div_capacity {
+    /*width: 50%;*/
+    float: left;
+    text-align: left;
+    padding-right: 0;
+}
+
+.results_div_price_pperson {
+    /*width: 50%;*/
+    display: flex;
+    text-align: left;
+    padding-right: 0;
+}
+
+.boat_single_div p {
+    margin-bottom: 0;
+}
+
+.results_subdiv_price_pperson {
+    margin: 5%;
+    border: 1px solid dimgray;
+    border-radius: 2px;
+    padding: 3px;
+}
+
+.owner_name_p {
+    text-align: left;
+    margin-left: 10px;
+}
+
+.results_div_owner_review i {
+    color: #4DB6E7;
+}
+
+.rsmodal_filter_div {
+    text-align: center;
+}
+
+.filter_inuse {
+    background-color: #4DB6E7;
+}
+
+.inp_date{
+    margin: 0 auto 50px;
+    text-align: center;
+    width: 45% !important;
+}
+
+.price_slider {
+    border: 0;
+    color: #4DB6E7;
+    font-weight: bold;
+    background-color: transparent !important;
+    width: 50% !important;
+    float: left;
+    padding-top: 0;
+}
+
+.slider_label {
+    width: 50%;
+    text-align: right;
+    float: left;
+}
+
+.results_btn {
+    width: 70%;
+    margin: 20px auto;
+    display: -webkit-box;
+}
+.slider-range {
+    width: 80%;
+    margin: 0 10%;
+    float: left;
+}
+.res_formgroup {
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
+.price_title_p {
+    margin-bottom: 20px;
+}
+
+
+
+
+
+.badgebox
+{
+    opacity: 0;
+}
+
+.badgebox + .badge
+{
+    /* Move the check mark away when unchecked */
+    text-indent: -999999px;
+    /* Makes the badge's width stay the same checked and unchecked */
+	width: 27px;
+}
+
+.badgebox:focus + .badge
+{
+    /* Set something to make the badge looks focused */
+    /* This really depends on the application, in my case it was: */
+
+    /* Adding a light border */
+    box-shadow: inset 0px 0px 5px;
+    /* Taking the difference out of the padding */
+}
+
+.badgebox:checked + .badge
+{
+    /* Move the check mark back when checked */
+	text-indent: 0;
+}
+.badge {
+    background-color: white;
+    margin-right: 10px;
+}
+.period_lbl {
+    text-align: left;
+    background-color: white;
+    color: dimgray;
+    border: none;
+    padding: 0;
+}
+.period_div {
+    overflow: hidden;
+    float: left;
+    margin: 0 5px;
+}
+.period_p {
+    float: left;
+}
+.period_div > i {
+    float: left;
+    font-size: 18px;
+    margin-right: 5px;
+    line-height: 24px;
+}
+.period_title {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.filter-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-range > span {
+    border-radius: 50%;
+    border: 1.5px solid #0095DC !important;
+    cursor: pointer;
+}
+.slider-range > div {
+    top: -1px !important;
+    height: 120% !important;
+    background-color: #37B0F1 !important;
+}
+
