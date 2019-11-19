@@ -11,6 +11,7 @@ django-ckeditor==5.7.1
 django-enforce-host==1.0.1
 django-extensions==2.2.5
 django-favicon==0.1.3
+django-img-cache==0.2
 django-js-asset==1.2.2
 django-robots==3.1.0
 django-smtp-ssl==1.0
