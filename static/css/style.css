@@ -294,7 +294,7 @@ body {
 
 @font-face {
   font-family: 'Folks-Bold';
-  src: url('../fonts/Folks-Bold.ttf')  format("truetype"),
+  src: url('https://bucket-principal.s3.amazonaws.com/static/fonts/Folks-Bold.ttf')  format("truetype"),
        local('Folks-Bold');
 }
 
@@ -312,7 +312,7 @@ body {
 
 @font-face {
   font-family: 'Folks-Normal';
-  src: url('../fonts/Folks-Normal.ttf')  format("truetype"),
+  src: url('https://bucket-principal.s3.amazonaws.com/static/fonts/Folks-Normal.ttf')  format("truetype"),
        local('Folks-Normal');
 }
 
