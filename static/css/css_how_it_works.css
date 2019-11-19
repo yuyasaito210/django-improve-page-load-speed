@@ -1,0 +1,141 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	background-color: #46b538; 
+	height: 350px;
+	width: 100%;
+	text-align: center;
+}
+h2 {
+	color: #46b538;
+	text-shadow: none;
+}
+.hide {
+	display: none;
+}
+.tabs { 
+	padding-left: 80px;
+	display: block;
+	box-shadow: -1px 5px 5px -1px #ccc;
+	margin-bottom: 10px;
+}
+
+.tabs .tab {
+	padding: 20px;
+	display: inline-block;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.tabs .tab.active {
+	border-bottom: 3px solid #46b538;
+}
+
+ .template {
+	background-color: #FFFFFF;
+	width: 100%;
+}
+
+ .infos {
+ 	padding: 0px 40px;
+ 	width: 100%;
+ 	height: 400px;
+ 	display: flex;
+ 	justify-content: space-around;
+ 	align-items: center;
+ 	border-bottom: 2px solid #ccc;
+ }
+
+.infos div {
+	text-align: center;
+}
+
+.infos p {
+	width: 80%;
+	white-space: pre-wrap;
+	margin: auto;
+}
+
+.perguntas {
+	width: 80%;
+	margin: 0 auto 40px;
+}
+.perguntas .mobile-title {
+	text-align: center;
+	color: #46b538;
+	text-shadow: none;
+	display: none;
+}
+.perguntas h2{
+	margin-top: 30px;
+}
+.perguntas .container-questions{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+.perguntas .block-questions {
+	display: inline-block;
+    flex: 0 48%;
+    margin-right: 2%;
+}
+.perguntas .block-questions .title {
+	font-size: 25px;
+	font-weight: 600;
+}
+.perguntas .block-questions .title img{
+    width: 50px;
+    margin-left: 40px;
+}
+.perguntas div .list-questions{
+    padding-inline-start: 0;
+}
+.perguntas div .list-questions > li {
+	list-style: none;
+    margin: 1em 0;
+}
+
+.perguntas div .list-questions > li a {
+	color: #696969;
+	text-decoration: none;
+}
+/*BOOTSTRAP*/
+.collapse.hiw {
+	height: 0;
+    width: 100%;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.collapse.hiw.show {
+	height: auto;
+	background-color: #eee;
+}
+
+@media only screen and (max-width: 349px) and (min-width: 100px) {   /* ------- SMALL MOBILE SCREEN -------------- */
+    .tabs {
+    	display: none;
+    }
+    .infos{
+	    flex-direction: column;
+    	height: auto;
+    }
+    .perguntas, .perguntas .mobile-title {
+		display: block;
+	}
+}
+
+@media only screen and (max-width: 599px) and (min-width: 350px) {   /* ------- MOBILE SCREEN -------------------- */
+	.tabs {
+    	display: none;
+    }
+    .infos{
+	    flex-direction: column;
+    	height: auto;
+    }
+    .perguntas, .perguntas .mobile-title {
+		display: block;
+	}
+}

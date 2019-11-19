@@ -1,0 +1,447 @@
+
+#bview_div_img_1 {
+    width: 50%;
+    float: left;
+    height: 400px;
+}
+
+#bview_div_img_1 img {
+    height: 400px;
+    object-position: center;
+}
+
+#bview_div_img_2 {
+    width: 50%;
+    float: left;
+    height: 400px;
+}
+
+#bview_div_img_2 img {
+    height: 200px;
+    object-position: center;
+}
+
+.bview_div_imgs {
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 1px 1px 5px;
+}
+
+@media only screen and (max-width: 349px) and (min-width: 100px) {
+    /* ------- SMALL MOBILE SCREEN -------------- */
+
+    .bview_left_div { width: 100% !important; }
+    .bview_right_div { width: 100% !important; }
+    #bview_div_img_1 {
+        width: 100%;
+        height: 200px;
+    }
+    #bview_div_img_1 img {
+        height: 200px;
+    }
+    #bview_div_img_2 {
+        display: none;
+    }
+    #bview_div_img_2 img {
+        display: none;
+    }
+    .bview_div_imgs {
+        height: 200px;
+    }
+
+}
+
+@media only screen and (max-width: 599px) and (min-width: 350px) {
+    /* ------- MOBILE SCREEN -------------------- */
+
+    .bview_left_div { width: 100% !important; }
+    .bview_right_div { width: 100% !important; }
+    #bview_div_img_1 {
+        width: 100%;
+        height: 200px;
+    }
+    #bview_div_img_1 img {
+        height: 200px;
+    }
+    #bview_div_img_2 {
+        display: none;
+    }
+    #bview_div_img_2 img {
+        display: none;
+    }
+    .bview_div_imgs {
+        height: 200px;
+    }
+
+}
+
+@media only screen and (max-width: 999px) and (min-width: 600px) {
+    /* ------- IPAD/TABLET SCREEN ---------------- */
+}
+
+@media only screen and (min-width: 1000px) {
+    /* ------ BIGGEST SCREEN ------------------ */
+}
+
+.bview_div_img_subdiv {
+    width: 50%;
+    float: left;
+}
+
+.bview_img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.bview_left_div {
+    width: 60%;
+    overflow: hidden;
+    float: left;
+}
+
+.bview_right_div {
+    width: 40%;
+    overflow: hidden;
+    float: left;
+}
+
+.bview_ld_title {
+    width: 70%;
+    float: left;
+}
+
+.bview_ld_captain {
+    width: 30%;
+    float: left;
+}
+
+.bview_ld_cap_div_pic {
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin-left: 2%;
+}
+.bview_ld_cap_div_pic img {
+    -webkit-clip-path: circle(50% at 50% 50%);
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+}
+
+.biew_container {
+    overflow: hidden;
+    margin: 30px auto;
+}
+
+.bview_ld_cap_div_name {
+    float: left;
+
+}
+
+.bview_items {
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.bview_ld_btype span {
+    margin-right: 20px;
+}
+
+.bview_ld_p {
+    font-size: 1.2rem;
+    font-family: Segoe-Ul-Bold;
+    margin-bottom: 0;
+}
+
+.bview_icons {
+    width: 70px;
+}
+
+.bview_cap_name {
+    /*margin-right: 5px;*/
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*max-width: 100px;*/
+    text-align: center;
+}
+
+.speak_with_captain {
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.bview_desc_tarea {
+    margin-left: 70px;
+    height: auto;
+    width: 100%;
+    border: 0;
+    cursor: default;
+    color: dimgrey;
+}
+
+.bview_ld_cowner {
+    cursor: pointer;
+}
+.bview_ld_cowner:hover #shat_icon {
+    border: 1px solid lightgrey;
+    box-shadow: 1px 1px 5px;
+    margin: 2px 10px 2px 2px;
+    border-radius: 10px;
+}
+
+.bview_rd_item_div {
+    width: 100%;
+    overflow: hidden;
+    padding: 15px 15px 0;
+}
+
+#bview_owner_score {
+    font-size: 0.9rem;
+    color: #4DB6E7;
+    margin-bottom: 5px;
+}
+
+.booking_select {
+    height: 40px;
+    margin-top: 10px;
+    background-color: white;
+    border: 1px solid lightgray;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    padding-bottom: 5px;
+}
+
+.bview_booking_dates {
+    height: 40px;
+    margin-top: 10px;
+    border: 1px solid lightgray;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.inp_date {
+    height: 38px;
+    border: none;
+    cursor: pointer;
+    background-color: white !important;
+    width: 40% !important;
+    float: left !important;
+    font-size: 1.2rem;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+
+#bview_rd_booking_div {
+    width: 90%;
+    margin: auto 5%;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    padding-bottom: 20px;
+}
+
+#booking_request {
+    background-color: #FF6A6A !important;
+    margin-bottom: 20px;
+}
+
+.review_count_p {
+    float: left;
+    margin-right: 20px;
+    font-size: 1.7rem;
+    font-family: Segoe-Ul;
+}
+.review_count_score {
+    float: left;
+    font-size: 1.7rem !important;
+}
+
+.bview_review_img img {
+    -webkit-clip-path: circle(50% at 50% 50%);
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    display: block;
+    margin: auto;
+}
+.bview_review_img {
+    float: left;
+    width: 60px;
+    height: 60px;
+    margin: auto 10px;
+}
+.bview_review_sender {
+    float: left;
+    font-family: Segoe-Ul-Bold;
+    width: 70%;
+    font-size: 1.2rem;
+}
+.bview_review_date {
+    float: left;
+    width: 70%;
+}
+.bview_review_header{
+    padding: 10px;
+    overflow: hidden;
+}
+.bview_review_div {
+    margin: 20px auto;
+}
+.bview_review_text {
+    padding: 0 20px;
+}
+.bview_review_sender .review_count_score {
+    float: left;
+    font-size: 1.2rem !important;
+    margin-left: 10px;
+    color: #4DB6E7;
+}
+.bview_review_sender p {
+    display:inline-block;
+    float: left;
+}
+
+.card {
+    border: none !important;
+}
+
+.card_brand{
+    width: 30px;
+}
+
+.boleto_btn {
+    width: 250px;
+    margin: 0 auto 20px;
+    font-size: 1rem;
+    height: 35px;
+    max-width: 100%;
+}
+
+.clean_btn {
+    background-color: white;
+    border: 1px solid lightgray;
+    border-radius: 10px 0 0 10px;
+    padding: 5px;
+}
+
+#boleto_send_btn {
+    border-radius: 0 10px 10px 0 !important;
+    background-color: #37B0F1 !important;
+    width: 40px;
+    color: white;
+    float: left;
+    border-left: none;
+}
+
+#boleto_email {
+    float: left;
+    width: 210px;
+    font-size: 0.9rem;
+    line-height: 1.5rem;
+}
+
+.clean_inp {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: white !important;
+    float: left;
+    margin: 5px;
+}
+
+.card_exp_div {
+    float: left;
+    width: 100%;
+    margin: 5px;
+}
+
+.card_exp {
+    width: 45px !important;
+    text-align: center;
+    float: left;
+    margin: 0 5px 0 0;
+}
+
+.card_code {
+    width: 50px !important;
+    text-align: center;
+    margin: 0 5px 0 0;
+}
+
+.card_pay_btn {
+    background-color: #37B0F1 !important;
+    color: white;
+    margin: 0;
+    width: 170px;
+    float: right;
+    cursor: pointer;
+}
+
+.card_pay_btn i {
+    margin-right: 5px;
+}
+
+#captain_chat textarea{
+    height: 100px;
+}
+#captain_chat button{
+    margin: 20px auto;
+    display: block;
+}
+#captain_chat p{
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.boat_img {
+    width: 100%;
+    max-width: 900px;
+}
+.boat_img_div {
+    display: inline-block;
+}
+
+.modal_photos_content {
+    max-width: 1000px !important;
+    background-color: transparent;
+    border: none;
+}
+
+.right-arrow, .left-arrow {
+    width: 50px;
+    height: 100%;
+    color: white;
+    text-align: center;
+    font-size: 1.5rem;
+    display: contents;
+    cursor: pointer;
+}
+
+.right-arrow {
+    float: right;
+}
+
+.left-arrow {
+    float: left;
+}
+
+.right-arrow i{
+    margin-left: 10px;
+}
+
+.left-arrow i{
+    margin-right: 10px;
+}
+
+.disabled > i {
+    opacity: .3;
+    cursor: default;
+}
+
+
+
