@@ -70,7 +70,6 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'ckeditor',
     'ckeditor_uploader',
-    'django_extensions',
 
     #Apps
     'bnboats_app',
