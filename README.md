@@ -3,7 +3,7 @@ Speed up to load web pages
 
 Check the score of every pages on https://developers.google.com/speed/pagespeed/insights/
 
-### 1 Site URL
+### 1. Site URL
 
 #### 1.1 Testing sites
   - http://qa-bnb.herokuapp.com/
@@ -12,7 +12,7 @@ Check the score of every pages on https://developers.google.com/speed/pagespeed/
 #### 1.2 Production site
   - https://www.bnboats.com
 
-### 2 Steps 
+### 2. Steps 
   
 #### 2.1 Milestone1
   - Improve the score of http://qa-bnb.herokuapp.com/ from 57% to 70% above. `Done`
