@@ -70,7 +70,9 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'ckeditor',
     'ckeditor_uploader',
-
+    'bootstrap',
+    'fontawesome',
+    
     #Apps
     'bnboats_app',
     'blog',
