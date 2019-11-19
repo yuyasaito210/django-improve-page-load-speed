@@ -22,6 +22,6 @@ Check the score of every pages on https://developers.google.com/speed/pagespeed/
   - Improve the score of http://qa-bnb.herokuapp.com/ to 80% above. `Doing`
   - Improve the score of http://qa-bnb.herokuapp.com/procurar/brasil to 80% above. `Doing`
 
-#### 2.3 Milestone1
+#### 2.3 Milestone3
   - Improve the score of http://qa-bnb.herokuapp.com/ to 90% above.
   - Improve the score of http://qa-bnb.herokuapp.com/procurar/brasil to 90% above.
