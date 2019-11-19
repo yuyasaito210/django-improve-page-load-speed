@@ -59,7 +59,7 @@ def logout_view(request):
     #        user_pass.save()
 
 
-@cache_page(60 * 30)
+# @cache_page(60 * 30)
 def home(request):
     data = {}
 
