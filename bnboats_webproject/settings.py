@@ -237,14 +237,14 @@ USE_TZ = True
 # STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    'static',
+    'assets',
 ]
 
 # MEDIA_URL = '/media/'
 
 # MEDIA_ROOT = 'media'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
