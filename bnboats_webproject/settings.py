@@ -261,11 +261,11 @@ AWS_DEFAULT_ACL = None
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'bnboats_webproject.storage_backends.MediaStorage'
 STATIC_URL = '/static/'
-MEDIA_URL = 'https://%s/' % (AWS_S3_CUSTOM_DOMAIN)
-MEDIA_ROOT = MEDIA_URL
 DEFAULT_PAGE = "Home"
 
 STATIC_MEDIA_URL = 'https://%s/static/' % (AWS_S3_CUSTOM_DOMAIN)
+MEDIA_URL = STATIC_MEDIA_URL
+MEDIA_ROOT = MEDIA_URL
 
 BNBOATS_TAX = 1.185 # %
 FISHING_STORES_DISCOUNT = 50 # BRL
