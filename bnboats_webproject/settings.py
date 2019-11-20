@@ -157,7 +157,7 @@ default_dburl = 'postgres:///' + os.path.join(BASE_DIR, 'django.db.backends.post
 if config("ENVIRONMENT") == "PROD":
     SECURE_SSL_REDIRECT = True
     ENFORCE_HOST = config('ENFORCE_HOST') #'www.bnboats.com'
-    DATABASES = {'default': config('DATABASE_URL_1', default=default_dburl, cast=dburl), }
+    DATABASES = {'default': config('DATABASE_URL_IMPROVE', default=default_dburl, cast=dburl), }
 else:
     if config("ENVIRONMENT") == "QA":
         SECURE_SSL_REDIRECT = False
